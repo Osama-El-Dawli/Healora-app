@@ -1,4 +1,4 @@
-package com.example.health_care_app
+package com.depi.healora
 
 import io.flutter.embedding.android.FlutterActivity
 

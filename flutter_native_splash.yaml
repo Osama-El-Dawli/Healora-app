@@ -1,0 +1,11 @@
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/healora_logo.png
+  branding: assets/images/healora_branding.png
+  branding_bottom_padding: 22
+
+  android_12:
+    image: assets/images/healora_logo.png
+    color: "#ffffff"
+    branding: assets/images/healora_branding.png
+    branding_bottom_padding: 22

@@ -1,0 +1,12 @@
+class AppRoutes {
+  static const String homeScreen = '/home';
+  static const String registerScreen = '/register';
+  static const String loginScreen = '/login';
+  static const String chatScreen = '/chat';
+  static const String chatBotScreen = '/chat-bot';
+  static const String labResultsScreen = '/lab-results';
+  static const String onBoardingScreen = '/onboarding';
+  static const String medicalHistoryScreen = '/medical-history';
+  static const String selectDoctorScreen = '/select-doctor';
+  static const String settingsScreen = '/settings';
+}
