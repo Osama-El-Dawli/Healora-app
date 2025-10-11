@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "33110575599",
+    "project_id": "healora-32e1e",
+    "storage_bucket": "healora-32e1e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33110575599:android:bc1868d4f12409fdf30e1a",
+        "android_client_info": {
+          "package_name": "com.depi.healora"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCukxrWqEwFJ3Vpz0czaxBGVfOnaqiG9lM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
