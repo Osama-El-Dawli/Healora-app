@@ -1,5 +1,6 @@
 class AppRoutes {
   static const String homeScreen = '/home';
+  static const String doctorScreen = '/doctor';
   static const String registerScreen = '/register';
   static const String loginScreen = '/login';
   static const String chatScreen = '/chat';
