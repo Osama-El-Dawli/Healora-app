@@ -1,6 +1,6 @@
 name: healora
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -10,15 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.8  
+  cupertino_icons: ^1.0.8
   easy_localization: ^3.0.8
   flutter_screenutil: ^5.9.3
   flutter_bloc: ^9.1.1
   shimmer: ^3.0.0
   firebase_core: ^4.1.1
-
-
-
 
 dev_dependencies:
   flutter_test:
@@ -39,3 +36,9 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/translations/
+
+flutter_assets:
+  assets_path: assets/
+  output_path: lib/core/utils/
+  filename: AppAssets.dart
+  field_prefix:

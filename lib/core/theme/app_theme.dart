@@ -3,6 +3,7 @@ import 'package:healora/core/theme/app_colors.dart';
 
 class AppTheme {
   static ThemeData lightMode = ThemeData(
+    scaffoldBackgroundColor: AppColors.white,
     textTheme: TextTheme(
       titleLarge: TextStyle(
         fontSize: 24,
