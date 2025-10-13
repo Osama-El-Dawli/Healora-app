@@ -8,21 +8,22 @@ environment:
   sdk: ^3.9.0
 
 dependencies:
-  flutter:
-    sdk: flutter
   cupertino_icons: ^1.0.8
   easy_localization: ^3.0.8
-  flutter_screenutil: ^5.9.3
-  flutter_bloc: ^9.1.1
-  shimmer: ^3.0.0
   firebase_core: ^4.1.1
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+  flutter_screenutil: ^5.9.3
+  shimmer: ^3.0.0
+  flutter_staggered_animations: ^1.1.1
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.14.4
+  flutter_lints: ^5.0.0
+  flutter_native_splash: ^2.4.1
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.14.4
-  flutter_native_splash: ^2.4.1
-  flutter_lints: ^5.0.0
 
 flutter_launcher_icons:
   android: true
@@ -40,5 +41,5 @@ flutter:
 flutter_assets:
   assets_path: assets/
   output_path: lib/core/utils/
-  filename: AppAssets.dart
-  field_prefix:
+  filename: app_assets.dart
+  field_prefix: null
