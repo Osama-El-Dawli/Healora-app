@@ -29,9 +29,14 @@ class AppTheme {
         fontWeight: FontWeight.w500,
         color: AppColors.gray,
       ),
-      displaySmall: TextStyle(
+      displayMedium: TextStyle(
         fontSize: 36,
         fontWeight: FontWeight.bold,
+        color: AppColors.white,
+      ),
+      displaySmall: TextStyle(
+        fontSize: 32,
+        fontWeight: FontWeight.w500,
         color: AppColors.white,
       ),
     ),
@@ -63,9 +68,14 @@ class AppTheme {
         fontWeight: FontWeight.w500,
         color: AppColors.gray,
       ),
-      displaySmall: TextStyle(
+      displayMedium: TextStyle(
         fontSize: 36,
         fontWeight: FontWeight.bold,
+        color: AppColors.white,
+      ),
+      displaySmall: TextStyle(
+        fontSize: 32,
+        fontWeight: FontWeight.w500,
         color: AppColors.white,
       ),
     ),
