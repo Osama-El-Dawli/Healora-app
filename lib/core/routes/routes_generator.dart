@@ -3,6 +3,7 @@ import 'package:healora/core/routes/routes.dart';
 import 'package:healora/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:healora/features/auth/register/presentation/screens/register_screen.dart';
 import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
+import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
 import 'package:healora/features/home/presentation/screens/home_screen.dart';
 import 'package:healora/features/lab_results/presentation/screens/lab_results_screen.dart';
@@ -47,6 +48,12 @@ class AppRouteGenerator {
 
       case AppRoutes.doctorScreen:
         return MaterialPageRoute(builder: (_) => const DoctorScreen());
+
+      case AppRoutes.appointmentDetailsScreen:
+        final avatarTag = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => AppointmentDetailsScreen(avatarTag: avatarTag),
+        );
 
       default:
         return _errorRoute();
