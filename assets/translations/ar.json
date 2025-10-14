@@ -1,1 +1,18 @@
-{}
+{
+    "hello_beautiful": "مرحبًا بك",
+    "sign_up": "إنشاء حساب",
+    "first_name": "الاسم الأول",
+    "last_name": "اسم العائلة",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirm_password": "تأكيد كلمة المرور",
+    "phone_number": "رقم الهاتف",
+    "already_have_an_account?": " هل لديك حساب بالفعل؟",
+    "welcome_back": "مرحبًا بعودتك",
+    "login": "تسجيل الدخول",
+    "dont_have_an_account?": " ليس لديك حساب؟",
+    "role": "الدور",
+    "doctor": "طبيب",
+    "patient": "مريض",
+    "please_select_a_role": "يرجى اختيار الدور"
+}

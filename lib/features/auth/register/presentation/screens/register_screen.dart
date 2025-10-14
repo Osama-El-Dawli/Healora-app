@@ -1,13 +1,139 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/routes/routes.dart';
+import 'package:healora/core/theme/app_colors.dart';
+import 'package:healora/core/widgets/auth_header.dart';
+import 'package:healora/core/widgets/custome_elevated_button.dart';
+import 'package:healora/core/widgets/custome_text_form_field.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   static const String routeName = AppRoutes.registerScreen;
 
   const RegisterScreen({super.key});
 
   @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final List<String> items = ['doctor'.tr(), 'patient'.tr()];
+  String? selectedValue;
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final textTheme = Theme.of(context).textTheme;
+
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                AuthHeader(
+                  message: 'hello_beautiful'.tr(),
+                  action: 'sign_up'.tr(),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomeTextFormField(hintText: 'first_name'.tr()),
+                    ),
+                    SizedBox(width: 12.w),
+                    Expanded(
+                      child: CustomeTextFormField(hintText: 'last_name'.tr()),
+                    ),
+                  ],
+                ),
+                CustomeTextFormField(hintText: 'email'.tr()),
+                CustomeTextFormField(
+                  hintText: 'password'.tr(),
+                  isPassword: true,
+                ),
+                CustomeTextFormField(
+                  hintText: 'confirm_password'.tr(),
+                  isPassword: true,
+                ),
+                CustomeTextFormField(hintText: 'phone_number'.tr()),
+                DropdownButtonFormField<String>(
+                  dropdownColor: AppColors.backgroundColor,
+                  icon: const Icon(
+                    Icons.arrow_drop_down,
+                    color: AppColors.primary,
+                  ),
+                  style: textTheme.titleSmall!.copyWith(
+                    color: AppColors.primary,
+                  ),
+                  initialValue: selectedValue,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: AppColors.backgroundColor,
+                    hint: Text(
+                      'role'.tr(),
+                      style: TextStyle(
+                        color: AppColors.hintColor,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  items: items.map((String item) {
+                    return DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(item),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedValue = value;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'please_select_a_role'.tr();
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 12.h),
+                SizedBox(
+                  width: double.infinity,
+                  child: CustomeElevatedButton(
+                    label: 'sign_up'.tr(),
+                    pushedPageRoute: AppRoutes.homeScreen,
+                  ),
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'already_have_an_account?'.tr(),
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        color: AppColors.darkGreen,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          AppRoutes.loginScreen,
+                        );
+                      },
+                      child: Text(
+                        'login'.tr(),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
