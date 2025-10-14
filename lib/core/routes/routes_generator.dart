@@ -24,7 +24,7 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
 
       case AppRoutes.chatScreen:
-        return MaterialPageRoute(builder: (_) => const DoctorChat());
+        return MaterialPageRoute(builder: (_) =>  DoctorChat());
 
       case AppRoutes.chatBotScreen:
         return MaterialPageRoute(builder: (_) => const MedicalChatbotScreen());
