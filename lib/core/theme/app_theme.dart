@@ -126,6 +126,11 @@ class AppTheme {
         fontWeight: FontWeight.w500,
         color: AppColors.black,
       ),
+      displaySmall: TextStyle(
+        fontSize: 32,
+        fontWeight: FontWeight.w500,
+        color: AppColors.white,
+      ),
     ),
     fontFamily: GoogleFonts.raleway().fontFamily,
   );
