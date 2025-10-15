@@ -13,7 +13,9 @@ dependencies:
   firebase_core: ^4.1.1
   flutter:
     sdk: flutter
-  flutter_bloc: ^9.1.1
+  cupertino_icons: ^1.0.8  
+  google_fonts: ^6.3.2
+  easy_localization: ^3.0.8
   flutter_screenutil: ^5.9.3
   shimmer: ^3.0.0
   flutter_staggered_animations: ^1.1.1
@@ -22,8 +24,12 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.4
   flutter_lints: ^5.0.0
   flutter_native_splash: ^2.4.1
-  flutter_test:
-    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/healora_icon.png"
 
 flutter:
   uses-material-design: true
