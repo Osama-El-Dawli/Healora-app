@@ -63,17 +63,17 @@ class AppTheme {
 
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.r),
-        borderSide: BorderSide(color: AppColors.borderColor, width: 1.w),
+        borderSide: BorderSide(color: AppColors.lightGray, width: 1.w),
       ),
 
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.r),
-        borderSide: BorderSide(color: AppColors.borderColor, width: 1.w),
+        borderSide: BorderSide(color: AppColors.lightGray, width: 1.w),
       ),
 
       disabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.r),
-        borderSide: BorderSide(color: AppColors.borderColor, width: 1.w),
+        borderSide: BorderSide(color: AppColors.lightGray, width: 1.w),
       ),
 
       focusedBorder: OutlineInputBorder(
@@ -92,7 +92,7 @@ class AppTheme {
       ),
 
       labelStyle: TextStyle(color: AppColors.primary),
-      helperStyle: TextStyle(color: AppColors.borderColor),
+      helperStyle: TextStyle(color: AppColors.lightGray),
       errorStyle: TextStyle(color: AppColors.red, fontSize: 12.sp),
     ),
     textTheme: TextTheme(
@@ -114,7 +114,7 @@ class AppTheme {
       titleSmall: TextStyle(
         fontSize: 16.sp,
         fontWeight: FontWeight.w500,
-        color: AppColors.borderColor,
+        color: AppColors.lightGray,
       ),
       labelLarge: TextStyle(
         fontSize: 14.sp,
@@ -125,11 +125,6 @@ class AppTheme {
         fontSize: 12.sp,
         fontWeight: FontWeight.w500,
         color: AppColors.black,
-      ),
-      displaySmall: TextStyle(
-        fontSize: 32,
-        fontWeight: FontWeight.w500,
-        color: AppColors.white,
       ),
     ),
     fontFamily: GoogleFonts.raleway().fontFamily,

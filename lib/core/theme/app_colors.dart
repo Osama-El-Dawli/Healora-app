@@ -10,5 +10,5 @@ abstract class AppColors {
   static const Color primary = Color(0xff327EB2);
   static const Color hintColor = Color(0xff6FA4C8);
   static const Color suffixIconColor = Color(0xff98BED8);
-  static const Color borderColor = Color(0xffEAF2F7);
+  static const Color lightGray = Color(0xffEAF2F7);
 }
