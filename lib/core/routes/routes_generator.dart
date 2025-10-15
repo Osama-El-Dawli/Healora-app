@@ -3,6 +3,8 @@ import 'package:healora/core/routes/routes.dart';
 import 'package:healora/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:healora/features/auth/register/presentation/screens/register_screen.dart';
 import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
+import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
+import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
 import 'package:healora/features/home/presentation/screens/home_screen.dart';
 import 'package:healora/features/lab_results/presentation/screens/lab_results_screen.dart';
 import 'package:healora/features/medical_chatbot/presentation/screens/medical_chatbot_screen.dart';
@@ -24,7 +26,7 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
 
       case AppRoutes.chatScreen:
-        return MaterialPageRoute(builder: (_) => const DoctorChat());
+        return MaterialPageRoute(builder: (_) =>  DoctorChat());
 
       case AppRoutes.chatBotScreen:
         return MaterialPageRoute(builder: (_) => const MedicalChatbotScreen());
@@ -44,23 +46,20 @@ class AppRouteGenerator {
       case AppRoutes.settingsScreen:
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
 
-      default:
-        return _errorRoute();
-    }
-  }
+      case AppRoutes.doctorScreen:
+        return MaterialPageRoute(builder: (_) => const DoctorScreen());
 
-  static Route<dynamic> _errorRoute() {
-    return MaterialPageRoute(
-      builder: (_) => Scaffold(
-        appBar: AppBar(title: const Text('Page Not Found')),
-        body: const Center(
-          child: Text(
-            '404\nPage not found',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
-          ),
-        ),
-      ),
-    );
+      case AppRoutes.appointmentDetailsScreen:
+        final avatarTag = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => AppointmentDetailsScreen(avatarTag: avatarTag),
+        );
+
+      default:
+        return MaterialPageRoute(
+          builder: (_) =>
+              const Scaffold(body: Center(child: Text('No route defined'))),
+        );
+    }
   }
 }

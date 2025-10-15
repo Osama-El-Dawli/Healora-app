@@ -40,8 +40,8 @@ class Healora extends StatelessWidget {
         onGenerateRoute: AppRouteGenerator.generateRoute,
         theme: AppTheme.lightMode,
         darkTheme: AppTheme.darkMode,
-        themeMode: ThemeMode.dark,
-        initialRoute: AppRoutes.onBoardingScreen,
+        themeMode: ThemeMode.light,
+        initialRoute: AppRoutes.chatScreen,
       ),
     );
   }

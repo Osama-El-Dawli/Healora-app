@@ -13,26 +13,24 @@ class OnboardingScreenBody extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
         children: [
-          Spacer(flex: 1),
-          Expanded(
-            flex: 7,
-            child: OnboardingPageView(),
-          ),
+          SizedBox(height: 40.h),
+          Expanded(child: OnboardingPageView()),
           TextButton(
-            onPressed: () {Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);},
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, AppRoutes.loginScreen);
+            },
             child: Text(
               'Skip Tour',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontSize: 14.sp,
                 color: AppColors.darkGreen,
                 fontWeight: FontWeight.w600,
               ),
             ),
           ),
-          Spacer(flex: 1),
+          SizedBox(height: 40.h),
         ],
       ),
     );
   }
 }
-
-
