@@ -56,22 +56,10 @@ class AppRouteGenerator {
         );
 
       default:
-        return _errorRoute();
+        return MaterialPageRoute(
+          builder: (_) =>
+              const Scaffold(body: Center(child: Text('No route defined'))),
+        );
     }
-  }
-
-  static Route<dynamic> _errorRoute() {
-    return MaterialPageRoute(
-      builder: (_) => Scaffold(
-        appBar: AppBar(title: const Text('Page Not Found')),
-        body: const Center(
-          child: Text(
-            '404\nPage not found',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
-          ),
-        ),
-      ),
-    );
   }
 }

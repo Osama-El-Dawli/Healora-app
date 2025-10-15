@@ -19,7 +19,7 @@ class HomeScreenCard extends StatelessWidget {
         children: [
           Text(
             model.title,
-            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w700,
               color: AppColors.primary,
             ),

@@ -12,7 +12,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Appointment Details',
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
             color: AppColors.primary,
             fontWeight: FontWeight.w700,
           ),

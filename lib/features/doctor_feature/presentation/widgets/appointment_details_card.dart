@@ -32,7 +32,7 @@ class AppointmentDetailsCard extends StatelessWidget {
                 title!,
                 style: isDate
                     ? Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: AppColors.gray,
+                        color: Color(0xffA0A0A0),
                         fontWeight: FontWeight.w500,
                       )
                     : Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -55,7 +55,7 @@ class AppointmentDetailsCard extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         )
                       : Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: AppColors.gray,
+                          color: Color(0xffA0A0A0),
                           fontWeight: FontWeight.w500,
                         ),
                 ),

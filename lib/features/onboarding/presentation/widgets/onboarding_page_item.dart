@@ -43,7 +43,7 @@ class OnboardingPageItem extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 8.w),
           child: Text(
             onboardingModel.description,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            style: Theme.of(context).textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w500,
               color: AppColors.darkGreen,
             ),

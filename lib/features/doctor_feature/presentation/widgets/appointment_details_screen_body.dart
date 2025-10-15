@@ -50,7 +50,7 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                     subtitle: Text(
                       '011 2345 6789',
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: AppColors.gray,
+                        color: Color(0xffA0A0A0),
                         fontWeight: FontWeight.w400,
                       ),
                     ),

@@ -127,7 +127,7 @@ class AppTheme {
         color: AppColors.black,
       ),
     ),
-    fontFamily: GoogleFonts.raleway().fontFamily,
+    // fontFamily: GoogleFonts.raleway().fontFamily,
   );
   static ThemeData darkMode = ThemeData(
     textTheme: TextTheme(

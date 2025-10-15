@@ -39,6 +39,7 @@ class PatientsListViewItem extends StatelessWidget {
           child: Text(
             'Patient',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontSize: 18.sp,
               color: AppColors.primary,
               fontWeight: FontWeight.w500,
             ),
