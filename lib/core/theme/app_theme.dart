@@ -119,7 +119,7 @@ class AppTheme {
       labelLarge: TextStyle(
         fontSize: 14.sp,
         fontWeight: FontWeight.w500,
-        color: AppColors.green,
+        color: AppColors.secondary,
       ),
       labelSmall: TextStyle(
         fontSize: 12.sp,
@@ -134,17 +134,17 @@ class AppTheme {
       titleLarge: TextStyle(
         fontSize: 24.sp,
         fontWeight: FontWeight.w500,
-        color: AppColors.white,
+        color: AppColors.backgroundColor,
       ),
       titleMedium: TextStyle(
         fontSize: 16.sp,
         fontWeight: FontWeight.w400,
-        color: AppColors.white,
+        color: AppColors.backgroundColor,
       ),
       titleSmall: TextStyle(
         fontSize: 14.sp,
         fontWeight: FontWeight.w400,
-        color: AppColors.white,
+        color: AppColors.backgroundColor,
       ),
       labelLarge: TextStyle(
         fontSize: 20.sp,
@@ -159,7 +159,7 @@ class AppTheme {
       displaySmall: TextStyle(
         fontSize: 36.sp,
         fontWeight: FontWeight.bold,
-        color: AppColors.white,
+        color: AppColors.backgroundColor,
       ),
     ),
   );
