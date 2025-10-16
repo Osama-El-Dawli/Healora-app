@@ -2,11 +2,21 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
+import 'package:healora/core/widgets/custome_text_form_field.dart';
+import 'package:healora/features/chat/presentation/widgets/text_form_field.dart';
+
+import '../widgets/doctor_message.dart';
 
 class DoctorChat extends StatelessWidget {
   static const String routeName = AppRoutes.chatBotScreen;
-
-  const DoctorChat({super.key});
+  List<DoctorMessage> messages=[
+    DoctorMessage(message: "Hello chatGPT, how are you today?",index: 0,),
+    DoctorMessage(message: "Hello, I'm fine, how can I help you?",index: 1,),
+  DoctorMessage(message: "What is the best programming language?",index: 2,),
+  DoctorMessage(message:"There are many programming languages in \nthe market that are used in designing and \nbuilding websites, various applications and \n other tasks. All these languages are popular \n in their place and in the way they are used,\n and many programmers learn and use them.",index: 3,),
+    DoctorMessage(message: "So explain to me more",index: 4,),
+    DoctorMessage(message:"There are many programming languages in \nthe market that are used in designing and \n building websites, various applications and \n other tasks. All these languages are popular \n in their place and in the way they are used, \n and many programmers learn and use them.",index: 5,),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,243 +46,18 @@ class DoctorChat extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.all(16),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            bottomLeft: Radius.circular(25),
-                            bottomRight: Radius.circular(25),
-                          ),
-                        ),
-                        child: Text(
-                          "Hello chatGPT, how are you today?",
-                          style: Theme.of(context).textTheme.displaySmall!
-                              .copyWith(fontSize: 15, color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.all(16),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 13,
-                          backgroundImage: AssetImage(
-                            "assets/images/profile.png",
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Flexible(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.gray,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(25),
-                                topRight: Radius.circular(25),
-                                bottomRight: Radius.circular(25),
-                              ),
-                            ),
-                            child: Text(
-                              "Hello, I'm fine, how can I help you?",
-                              style: Theme.of(context).textTheme.displaySmall!
-                                  .copyWith(
-                                    fontSize: 15,
-                                    color: AppColors.black,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.all(16),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            bottomLeft: Radius.circular(25),
-                            bottomRight: Radius.circular(25),
-                          ),
-                        ),
-                        child: Text(
-                          "What is the best programming language?",
-                          style: Theme.of(context).textTheme.displaySmall!
-                              .copyWith(fontSize: 15, color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.all(16),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 13,
-                          backgroundImage: AssetImage(
-                            "assets/images/profile.png",
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Flexible(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.gray,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(25),
-                                topRight: Radius.circular(25),
-                                bottomRight: Radius.circular(25),
-                              ),
-                            ),
-                            child: Text(
-                              "There are many programming languages in the market that are used in designing and building websites, various applications and other tasks. All these languages are popular in their place and in the way they are used, and many programmers learn and use them.",
-                              style: Theme.of(context).textTheme.displaySmall!
-                                  .copyWith(
-                                    fontSize: 15,
-                                    color: AppColors.black,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.all(16),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            bottomLeft: Radius.circular(25),
-                            bottomRight: Radius.circular(25),
-                          ),
-                        ),
-                        child: Text(
-                          "So explain to me more",
-                          style: Theme.of(context).textTheme.displaySmall!
-                              .copyWith(fontSize: 15, color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.all(16),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 13,
-                          backgroundImage: AssetImage(
-                            "assets/images/profile.png",
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Flexible(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.gray,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(25),
-                                topRight: Radius.circular(25),
-                                bottomRight: Radius.circular(25),
-                              ),
-                            ),
-                            child: Text(
-                              "There are many programming languages in the market that are used in designing and building websites, various applications and other tasks. All these languages are popular in their place and in the way they are used, and many programmers learn and use them.",
-                              style: Theme.of(context).textTheme.displaySmall!
-                                  .copyWith(
-                                    fontSize: 15,
-                                    color: AppColors.black,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
+              child: ListView.builder(itemBuilder: (_,index)=> messages[index],
+                itemCount: messages.length,)),
           Container(
-            margin: EdgeInsets.all(16),
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            decoration: BoxDecoration(
-              //color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withValues(alpha: 0.2),
-                  blurRadius: 5,
-                  offset: Offset(0, 2),
-                ),
-              ],
-              borderRadius: BorderRadius.circular(25),
-              border: Border.all(color: AppColors.gray),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'write_your_message'.tr(),
-                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                      fontSize: 15,
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                Image.asset("assets/images/select.png", height: 20),
-                SizedBox(width: 10),
-                Image.asset("assets/images/send.png", height: 20),
-              ],
-            ),
-          ),
+              margin: EdgeInsets.all(16),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8),
+              child:TextForm(hinttext: 'write_your_message'.tr())
+    )
         ],
       ),
     );
   }
 }
+//CustomeTextFormField(hintText: 'write_your_message'.tr(),
