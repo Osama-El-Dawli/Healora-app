@@ -9,6 +9,7 @@
   "Choose a Doctor": "Choose a Doctor",
   "Your Diet Chart": "Your Diet Chart",
   "ChatBot": "ChatBot",
+  "Appointment Details": "Appointment Details",
   "Hi": "Hi",
   "hello_beautiful": "Hello Beautiful",
   "sign_up": "Sign Up",
@@ -26,5 +27,7 @@
   "doctor": "Doctor",
   "patient": "Patient",
   "please_select_a_role": "Please select a role",
-  "write_your_message": "Write your message"
+  "write_your_message": "Write your message",
+  "Appointment Date": "Appointment Date",
+  "Follow-up Date": "Follow-up Date"
 }
