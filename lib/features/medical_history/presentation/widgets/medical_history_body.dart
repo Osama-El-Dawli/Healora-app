@@ -38,9 +38,12 @@ class MedicalHistoryBody extends StatelessWidget {
                 return FlexibleSpaceBar(
                   title: Opacity(
                     opacity: opacity,
-                    child: Text(
-                      'Medical History'.tr(),
-                      style: textTheme.titleMedium,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 12.h),
+                      child: Text(
+                        'Medical History'.tr(),
+                        style: textTheme.titleMedium,
+                      ),
                     ),
                   ),
                   background: Padding(

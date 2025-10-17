@@ -5,6 +5,11 @@ import 'package:healora/core/theme/app_colors.dart';
 
 class AppTheme {
   static ThemeData lightMode = ThemeData(
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: AppColors.secondary,
+      foregroundColor: Colors.white,
+      shape: CircleBorder(),
+    ),
     scaffoldBackgroundColor: AppColors.backgroundColor,
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
