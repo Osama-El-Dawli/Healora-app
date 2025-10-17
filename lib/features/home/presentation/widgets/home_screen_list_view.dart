@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/features/home/data/models/home_screen_model.dart';
-import 'package:healora/features/home/presentation/widgets/home_screen_cards.dart';
+import 'package:healora/core/widgets/custom_card.dart';
 
 class HomeScreenListView extends StatelessWidget {
   const HomeScreenListView({super.key});
@@ -37,7 +37,10 @@ class HomeScreenListView extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(12.r),
             onTap: () {},
-            child: HomeScreenCard(model: items[index]),
+            child: CustomCard(
+              title: items[index].title,
+              imageUrl: items[index].image,
+            ),
           ),
         );
       },

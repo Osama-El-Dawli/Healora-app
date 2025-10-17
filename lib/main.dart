@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/routes/routes_generator.dart';
 import 'package:healora/core/theme/app_theme.dart';
-import 'package:healora/features/medical_history/presentation/screens/medical_history_screen.dart';
 import 'package:healora/firebase_options.dart';
 
 void main() async {
@@ -42,7 +41,7 @@ class Healora extends StatelessWidget {
         theme: AppTheme.lightMode,
         darkTheme: AppTheme.darkMode,
         themeMode: ThemeMode.light,
-        initialRoute: AppRoutes.chatScreen,
+        initialRoute: AppRoutes.medicalHistoryScreen,
       ),
     );
   }
