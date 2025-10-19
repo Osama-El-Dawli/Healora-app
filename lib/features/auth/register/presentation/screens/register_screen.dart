@@ -138,16 +138,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               color: AppColors.primary,
                             ),
                             initialValue: selectedValue,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: AppColors.backgroundColor,
-                              hint: Text(
-                                'role'.tr(),
-                                style: TextStyle(
-                                  color: AppColors.hintColor,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                            hint: Text(
+                              'role'.tr(),
+                              style: textTheme.titleSmall!.copyWith(
+                                color: AppColors.hintColor,
                               ),
                             ),
                             items: items.map((String item) {
