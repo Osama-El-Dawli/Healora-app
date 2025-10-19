@@ -47,8 +47,7 @@
   "phone_digits_only": "Phone number must contain only digits",
   "phone_start_with_0": "Phone number must start with 0",
   "phone_length": "Phone number must be 11 digits",
-  "invalid_egyptian_phone": "Invalid Egyptian phone number format"
-  "write_your_message": "Write your message",
+  "invalid_egyptian_phone": "Invalid Egyptian phone number format",
   "Appointment Date": "Appointment Date",
   "Follow-up Date": "Follow-up Date"
 }
