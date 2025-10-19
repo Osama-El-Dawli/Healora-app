@@ -30,7 +30,7 @@ class Healora extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
+    return  ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
@@ -44,7 +44,7 @@ class Healora extends StatelessWidget {
         theme: AppTheme.lightMode,
         darkTheme: AppTheme.darkMode,
         themeMode: ThemeMode.light,
-        initialRoute: AppRoutes.registerScreen,
+        initialRoute: AppRoutes.onboarding,
       ),
     );
   }
