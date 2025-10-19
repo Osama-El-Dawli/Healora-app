@@ -11,7 +11,7 @@ class LoginRepository {
       final uid = await dataSource.login(email: email, password: password);
       return uid;
     } catch (e) {
-      throw Exception('Login failed: ${e.toString()}');
+      rethrow;
     }
   }
 }

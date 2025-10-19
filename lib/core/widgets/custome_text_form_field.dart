@@ -37,6 +37,7 @@ class _CustomeTextFormFieldState extends State<CustomeTextFormField> {
         controller: widget.controller,
         onChanged: widget.onChanged,
         validator: widget.validator,
+
         autovalidateMode: AutovalidateMode.onUserInteraction,
         cursorColor: AppColors.primary,
         keyboardType: widget.isPhone ? TextInputType.phone : TextInputType.text,

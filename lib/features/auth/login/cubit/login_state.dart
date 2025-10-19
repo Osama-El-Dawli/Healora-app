@@ -10,6 +10,9 @@ class LoginSuccess extends LoginState {
 }
 
 class LoginFailure extends LoginState {
-  final String error;
-  LoginFailure(this.error);
+  final String? emailError;
+  final String? passwordError;
+  final String? generalError; 
+
+  LoginFailure({this.emailError, this.passwordError, this.generalError});
 }

@@ -9,15 +9,14 @@ import 'package:healora/core/validators/form_validators.dart';
 import 'package:healora/core/widgets/auth_header.dart';
 import 'package:healora/core/widgets/custome_elevated_button.dart';
 import 'package:healora/core/widgets/custome_text_form_field.dart';
+import 'package:healora/core/widgets/lang_toggle.dart';
 import 'package:healora/core/widgets/loading_indicator.dart';
 import 'package:healora/features/auth/login/cubit/login_cubit.dart';
 import 'package:healora/features/auth/login/cubit/login_state.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = AppRoutes.loginScreen;
-
   const LoginScreen({super.key});
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -26,17 +25,15 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
     return Scaffold(
       body: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
             Fluttertoast.showToast(
-              msg: "Login Successfully".tr(),
+              msg: "login_successfully".tr(),
               toastLength: Toast.LENGTH_LONG,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 5,
@@ -44,11 +41,10 @@ class _LoginScreenState extends State<LoginScreen> {
               textColor: AppColors.backgroundColor,
               fontSize: 16.sp,
             );
-
             Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen);
           } else if (state is LoginFailure) {
             Fluttertoast.showToast(
-              msg: " ${state.error}",
+              msg: state.generalError!,
               toastLength: Toast.LENGTH_LONG,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 5,
@@ -76,13 +72,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           CustomeTextFormField(
                             hintText: 'email'.tr(),
                             controller: emailController,
-                            validator: FormValidators.validateEmail,
+                            validator: FormValidators.validateLoginEmail,
                           ),
                           CustomeTextFormField(
                             hintText: 'password'.tr(),
                             isPassword: true,
                             controller: passwordController,
-                            validator: FormValidators.validatePassword,
+                            validator: FormValidators.validateLoginPassword,
                           ),
                           SizedBox(height: 12.h),
                           SizedBox(
@@ -123,6 +119,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ],
+                          ),
+                          LanguageSwitchRow(
+                            currentLang: context.locale.languageCode,
+                            onSelect: (lang) async {
+                              await context.setLocale(Locale(lang));
+                            },
                           ),
                         ],
                       ),
