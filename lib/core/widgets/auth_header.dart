@@ -17,7 +17,12 @@ class AuthHeader extends StatelessWidget {
         Text(message, style: AppTheme.lightMode.textTheme.titleMedium),
         Text(action, style: AppTheme.lightMode.textTheme.displaySmall),
         SizedBox(height: 12.h),
-        Image.asset('assets/images/auth_header.png'),
+        Image.asset(
+          'assets/images/auth_header.png',
+          height: 250.h,
+          width: double.infinity,
+          fit: BoxFit.fill,
+        ),
         SizedBox(height: 12.h),
       ],
     );

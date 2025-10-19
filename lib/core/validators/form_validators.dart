@@ -48,10 +48,23 @@ class FormValidators {
     if (value == null || value.isEmpty) {
       return "Phone number is required";
     }
-    final regex = RegExp(r'^(?:\+20|0)?1[0-9]{9}$');
-    if (!regex.hasMatch(value)) {
-      return "Invalid phone number (e.g. +201234567890)";
+
+    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+      return "Phone number must contain only digits";
     }
+
+    if (!value.startsWith('0')) {
+      return "Phone number must start with 0";
+    }
+
+    if (value.length != 11) {
+      return "Phone number must be 11 digits";
+    }
+
+    if (!RegExp(r'^01[0,1,2,5][0-9]{8}$').hasMatch(value)) {
+      return "Invalid Egyptian phone number format";
+    }
+
     return null;
   }
 }

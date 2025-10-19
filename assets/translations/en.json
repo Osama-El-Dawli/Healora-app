@@ -26,5 +26,6 @@
   "doctor": "Doctor",
   "patient": "Patient",
   "please_select_a_role": "Please select a role",
-  "write_your_message": "Write your message"
+  "write_your_message": "Write your message",
+  "account_created_successfully": "Account Created Successfully"
 }

@@ -51,6 +51,11 @@ class AppTheme {
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
+      prefixStyle: TextStyle(
+        color: AppColors.primary, // selected item text
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500,
+      ),
       suffixIconColor: AppColors.hintColor,
       filled: true,
       fillColor: AppColors.backgroundColor,

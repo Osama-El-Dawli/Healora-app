@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/features/auth/login/presentation/screens/login_screen.dart';
+import 'package:healora/features/auth/register/cubit/register_cubit.dart';
+import 'package:healora/features/auth/register/data/data_sources/firebase_register_remote_datasource.dart';
+import 'package:healora/features/auth/register/data/repositories/register_repository.dart';
 import 'package:healora/features/auth/register/presentation/screens/register_screen.dart';
 import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
@@ -23,10 +27,19 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
 
       case AppRoutes.registerScreen:
-        return MaterialPageRoute(builder: (_) => const RegisterScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => RegisterCubit(
+              RegisterRepository(
+                dataSource: FirebaseRegisterRemoteDataSource(),
+              ),
+            ),
+            child: const RegisterScreen(),
+          ),
+        );
 
       case AppRoutes.chatScreen:
-        return MaterialPageRoute(builder: (_) =>  DoctorChat());
+        return MaterialPageRoute(builder: (_) => DoctorChat());
 
       case AppRoutes.chatBotScreen:
         return MaterialPageRoute(builder: (_) => const MedicalChatbotScreen());

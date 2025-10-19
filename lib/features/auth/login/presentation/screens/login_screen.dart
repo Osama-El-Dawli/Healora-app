@@ -33,8 +33,8 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: CustomeElevatedButton(
+                    onPressed: () {},
                     label: 'login'.tr(),
-                    pushedPageRoute: AppRoutes.homeScreen,
                   ),
                 ),
                 Row(
