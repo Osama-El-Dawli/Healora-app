@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:healora/core/routes/routes.dart';
+import 'package:healora/features/medical_history/presentation/widgets/medical_history_body.dart';
 
 class MedicalHistoryScreen extends StatelessWidget {
-  static const String routeName = AppRoutes.medicalHistoryScreen;
-
   const MedicalHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: MedicalHistoryBody(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
+    );
   }
 }
