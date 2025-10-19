@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:healora/core/routes/routes.dart';
+import 'package:healora/features/auth/login/cubit/login_cubit.dart';
+import 'package:healora/features/auth/login/data/data_sources/firebase_login_remote_datasource.dart';
+import 'package:healora/features/auth/login/data/repositories/login_repository.dart';
 import 'package:healora/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:healora/features/auth/register/cubit/register_cubit.dart';
 import 'package:healora/features/auth/register/data/data_sources/firebase_register_remote_datasource.dart';
@@ -24,7 +27,14 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const HomeScreen());
 
       case AppRoutes.loginScreen:
-        return MaterialPageRoute(builder: (_) => const LoginScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => LoginCubit(
+              LoginRepository(dataSource: FirebaseLoginRemoteDatasource()),
+            ),
+            child: const LoginScreen(),
+          ),
+        );
 
       case AppRoutes.registerScreen:
         return MaterialPageRoute(
