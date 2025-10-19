@@ -9,6 +9,7 @@
   "Choose a Doctor": "Choose a Doctor",
   "Your Diet Chart": "Your Diet Chart",
   "ChatBot": "ChatBot",
+  "Appointment Details": "Appointment Details",
   "Hi": "Hi",
   "hello_beautiful": "Hello Beautiful",
   "sign_up": "Sign Up",
@@ -47,4 +48,7 @@
   "phone_start_with_0": "Phone number must start with 0",
   "phone_length": "Phone number must be 11 digits",
   "invalid_egyptian_phone": "Invalid Egyptian phone number format"
+  "write_your_message": "Write your message",
+  "Appointment Date": "Appointment Date",
+  "Follow-up Date": "Follow-up Date"
 }

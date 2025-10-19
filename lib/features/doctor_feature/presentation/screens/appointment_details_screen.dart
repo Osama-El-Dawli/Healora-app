@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/features/doctor_feature/presentation/widgets/appointment_details_screen_body.dart';
@@ -11,7 +12,7 @@ class AppointmentDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Appointment Details',
+          'Appointment Details'.tr(),
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
             color: AppColors.primary,
             fontWeight: FontWeight.w700,
