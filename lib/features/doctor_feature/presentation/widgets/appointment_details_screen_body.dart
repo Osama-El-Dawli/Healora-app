@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -59,7 +60,7 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                   AppointmentDetailsCard(
                     isDate: true,
                     leadingIcon: Icons.calendar_month_rounded,
-                    title: 'Appointment Date',
+                    title: 'Appointment Date'.tr(),
                     subTitle: '12 Oct, 2025 | 10:00 AM',
                   ),
                   SizedBox(height: 24.h),
@@ -93,21 +94,21 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                   AppointmentDetailsCard(
                     isDate: true,
                     leadingIcon: Icons.calendar_month_rounded,
-                    title: 'Follow-up Date',
+                    title: 'Follow-up Date'.tr(),
                     subTitle: '20 Oct, 2025 | 11:30 AM',
                     trailingIcon: Icons.edit_rounded,
                   ),
                   SizedBox(height: 24.h),
                   AppointmentDetailsCard(
                     leadingIcon: Icons.history_rounded,
-                    title: 'Medical History',
+                    title: 'Medical History'.tr(),
                     subTitle: 'Blood type, Medications, etc.',
                     trailingIcon: Icons.arrow_forward_ios_rounded,
                   ),
                   SizedBox(height: 24.h),
                   AppointmentDetailsCard(
                     leadingIcon: Icons.science_rounded,
-                    title: 'Lab Test Results',
+                    title: 'Lab Results'.tr(),
                     subTitle: 'Blood test, X-ray, etc.',
                     trailingIcon: Icons.arrow_forward_ios_rounded,
                   ),
