@@ -174,9 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: CustomeElevatedButton(
                               label: 'sign_up'.tr(),
                               onPressed: () {
-                                FocusScope.of(
-                                  context,
-                                ).unfocus(); // close keyboard
+                                FocusScope.of(context).unfocus();
                                 if (formKey.currentState!.validate()) {
                                   context.read<RegisterCubit>().register(
                                     firstName: firstNameController.text.trim(),

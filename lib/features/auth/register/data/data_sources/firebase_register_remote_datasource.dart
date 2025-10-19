@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 
 class FirebaseRegisterRemoteDataSource {
@@ -13,8 +13,6 @@ class FirebaseRegisterRemoteDataSource {
     required String role,
   }) async {
     try {
-      print('🔹 Register started for $email');
-
       UserCredential credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
@@ -39,20 +37,17 @@ class FirebaseRegisterRemoteDataSource {
         'role': user.role,
       });
 
-      if (kDebugMode) {
-        print('✅ User registered successfully: $uid');
-      }
       return user;
     } on FirebaseAuthException catch (e) {
-      if (kDebugMode) {
-        print('❌ FirebaseAuth error: ${e.code} - ${e.message}');
+      if (e.code == 'email-already-in-use') {
+        throw Exception("This email is already in use.".tr());
+      } else if (e.code == 'weak-password') {
+        throw Exception("Password is too weak.".tr());
+      } else {
+        throw Exception(e.message ?? "Firebase authentication error.".tr());
       }
-      throw Exception('FirebaseAuth error: ${e.message}');
     } catch (e) {
-      if (kDebugMode) {
-        print('❌ General registration error: $e');
-      }
-      throw Exception('Registration failed: $e');
+      throw Exception("Registration failed: $e");
     }
   }
 }

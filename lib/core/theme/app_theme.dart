@@ -23,7 +23,7 @@ class AppTheme {
 
     dropdownMenuTheme: DropdownMenuThemeData(
       textStyle: TextStyle(
-        color: AppColors.primary, // selected item text
+        color: AppColors.primary,
         fontSize: 16.sp,
         fontWeight: FontWeight.w500,
       ),
@@ -52,7 +52,7 @@ class AppTheme {
     ),
     inputDecorationTheme: InputDecorationTheme(
       prefixStyle: TextStyle(
-        color: AppColors.primary, // selected item text
+        color: AppColors.primary,
         fontSize: 16.sp,
         fontWeight: FontWeight.w500,
       ),

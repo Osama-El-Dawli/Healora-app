@@ -8,7 +8,7 @@ class CustomeTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
-  final bool isPhone; // ✅ لتحديد إذا كان الحقل خاص بالهاتف
+  final bool isPhone;
 
   const CustomeTextFormField({
     super.key,
@@ -17,7 +17,7 @@ class CustomeTextFormField extends StatefulWidget {
     this.controller,
     this.onChanged,
     this.validator,
-    this.isPhone = false, // ✅ القيمة الافتراضية false
+    this.isPhone = false,
   });
 
   @override
@@ -47,22 +47,7 @@ class _CustomeTextFormFieldState extends State<CustomeTextFormField> {
         ).textTheme.titleSmall!.copyWith(color: AppColors.primary),
         decoration: InputDecoration(
           hintText: widget.hintText,
-          prefixIcon: widget.isPhone
-              ? Padding(
-                  padding: EdgeInsets.only(left: 12.w, right: 6.w),
-                  child: Text(
-                    '+2',
-                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                )
-              : null,
-          prefixIconConstraints: const BoxConstraints(
-            minWidth: 0,
-            minHeight: 0,
-          ),
+
           suffixIcon: widget.isPassword
               ? IconButton(
                   onPressed: () {
