@@ -34,7 +34,7 @@ class HomeScreenListView extends StatelessWidget {
     HomeScreenModel(
       image: 'assets/images/home_page5.png',
       title: 'ChatBot',
-      route: AppRoutes.chatScreen,
+      route: AppRoutes.chatBotScreen,
     ),
   ];
 
@@ -51,7 +51,6 @@ class HomeScreenListView extends StatelessWidget {
               Navigator.pushNamed(
                 context,
                 items[index].route,
-                arguments: {'chatId': 'chat_id', 'user': user},
               );
             },
             child: Hero(

@@ -8,9 +8,23 @@ import 'package:healora/features/chat/cubit/chat_cubit/chat_cubit.dart';
 import 'package:healora/features/chat/cubit/chat_cubit/chat_state.dart';
 import 'package:healora/features/chat/presentation/widgets/messages_list_view.dart';
 
-class ChatScreenBody extends StatelessWidget {
-  const ChatScreenBody({super.key, required this.user});
+class ChatScreenBody extends StatefulWidget {
+  const ChatScreenBody({super.key, required this.user, required this.chatId});
   final UserModel user;
+  final String chatId;
+
+  @override
+  State<ChatScreenBody> createState() => _ChatScreenBodyState();
+}
+
+class _ChatScreenBodyState extends State<ChatScreenBody> {
+  final TextEditingController messageController = TextEditingController();
+
+  @override
+  void dispose() {
+    messageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +33,7 @@ class ChatScreenBody extends StatelessWidget {
         return Stack(
           children: [
             state is ChatLoadedState
-                ? MessagesListView(
-                    messages: state.messages,
-                    user: user,
-                  )
+                ? MessagesListView(messages: state.messages, user: widget.user)
                 : Center(child: CircularProgressIndicator()),
             Positioned(
               left: 0,
@@ -61,7 +72,20 @@ class ChatScreenBody extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: ChatTextField(hintText: 'write_your_message'.tr()),
+                child: ChatTextField(
+                  hintText: 'write_your_message'.tr(),
+                  controller: messageController,
+                  onSend: () {
+                    if (messageController.text.trim().isNotEmpty) {
+                      context.read<ChatCubit>().sendMessage(
+                        chatId: widget.chatId,
+                        message: messageController.text.trim(),
+                        senderId: widget.user.uid,
+                      );
+                      messageController.clear();
+                    }
+                  },
+                ),
               ),
             ),
           ],

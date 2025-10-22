@@ -11,7 +11,6 @@ class BubbleMessage extends StatelessWidget {
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
-          margin: EdgeInsets.all(16),
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: isMe
               ? BoxDecoration(

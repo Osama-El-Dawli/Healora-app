@@ -40,7 +40,7 @@ class DoctorChat extends StatelessWidget {
           ],
         ),
       ),
-      body: ChatScreenBody(user: user),
+      body: ChatScreenBody(user: user, chatId: chatId),
     );
   }
 }

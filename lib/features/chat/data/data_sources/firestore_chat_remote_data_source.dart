@@ -9,11 +9,13 @@ class FirestoreChatRemoteDataSource {
         .collection('chats')
         .doc(chatId)
         .collection('messages')
-        .orderBy('timestamp', descending: true)
+        .orderBy('timestamp', descending: false)
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => MessageModel.fromJson(doc.data(), doc.id))
-            .toList());
+        .map(
+          (snapshot) => snapshot.docs
+              .map((doc) => MessageModel.fromJson(doc.data(), doc.id))
+              .toList(),
+        );
   }
 
   Future<void> sendMessage(String chatId, MessageModel message) async {

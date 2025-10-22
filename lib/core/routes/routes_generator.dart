@@ -3,11 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:healora/core/helper/service_locator.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/features/auth/login/cubit/login_cubit.dart';
+import 'package:healora/features/auth/login/data/repositories/login_repository.dart';
 import 'package:healora/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:healora/features/auth/register/cubit/register_cubit.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
+import 'package:healora/features/auth/register/data/repositories/register_repository.dart';
 import 'package:healora/features/auth/register/presentation/screens/register_screen.dart';
 import 'package:healora/features/chat/cubit/chat_cubit/chat_cubit.dart';
+import 'package:healora/features/chat/data/repositories/chat_repo.dart';
 import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
@@ -29,7 +32,8 @@ class AppRouteGenerator {
       case AppRoutes.loginScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => ServiceLocator.getIt<LoginCubit>(),
+            create: (context) =>
+                LoginCubit(ServiceLocator.getIt<LoginRepository>()),
             child: const LoginScreen(),
           ),
         );
@@ -37,7 +41,8 @@ class AppRouteGenerator {
       case AppRoutes.registerScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => ServiceLocator.getIt<RegisterCubit>(),
+            create: (context) =>
+                RegisterCubit(ServiceLocator.getIt<RegisterRepository>()),
             child: const RegisterScreen(),
           ),
         );
@@ -49,7 +54,8 @@ class AppRouteGenerator {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
-                ServiceLocator.getIt<ChatCubit>()..loadMessages(chatId: chatId),
+                ChatCubit(ServiceLocator.getIt<ChatRepo>())
+                  ..loadMessages(chatId: chatId),
             child: DoctorChat(user: user, chatId: chatId),
           ),
         );

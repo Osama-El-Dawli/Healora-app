@@ -6,7 +6,14 @@ import 'package:healora/core/utils/app_assets.dart';
 class ChatTextField extends StatelessWidget {
   final String hintText;
   final TextEditingController? controller;
-  const ChatTextField({super.key, required this.hintText, this.controller});
+  final VoidCallback? onSend, onAttach;
+  const ChatTextField({
+    super.key,
+    required this.hintText,
+    this.controller,
+    this.onSend,
+    this.onAttach,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +37,17 @@ class ChatTextField extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(Assets.imagesSelect),
+              InkWell(
+                splashColor: null,
+                onTap: onAttach,
+                child: Image.asset(Assets.imagesSelect),
+              ),
               SizedBox(width: 10),
-              Image.asset(Assets.imagesSend),
+              InkWell(
+                splashColor: null,
+                onTap: onSend,
+                child: Image.asset(Assets.imagesSend),
+              ),
             ],
           ),
         ),
