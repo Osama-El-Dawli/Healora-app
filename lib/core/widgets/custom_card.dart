@@ -25,7 +25,7 @@ class CustomCard extends StatelessWidget {
             ),
           ),
           Spacer(),
-          Image.asset(imageUrl, width: 144.w),
+          Image.asset(imageUrl, width: 142.w),
         ],
       ),
     );

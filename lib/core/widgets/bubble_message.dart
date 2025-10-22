@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_colors.dart';
+import '../theme/app_colors.dart';
 
-class DoctorMessage extends StatelessWidget {
+class BubbleMessage extends StatelessWidget {
   final String message;
-  final int index;
-  const DoctorMessage({super.key, required this.message, required this.index});
+  final bool isMe;
+  const BubbleMessage({super.key, required this.message, required this.isMe});
   @override
   Widget build(BuildContext context) {
-    bool iseven = index % 2 == 0;
     return Row(
-      mainAxisAlignment: iseven
-          ? MainAxisAlignment.end
-          : MainAxisAlignment.start,
+      mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
-          margin: EdgeInsets.all(16),
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          decoration: iseven
+          decoration: isMe
               ? BoxDecoration(
                   color: AppColors.primary,
                   borderRadius: BorderRadius.only(
@@ -37,7 +33,7 @@ class DoctorMessage extends StatelessWidget {
             message,
             style: Theme.of(context).textTheme.displaySmall!.copyWith(
               fontSize: 15,
-              color: iseven ? Colors.white : Colors.black,
+              color: isMe ? Colors.white : Colors.black,
             ),
           ),
         ),

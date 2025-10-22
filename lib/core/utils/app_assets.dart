@@ -10,6 +10,10 @@ class Assets {
   /// assets/images/avatar.png
   static const String imagesAvatar = "assets/images/avatar.png";
 
+  /// Assets for imagesEG
+  /// assets/images/EG.png
+  static const String imagesEG = "assets/images/EG.png";
+
   /// Assets for imagesHealoraBranding
   /// assets/images/healora_branding.png
   static const String imagesHealoraBranding = "assets/images/healora_branding.png";
@@ -42,6 +46,10 @@ class Assets {
   /// assets/images/home_page5.png
   static const String imagesHomePage5 = "assets/images/home_page5.png";
 
+  /// Assets for imagesLR
+  /// assets/images/LR.png
+  static const String imagesLR = "assets/images/LR.png";
+
   /// Assets for imagesOnboarding1
   /// assets/images/onboarding1.png
   static const String imagesOnboarding1 = "assets/images/onboarding1.png";
@@ -53,6 +61,18 @@ class Assets {
   /// Assets for imagesOnboarding3
   /// assets/images/onboarding3.png
   static const String imagesOnboarding3 = "assets/images/onboarding3.png";
+
+  /// Assets for imagesProfile
+  /// assets/images/profile.png
+  static const String imagesProfile = "assets/images/profile.png";
+
+  /// Assets for imagesSelect
+  /// assets/images/select.png
+  static const String imagesSelect = "assets/images/select.png";
+
+  /// Assets for imagesSend
+  /// assets/images/send.png
+  static const String imagesSend = "assets/images/send.png";
 
   /// Assets for imagesSplash
   /// assets/images/splash.png

@@ -69,4 +69,20 @@ class FormValidators {
 
     return null;
   }
+
+  static String? validateLoginEmail(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "email_is_required".tr();
+    }
+
+    return null;
+  }
+
+  static String? validateLoginPassword(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "password_is_required".tr();
+    }
+
+    return null;
+  }
 }

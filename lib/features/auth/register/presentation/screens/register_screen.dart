@@ -193,10 +193,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pushReplacementNamed(
-                                    context,
-                                    AppRoutes.loginScreen,
-                                  );
+                                  Navigator.pop(context);
                                 },
                                 child: Text(
                                   'login'.tr(),

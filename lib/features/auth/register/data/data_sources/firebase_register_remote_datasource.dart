@@ -5,7 +5,7 @@ import 'package:healora/features/auth/register/data/models/user_model.dart';
 
 class FirebaseRegisterRemoteDataSource {
   Future<UserModel> register({
-    required String firstname,
+    required String firstName,
     required String lastName,
     required String email,
     required String password,
@@ -21,7 +21,7 @@ class FirebaseRegisterRemoteDataSource {
 
       final user = UserModel(
         uid: uid,
-        firstName: firstname,
+        firstName: firstName,
         lastName: lastName,
         email: email,
         phoneNumber: phoneNumber,
