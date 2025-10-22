@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
+import 'package:healora/core/utils/app_assets.dart';
 
-class TextForm extends StatelessWidget {
+class ChatTextField extends StatelessWidget {
   final String hintText;
-  const TextForm({super.key, required this.hintText});
+  final TextEditingController? controller;
+  const ChatTextField({super.key, required this.hintText, this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 18.h, horizontal: 22.w),
         enabledBorder: OutlineInputBorder(
@@ -27,9 +30,9 @@ class TextForm extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset("assets/images/select.png"),
+              Image.asset(Assets.imagesSelect),
               SizedBox(width: 10),
-              Image.asset("assets/images/send.png"),
+              Image.asset(Assets.imagesSend),
             ],
           ),
         ),

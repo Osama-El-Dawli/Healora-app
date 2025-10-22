@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:healora/core/helper/service_locator.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/features/auth/login/cubit/login_cubit.dart';
 import 'package:healora/features/auth/login/data/data_sources/firebase_login_remote_datasource.dart';
@@ -9,6 +10,7 @@ import 'package:healora/features/auth/register/cubit/register_cubit.dart';
 import 'package:healora/features/auth/register/data/data_sources/firebase_register_remote_datasource.dart';
 import 'package:healora/features/auth/register/data/repositories/register_repository.dart';
 import 'package:healora/features/auth/register/presentation/screens/register_screen.dart';
+import 'package:healora/features/chat/cubit/chat_cubit/chat_cubit.dart';
 import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
@@ -49,7 +51,16 @@ class AppRouteGenerator {
         );
 
       case AppRoutes.chatScreen:
-        return MaterialPageRoute(builder: (_) => DoctorChat());
+        final args = settings.arguments as Map<String, dynamic>;
+        final chatId = args['chatId'];
+        final currentUserId = args['currentUserId'];
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                ServiceLocator.getIt<ChatCubit>()..loadMessages(chatId: chatId),
+            child: DoctorChat(currentUserId: currentUserId, chatId: chatId),
+          ),
+        );
 
       case AppRoutes.chatBotScreen:
         return MaterialPageRoute(builder: (_) => const MedicalChatbotScreen());
