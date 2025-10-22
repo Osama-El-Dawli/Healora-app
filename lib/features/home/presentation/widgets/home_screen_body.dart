@@ -14,7 +14,7 @@ class HomeScreenBody extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.h),
         child: Column(
           children: [
-            SizedBox(height: 24.h),
+            SizedBox(height: 12.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
