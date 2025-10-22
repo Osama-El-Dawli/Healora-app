@@ -3,12 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:healora/core/helper/service_locator.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/features/auth/login/cubit/login_cubit.dart';
-import 'package:healora/features/auth/login/data/data_sources/firebase_login_remote_datasource.dart';
-import 'package:healora/features/auth/login/data/repositories/login_repository.dart';
 import 'package:healora/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:healora/features/auth/register/cubit/register_cubit.dart';
-import 'package:healora/features/auth/register/data/data_sources/firebase_register_remote_datasource.dart';
-import 'package:healora/features/auth/register/data/repositories/register_repository.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/auth/register/presentation/screens/register_screen.dart';
 import 'package:healora/features/chat/cubit/chat_cubit/chat_cubit.dart';
 import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
@@ -26,14 +23,13 @@ class AppRouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.homeScreen:
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
+        final userModel = settings.arguments as UserModel;
+        return MaterialPageRoute(builder: (_) => HomeScreen(user: userModel));
 
       case AppRoutes.loginScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => LoginCubit(
-              LoginRepository(dataSource: FirebaseLoginRemoteDatasource()),
-            ),
+            create: (context) => ServiceLocator.getIt<LoginCubit>(),
             child: const LoginScreen(),
           ),
         );
@@ -41,11 +37,7 @@ class AppRouteGenerator {
       case AppRoutes.registerScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => RegisterCubit(
-              RegisterRepository(
-                dataSource: FirebaseRegisterRemoteDataSource(),
-              ),
-            ),
+            create: (context) => ServiceLocator.getIt<RegisterCubit>(),
             child: const RegisterScreen(),
           ),
         );
@@ -53,12 +45,12 @@ class AppRouteGenerator {
       case AppRoutes.chatScreen:
         final args = settings.arguments as Map<String, dynamic>;
         final chatId = args['chatId'];
-        final currentUserId = args['currentUserId'];
+        final UserModel user = args['user'];
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
                 ServiceLocator.getIt<ChatCubit>()..loadMessages(chatId: chatId),
-            child: DoctorChat(currentUserId: currentUserId, chatId: chatId),
+            child: DoctorChat(user: user, chatId: chatId),
           ),
         );
 

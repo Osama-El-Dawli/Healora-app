@@ -14,7 +14,7 @@ class RegisterRepository {
   }) async {
     try {
       final user = await dataSource.register(
-        firstname: firstName,
+        firstName: firstName,
         lastName: lastName,
         email: email,
         password: password,

@@ -2,11 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/routes/routes.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/home/data/models/home_screen_model.dart';
 import 'package:healora/core/widgets/custom_card.dart';
 
 class HomeScreenListView extends StatelessWidget {
-  const HomeScreenListView({super.key});
+  const HomeScreenListView({super.key, required this.user});
+  final UserModel user;
 
   static final List<HomeScreenModel> items = [
     HomeScreenModel(
@@ -32,7 +34,7 @@ class HomeScreenListView extends StatelessWidget {
     HomeScreenModel(
       image: 'assets/images/home_page5.png',
       title: 'ChatBot',
-      route: AppRoutes.chatBotScreen,
+      route: AppRoutes.chatScreen,
     ),
   ];
 
@@ -46,7 +48,11 @@ class HomeScreenListView extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(12.r),
             onTap: () {
-              Navigator.pushNamed(context, items[index].route);
+              Navigator.pushNamed(
+                context,
+                items[index].route,
+                arguments: {'chatId': 'chat_id', 'user': user},
+              );
             },
             child: Hero(
               transitionOnUserGestures: true,

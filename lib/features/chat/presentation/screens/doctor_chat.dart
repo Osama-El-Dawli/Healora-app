@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/utils/app_assets.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/chat/presentation/widgets/chat_screen_body.dart';
 
 class DoctorChat extends StatelessWidget {
-  const DoctorChat({
-    super.key,
-    required this.currentUserId,
-    required this.chatId,
-  });
-  final String currentUserId;
+  const DoctorChat({super.key, required this.user, required this.chatId});
+  final UserModel user;
   final String chatId;
 
   @override
@@ -17,9 +14,14 @@ class DoctorChat extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        leading: Icon(
-          Icons.arrow_back_ios_new_rounded,
-          color: AppColors.primary,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: AppColors.primary,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         title: Row(
           children: [
@@ -29,7 +31,7 @@ class DoctorChat extends StatelessWidget {
             ),
             SizedBox(width: 10),
             Text(
-              "Name",
+              user.firstName,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 color: AppColors.primary,
                 fontWeight: FontWeight.w700,
@@ -38,7 +40,7 @@ class DoctorChat extends StatelessWidget {
           ],
         ),
       ),
-      body: ChatScreenBody(currentUserId: currentUserId),
+      body: ChatScreenBody(user: user),
     );
   }
 }

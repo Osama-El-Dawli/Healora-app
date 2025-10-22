@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/widgets/chat_text_field.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/chat/cubit/chat_cubit/chat_cubit.dart';
 import 'package:healora/features/chat/cubit/chat_cubit/chat_state.dart';
 import 'package:healora/features/chat/presentation/widgets/messages_list_view.dart';
 
 class ChatScreenBody extends StatelessWidget {
-  const ChatScreenBody({super.key, required this.currentUserId});
-  final String currentUserId;
+  const ChatScreenBody({super.key, required this.user});
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ChatScreenBody extends StatelessWidget {
             state is ChatLoadedState
                 ? MessagesListView(
                     messages: state.messages,
-                    currentUserId: currentUserId,
+                    user: user,
                   )
                 : Center(child: CircularProgressIndicator()),
             Positioned(

@@ -2,10 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/home/presentation/widgets/home_screen_list_view.dart';
 
 class HomeScreenBody extends StatelessWidget {
-  const HomeScreenBody({super.key});
+  const HomeScreenBody({super.key, required this.user});
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class HomeScreenBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '👋🏻 ${'Hi'.tr()} Julia!',
+                  '👋🏻 ${'Hi'.tr()} ${user.firstName}',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w700,
                     color: AppColors.primary,
@@ -36,7 +38,9 @@ class HomeScreenBody extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16.h),
-            Expanded(child: HomeScreenListView()),
+            Expanded(child: HomeScreenListView(
+              user: user,
+            )),
           ],
         ),
       ),

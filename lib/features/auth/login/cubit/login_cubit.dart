@@ -10,8 +10,8 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> login({required String email, required String password}) async {
     emit(LoginLoading());
     try {
-      final uid = await repository.login(email: email, password: password);
-      emit(LoginSuccess(uid));
+      final user = await repository.login(email: email, password: password);
+      emit(LoginSuccess(user: user));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-credential') {
         emit(LoginFailure(generalError: 'invalid_email_or_password'.tr()));
