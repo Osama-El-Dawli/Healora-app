@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/bloc_observer.dart';
 import 'package:healora/core/helper/service_locator.dart';
@@ -10,9 +11,10 @@ import 'package:healora/core/routes/routes_generator.dart';
 import 'package:healora/core/theme/app_theme.dart';
 import 'package:healora/firebase_options.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   ServiceLocator.setup();
+  await dotenv.load(fileName: ".env");
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = MyBlocObserver();
@@ -32,7 +34,7 @@ class Healora extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  ScreenUtilInit(
+    return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
