@@ -66,9 +66,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               fontSize: 16.sp,
             );
 
-            Navigator.of(
-              context,
-            ).pushReplacementNamed(AppRoutes.homeScreen, arguments: state.user);
+            Navigator.of(context).pushReplacementNamed(
+              selectedRole == 'doctor'
+                  ? AppRoutes.doctorScreen
+                  : AppRoutes.homeScreen,
+              arguments: state.user,
+            );
           } else if (state is RegisterFailure) {
             Fluttertoast.showToast(
               msg: " ${state.error}",
