@@ -19,6 +19,7 @@ import 'package:healora/features/lab_results/presentation/screens/lab_results_sc
 import 'package:healora/features/medical_chatbot/presentation/screens/medical_chatbot_screen.dart';
 import 'package:healora/features/medical_history/presentation/screens/medical_history_screen.dart';
 import 'package:healora/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:healora/features/select_appointment/presention/screens/select_appointment_screen.dart';
 import 'package:healora/features/select_doctor/presentation/screens/select_doctor_screen.dart';
 import 'package:healora/features/settings/presentation/screens/settings_screen.dart';
 
@@ -86,6 +87,11 @@ class AppRouteGenerator {
         return MaterialPageRoute(
           builder: (_) => AppointmentDetailsScreen(avatarTag: avatarTag),
         );
+      case AppRoutes.selectAppointmentScreen:
+        return MaterialPageRoute(
+          builder: (_) => SelectAppointmentScreen(),
+        );
+
 
       default:
         return MaterialPageRoute(
