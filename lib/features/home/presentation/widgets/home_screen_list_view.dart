@@ -29,7 +29,7 @@ class HomeScreenListView extends StatelessWidget {
     HomeScreenModel(
       image: 'assets/images/home_page4.png',
       title: 'Your Diet Chart'.tr(),
-      route: '',
+      route: AppRoutes.dietChartScreen,
     ),
     HomeScreenModel(
       image: 'assets/images/home_page5.png',
@@ -48,10 +48,7 @@ class HomeScreenListView extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(12.r),
             onTap: () {
-              Navigator.pushNamed(
-                context,
-                items[index].route,
-              );
+              Navigator.pushNamed(context, items[index].route);
             },
             child: Hero(
               transitionOnUserGestures: true,

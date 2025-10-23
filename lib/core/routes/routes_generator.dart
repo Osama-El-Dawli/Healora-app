@@ -12,6 +12,7 @@ import 'package:healora/features/auth/register/presentation/screens/register_scr
 import 'package:healora/features/chat/cubit/chat_cubit/chat_cubit.dart';
 import 'package:healora/features/chat/data/repositories/chat_repo.dart';
 import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
+import 'package:healora/features/diet_chart/presentation/screens/settings_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
 import 'package:healora/features/home/presentation/screens/home_screen.dart';
@@ -74,6 +75,9 @@ class AppRouteGenerator {
 
       case AppRoutes.selectDoctorScreen:
         return MaterialPageRoute(builder: (_) => const SelectDoctorScreen());
+
+      case AppRoutes.dietChartScreen:
+        return MaterialPageRoute(builder: (_) => const DietChartScreen());
 
       case AppRoutes.settingsScreen:
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
