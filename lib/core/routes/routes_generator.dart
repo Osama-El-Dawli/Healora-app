@@ -79,7 +79,9 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
 
       case AppRoutes.doctorScreen:
-        return MaterialPageRoute(builder: (_) => const DoctorScreen());
+        final userModel = settings.arguments as UserModel;
+
+        return MaterialPageRoute(builder: (_) => DoctorScreen(user: userModel));
 
       case AppRoutes.appointmentDetailsScreen:
         final avatarTag = settings.arguments as String;
