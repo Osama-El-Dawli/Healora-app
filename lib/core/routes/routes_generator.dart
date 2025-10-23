@@ -73,7 +73,7 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const MedicalHistoryScreen());
 
       case AppRoutes.selectDoctorScreen:
-        return MaterialPageRoute(builder: (_) => const SelectDoctorScreen());
+        return MaterialPageRoute(builder: (_) =>  SelectDoctorScreen());
 
       case AppRoutes.settingsScreen:
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
