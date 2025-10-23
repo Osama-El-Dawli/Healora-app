@@ -8,17 +8,33 @@ class ChatBotCubit extends Cubit<ChatBotState> {
   ChatBotCubit(this._chatBotRepo) : super(ChatBotInitial());
   final ChatBotRepo _chatBotRepo;
 
+  Future<void> initChatBot() async {
+    emit(ChatBotLoading(messages: state.messages));
+    try {
+      await _chatBotRepo.initialize();
+      emit(ChatBotInitial());
+    } catch (e) {
+      emit(
+        ChatBotError(
+          messages: state.messages,
+          errorMessage: 'There was an error: $e',
+        ),
+      );
+    }
+  }
+
   Future<void> sendMessage({required String message}) async {
     if (message.isEmpty) return;
     final currentMessages = List<ChatBotMessageModel>.from(state.messages)
       ..add(ChatBotMessageModel(message: message, isMe: true));
 
-    emit(ChatBotLoaded(messages: currentMessages));
+    emit(ChatBotLoaded(messages: currentMessages, isBotTyping: true));
 
     try {
       final reply = await _chatBotRepo.sendMessage(message: message);
       currentMessages.add(ChatBotMessageModel(message: reply, isMe: false));
-      emit(ChatBotLoaded(messages: currentMessages));
+      final updatedMessages = List<ChatBotMessageModel>.from(currentMessages);
+      emit(ChatBotLoaded(messages: updatedMessages, isBotTyping: false));
     } catch (e) {
       emit(
         ChatBotError(

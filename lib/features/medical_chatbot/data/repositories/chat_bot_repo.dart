@@ -6,6 +6,8 @@ class ChatBotRepo {
   ChatBotRepo({required GeminiService geminiService})
     : _geminiService = geminiService;
 
+  Future<void> initialize() => _geminiService.initialize();
+
   Future<String> sendMessage({required String message}) =>
       _geminiService.sendMessage(message: message);
 

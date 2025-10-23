@@ -29,7 +29,11 @@ class AppTheme {
         ),
       ),
     ),
-
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: AppColors.primary,
+      selectionColor: AppColors.hintColor.withValues(alpha: 0.2),
+      selectionHandleColor: AppColors.secondary,
+    ),
     dropdownMenuTheme: DropdownMenuThemeData(
       textStyle: TextStyle(
         color: AppColors.primary,

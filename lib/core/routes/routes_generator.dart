@@ -16,6 +16,8 @@ import 'package:healora/features/doctor_feature/presentation/screens/appointment
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
 import 'package:healora/features/home/presentation/screens/home_screen.dart';
 import 'package:healora/features/lab_results/presentation/screens/lab_results_screen.dart';
+import 'package:healora/features/medical_chatbot/cubit/chat_bot_cubit/chat_bot_cubit.dart';
+import 'package:healora/features/medical_chatbot/data/repositories/chat_bot_repo.dart';
 import 'package:healora/features/medical_chatbot/presentation/screens/medical_chatbot_screen.dart';
 import 'package:healora/features/medical_history/presentation/screens/medical_history_screen.dart';
 import 'package:healora/features/onboarding/presentation/screens/onboarding_screen.dart';
@@ -61,7 +63,14 @@ class AppRouteGenerator {
         );
 
       case AppRoutes.chatBotScreen:
-        return MaterialPageRoute(builder: (_) => const MedicalChatbotScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                ChatBotCubit(ServiceLocator.getIt<ChatBotRepo>())
+                  ..initChatBot(),
+            child: const MedicalChatbotScreen(),
+          ),
+        );
 
       case AppRoutes.labResultsScreen:
         return MaterialPageRoute(builder: (_) => const LabResultsScreen());
