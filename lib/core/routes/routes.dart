@@ -11,4 +11,5 @@ class AppRoutes {
   static const String selectDoctorScreen = '/select-doctor';
   static const String settingsScreen = '/settings';
   static const String appointmentDetailsScreen = '/appointment-details';
+
 }

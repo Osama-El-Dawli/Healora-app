@@ -51,5 +51,18 @@
     "phone_digits_only": "رقم الهاتف يجب أن يحتوي على أرقام فقط",
     "phone_start_with_0": "يجب أن يبدأ رقم الهاتف بـ 0",
     "phone_length": "يجب أن يكون رقم الهاتف 11 رقمًا",
-    "invalid_egyptian_phone": "تنسيق رقم هاتف مصري غير صالح"
+    "invalid_egyptian_phone": "تنسيق رقم هاتف مصري غير صالح",
+    "Psychiatry / Psychology": "الطب النفسي / علم النفس",
+    "General Internal Medicine": "الطب العام",
+    "Pathology": "تحاليل",
+    "Cardiology": "امراض القلب",
+    "Nephrology": "امراض الكلي",
+    "Pulmonology": "امراض الرئه",
+    "Ophthalmology": "طب العيون",
+    "Radiology": "الاشعه",
+    "Physiotherapy": "العلاج الطبيعي",
+    "Gastroenterology": "امراض الجهاز الهضمي",
+    "speciality": "التخصص",
+    "Hepatology": "امراض الكبد ",
+    "Psychiatry": "الطب النفسي"
 }

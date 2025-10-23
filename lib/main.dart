@@ -7,6 +7,7 @@ import 'package:healora/bloc_observer.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/routes/routes_generator.dart';
 import 'package:healora/core/theme/app_theme.dart';
+import 'package:healora/features/choose_specialty/presentation/screens/choose_speciality_scrren.dart';
 import 'package:healora/firebase_options.dart';
 
 void main() async {
@@ -30,11 +31,14 @@ class Healora extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  ScreenUtilInit(
+    return
+
+    ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => MaterialApp(
+
         title: 'Healora',
         debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,
@@ -44,8 +48,10 @@ class Healora extends StatelessWidget {
         theme: AppTheme.lightMode,
         darkTheme: AppTheme.darkMode,
         themeMode: ThemeMode.light,
-        initialRoute: AppRoutes.loginScreen,
+
+        home: ChooseSpecialityScrren(),
       ),
     );
   }
-}
+  }
+
