@@ -28,6 +28,7 @@
     "doctor": "طبيب",
     "patient": "مريض",
     "please_select_a_role": "يرجى اختيار الدور",
+    "please_select_a_specialization": "يرجى اختيار التخصص",
     "registration_failed": "فشل التسجيل",
     "login_successfully": "تم تسجيل الدخول بنجاح",
     "login_failed": "فشل تسجيل الدخول",

@@ -1,12 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as msg;
 import 'package:flutter/material.dart';
 import 'package:healora/core/theme/app_colors.dart';
 
 class CustomDropdownButton extends StatefulWidget {
-  final List<String> items; // القيم اللي هتظهر في القائمة
-  final String? selectedValue; // القيمة اللي هتكون مختارة مبدئيًا
-  final ValueChanged<String?>? onChanged; // علشان نرجع القيمة للأب لو محتاجها
-  final String hintText; // النص اللي بيظهر قبل الاختيار
+  final List<String> items;
+  final String? selectedValue;
+  final ValueChanged<String?>? onChanged;
+  final String hintText;
+  final String msg;
 
   const CustomDropdownButton({
     super.key,
@@ -14,6 +16,7 @@ class CustomDropdownButton extends StatefulWidget {
     required this.selectedValue,
     required this.onChanged,
     required this.hintText,
+    required this.msg,
   });
 
   @override
@@ -21,12 +24,12 @@ class CustomDropdownButton extends StatefulWidget {
 }
 
 class _CustomDropdownButtonState extends State<CustomDropdownButton> {
-  String? _selectedValue; // الحالة اللي هنخزن فيها القيمة المختارة
+  String? _selectedValue;
 
   @override
   void initState() {
     super.initState();
-    _selectedValue = widget.selectedValue; // نخزن القيمة المبدئية
+    _selectedValue = widget.selectedValue;
   }
 
   @override
@@ -37,26 +40,23 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
       dropdownColor: AppColors.backgroundColor,
       icon: const Icon(Icons.arrow_drop_down, color: AppColors.primary),
       style: textTheme.titleSmall!.copyWith(color: AppColors.primary),
-      initialValue: _selectedValue, // ✅ بدل initialValue
+      initialValue: _selectedValue,
       hint: Text(
-        widget.hintText.tr(), // الترجمة لكلمة "الدور"
+        widget.hintText.tr(),
         style: textTheme.titleSmall!.copyWith(color: AppColors.hintColor),
       ),
       items: widget.items.map((String item) {
-        return DropdownMenuItem<String>(
-          value: item,
-          child: Text(item.tr()), // نترجم العنصر
-        );
+        return DropdownMenuItem<String>(value: item, child: Text(item.tr()));
       }).toList(),
       onChanged: (value) {
         setState(() {
-          _selectedValue = value; // نحدث القيمة المختارة
+          _selectedValue = value;
         });
-        widget.onChanged?.call(value); // نرجع القيمة للأب لو محتاج يسمعها
+        widget.onChanged?.call(value);
       },
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'please_select_a_role'.tr();
+          return widget.msg.tr();
         }
         return null;
       },

@@ -29,6 +29,7 @@
   "doctor": "Doctor",
   "patient": "Patient",
   "please_select_a_role": "Please select a role",
+  "please_select_a_specialization": "Please select a specialization",
   "registration_failed": "Registration failed",
   "login_successfully": "Login successfully",
   "login_failed": "Login failed",

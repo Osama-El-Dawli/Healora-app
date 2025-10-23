@@ -152,6 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               });
                             },
                             hintText: 'role',
+                            msg: 'please_select_a_role',
                           ),
                           if (selectedRole == 'doctor') ...[
                             SizedBox(height: 12.h),
@@ -163,7 +164,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   selectedSpecialization = value;
                                 });
                               },
-                              hintText: 'specialization'.tr(),
+                              hintText: 'specialization',
+                              msg: 'please_select_a_specialization',
                             ),
                           ],
                           SizedBox(height: 12.h),
