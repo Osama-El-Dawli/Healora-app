@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 
 class FirebaseRegisterRemoteDataSource {
@@ -11,13 +12,29 @@ class FirebaseRegisterRemoteDataSource {
     required String password,
     required String phoneNumber,
     required String role,
+    required String specialization,
   }) async {
     try {
       UserCredential credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
-      final uid = credential.user?.uid;
-      if (uid == null) throw Exception("User ID is null after registration.");
+      if (kDebugMode) {
+        print("✅ Firebase registration completed");
+      }
+
+      if (credential.user == null) {
+        if (kDebugMode) {
+          print("❌ credential.user is NULL");
+        }
+        throw Exception(
+          "User is null after registration — FirebaseAuth failed.",
+        );
+      }
+
+      final uid = credential.user!.uid;
+      if (kDebugMode) {
+        print("✅ UID created: $uid");
+      }
 
       final user = UserModel(
         uid: uid,
@@ -26,6 +43,7 @@ class FirebaseRegisterRemoteDataSource {
         email: email,
         phoneNumber: phoneNumber,
         role: role,
+        specialization: specialization,
       );
 
       await FirebaseFirestore.instance.collection('users').doc(uid).set({
@@ -35,7 +53,11 @@ class FirebaseRegisterRemoteDataSource {
         'email': user.email,
         'phoneNumber': user.phoneNumber,
         'role': user.role,
+        'specialization': user.specialization,
       });
+      if (kDebugMode) {
+        print("✅ User data saved in Firestore successfully");
+      }
 
       return user;
     } on FirebaseAuthException catch (e) {

@@ -7,8 +7,9 @@ import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/validators/form_validators.dart';
 import 'package:healora/core/widgets/auth_header.dart';
-import 'package:healora/core/widgets/custome_elevated_button.dart';
-import 'package:healora/core/widgets/custome_text_form_field.dart';
+import 'package:healora/core/widgets/custom_dropdown_button.dart';
+import 'package:healora/core/widgets/custom_elevated_button.dart';
+import 'package:healora/core/widgets/custom_text_form_field.dart';
 import 'package:healora/core/widgets/lang_toggle.dart';
 import 'package:healora/core/widgets/loading_indicator.dart';
 import 'package:healora/features/auth/register/cubit/register_cubit.dart';
@@ -24,7 +25,9 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  String? selectedValue;
+  String? selectedRole;
+  String? selectedSpecialization;
+
   final formKey = GlobalKey<FormState>();
 
   final firstNameController = TextEditingController();
@@ -36,15 +39,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     final items = ['doctor', 'patient'];
+    final List<String> specializations = [
+      'general_practitioner',
+      'cardiologist',
+      'dermatologist',
+      'pediatrician',
+      'orthopedic_doctor',
+      'neurologist',
+      'ophthalmologist',
+      'dentist',
+      'gynecologist',
+    ];
 
     return Scaffold(
       body: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
           if (state is RegisterSuccess) {
             Fluttertoast.showToast(
-              msg: "Account Created Successfully".tr(),
+              msg: "account_created_successfully".tr(),
               toastLength: Toast.LENGTH_LONG,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 5,
@@ -53,7 +66,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               fontSize: 16.sp,
             );
 
-            Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen);
+            Navigator.of(
+              context,
+            ).pushReplacementNamed(AppRoutes.homeScreen, arguments: state.user);
           } else if (state is RegisterFailure) {
             Fluttertoast.showToast(
               msg: " ${state.error}",
@@ -84,7 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Row(
                             children: [
                               Expanded(
-                                child: CustomeTextFormField(
+                                child: CustomTextFormField(
                                   controller: firstNameController,
                                   validator: FormValidators.validateName,
                                   hintText: 'first_name'.tr(),
@@ -92,7 +107,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                               SizedBox(width: 12.w),
                               Expanded(
-                                child: CustomeTextFormField(
+                                child: CustomTextFormField(
                                   controller: lastNameController,
                                   validator: FormValidators.validateName,
                                   hintText: 'last_name'.tr(),
@@ -100,18 +115,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ],
                           ),
-                          CustomeTextFormField(
+                          CustomTextFormField(
                             controller: emailController,
                             validator: FormValidators.validateEmail,
                             hintText: 'email'.tr(),
                           ),
-                          CustomeTextFormField(
+                          CustomTextFormField(
                             controller: passwordController,
                             validator: FormValidators.validatePassword,
                             isPassword: true,
                             hintText: 'password'.tr(),
                           ),
-                          CustomeTextFormField(
+                          CustomTextFormField(
                             controller: confirmPasswordController,
                             validator: (value) =>
                                 FormValidators.validateConfirmPassword(
@@ -122,50 +137,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             hintText: 'confirm_password'.tr(),
                           ),
 
-                          CustomeTextFormField(
+                          CustomTextFormField(
                             controller: phoneController,
                             validator: FormValidators.validatePhone,
                             hintText: 'phone_number'.tr(),
                             isPhone: true,
                           ),
-                          DropdownButtonFormField<String>(
-                            dropdownColor: AppColors.backgroundColor,
-                            icon: const Icon(
-                              Icons.arrow_drop_down,
-                              color: AppColors.primary,
-                            ),
-                            style: textTheme.titleSmall!.copyWith(
-                              color: AppColors.primary,
-                            ),
-                            initialValue: selectedValue,
-                            hint: Text(
-                              'role'.tr(),
-                              style: textTheme.titleSmall!.copyWith(
-                                color: AppColors.hintColor,
-                              ),
-                            ),
-                            items: items.map((String item) {
-                              return DropdownMenuItem<String>(
-                                value: item,
-                                child: Text(item.tr()),
-                              );
-                            }).toList(),
+                          CustomDropdownButton(
+                            items: items,
+                            selectedValue: selectedRole,
                             onChanged: (value) {
                               setState(() {
-                                selectedValue = value;
+                                selectedRole = value;
                               });
                             },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'please_select_a_role'.tr();
-                              }
-                              return null;
-                            },
+                            hintText: 'role',
                           ),
+                          if (selectedRole == 'doctor') ...[
+                            SizedBox(height: 12.h),
+                            CustomDropdownButton(
+                              items: specializations,
+                              selectedValue: selectedSpecialization,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedSpecialization = value;
+                                });
+                              },
+                              hintText: 'specialization'.tr(),
+                            ),
+                          ],
                           SizedBox(height: 12.h),
                           SizedBox(
                             width: double.infinity,
-                            child: CustomeElevatedButton(
+                            child: CustomElevatedButton(
                               label: 'sign_up'.tr(),
                               onPressed: () {
                                 FocusScope.of(context).unfocus();
@@ -176,7 +180,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     email: emailController.text.trim(),
                                     password: passwordController.text.trim(),
                                     phoneNumber: phoneController.text.trim(),
-                                    role: selectedValue ?? ''.trim(),
+                                    role: selectedRole ?? ''.trim(),
+                                    specialization: selectedRole == 'doctor'
+                                        ? selectedSpecialization ?? ''
+                                        : '',
                                   );
                                 }
                               },

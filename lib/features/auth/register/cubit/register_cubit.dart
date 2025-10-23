@@ -14,6 +14,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String password,
     required String phoneNumber,
     required String role,
+    required String specialization,
   }) async {
     emit(RegisterLoading());
     try {
@@ -24,6 +25,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         password: password,
         phoneNumber: phoneNumber,
         role: role,
+        specialization: specialization,
       );
       emit(RegisterSuccess(user));
     } catch (e) {

@@ -7,8 +7,8 @@ import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/validators/form_validators.dart';
 import 'package:healora/core/widgets/auth_header.dart';
-import 'package:healora/core/widgets/custome_elevated_button.dart';
-import 'package:healora/core/widgets/custome_text_form_field.dart';
+import 'package:healora/core/widgets/custom_elevated_button.dart';
+import 'package:healora/core/widgets/custom_text_form_field.dart';
 import 'package:healora/core/widgets/lang_toggle.dart';
 import 'package:healora/core/widgets/loading_indicator.dart';
 import 'package:healora/features/auth/login/cubit/login_cubit.dart';
@@ -71,12 +71,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             message: 'welcome_back'.tr(),
                             action: 'login'.tr(),
                           ),
-                          CustomeTextFormField(
+                          CustomTextFormField(
                             hintText: 'email'.tr(),
                             controller: emailController,
                             validator: FormValidators.validateLoginEmail,
                           ),
-                          CustomeTextFormField(
+                          CustomTextFormField(
                             hintText: 'password'.tr(),
                             isPassword: true,
                             controller: passwordController,
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(height: 12.h),
                           SizedBox(
                             width: double.infinity,
-                            child: CustomeElevatedButton(
+                            child: CustomElevatedButton(
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
                                   context.read<LoginCubit>().login(

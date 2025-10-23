@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomeElevatedButton extends StatelessWidget {
+class CustomElevatedButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
 
-  const CustomeElevatedButton({
+  const CustomElevatedButton({
     super.key,
     required this.label,
     required this.onPressed,

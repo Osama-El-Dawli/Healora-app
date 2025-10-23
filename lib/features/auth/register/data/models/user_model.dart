@@ -7,6 +7,7 @@ class UserModel {
   final String email;
   final String phoneNumber;
   final String role;
+  final String specialization;
 
   UserModel({
     required this.uid,
@@ -15,6 +16,7 @@ class UserModel {
     required this.email,
     required this.phoneNumber,
     required this.role,
+    required this.specialization,
   });
 
   factory UserModel.fromFirebase(User firebaseUser) {
@@ -25,6 +27,7 @@ class UserModel {
       lastName: '',
       phoneNumber: '',
       role: '',
+      specialization: '',
     );
   }
   Map<String, dynamic> toMap() {
@@ -35,6 +38,7 @@ class UserModel {
       'email': email,
       'phoneNumber': phoneNumber,
       'role': role,
+      'specialization': specialization,
     };
   }
 
@@ -46,6 +50,7 @@ class UserModel {
       email: map['email'] ?? '',
       phoneNumber: map['phoneNumber'] ?? '',
       role: map['role'] ?? '',
+      specialization: map['specialization'] ?? '',
     );
   }
 }

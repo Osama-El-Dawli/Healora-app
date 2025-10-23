@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
 
-class CustomeTextFormField extends StatefulWidget {
+class CustomTextFormField extends StatefulWidget {
   final String hintText;
   final bool isPassword;
   final TextEditingController? controller;
@@ -10,7 +10,7 @@ class CustomeTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final bool isPhone;
 
-  const CustomeTextFormField({
+  const CustomTextFormField({
     super.key,
     required this.hintText,
     this.isPassword = false,
@@ -21,10 +21,10 @@ class CustomeTextFormField extends StatefulWidget {
   });
 
   @override
-  State<CustomeTextFormField> createState() => _CustomeTextFormFieldState();
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
-class _CustomeTextFormFieldState extends State<CustomeTextFormField> {
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
   late bool isObscure = widget.isPassword;
 
   @override
