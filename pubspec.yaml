@@ -50,6 +50,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/translations/
+    - .env
 
 flutter_assets:
   assets_path: assets/

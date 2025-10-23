@@ -14,7 +14,7 @@ import 'package:healora/firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   ServiceLocator.setup();
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: ".env", isOptional: true);
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = MyBlocObserver();

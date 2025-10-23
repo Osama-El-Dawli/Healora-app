@@ -28,7 +28,7 @@ class PatientListView extends StatelessWidget {
                     Navigator.pushNamed(
                       context,
                       AppRoutes.appointmentDetailsScreen,
-                      arguments: {'avatarTag': 'avatar$index'},
+                      arguments: 'avatar$index',
                     );
                   },
                   child: PatientsListViewItem(avatarTag: 'avatar$index'),
