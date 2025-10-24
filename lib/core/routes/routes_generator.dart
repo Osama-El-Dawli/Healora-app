@@ -12,10 +12,14 @@ import 'package:healora/features/auth/register/presentation/screens/register_scr
 import 'package:healora/features/chat/cubit/chat_cubit/chat_cubit.dart';
 import 'package:healora/features/chat/data/repositories/chat_repo.dart';
 import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
+import 'package:healora/features/diet_chart/presentation/screens/settings_screen.dart';
+import 'package:healora/features/choose_specialty/presentation/screens/choose_specialty_scrren.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
 import 'package:healora/features/home/presentation/screens/home_screen.dart';
 import 'package:healora/features/lab_results/presentation/screens/lab_results_screen.dart';
+import 'package:healora/features/medical_chatbot/cubit/chat_bot_cubit/chat_bot_cubit.dart';
+import 'package:healora/features/medical_chatbot/data/repositories/chat_bot_repo.dart';
 import 'package:healora/features/medical_chatbot/presentation/screens/medical_chatbot_screen.dart';
 import 'package:healora/features/medical_history/presentation/screens/medical_history_screen.dart';
 import 'package:healora/features/onboarding/presentation/screens/onboarding_screen.dart';
@@ -62,7 +66,14 @@ class AppRouteGenerator {
         );
 
       case AppRoutes.chatBotScreen:
-        return MaterialPageRoute(builder: (_) => const MedicalChatbotScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                ChatBotCubit(ServiceLocator.getIt<ChatBotRepo>())
+                  ..initChatBot(),
+            child: const MedicalChatbotScreen(),
+          ),
+        );
 
       case AppRoutes.labResultsScreen:
         return MaterialPageRoute(builder: (_) => const LabResultsScreen());
@@ -74,13 +85,18 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const MedicalHistoryScreen());
 
       case AppRoutes.selectDoctorScreen:
-        return MaterialPageRoute(builder: (_) => const SelectDoctorScreen());
+        return MaterialPageRoute(builder: (_) =>  SelectDoctorScreen());
+
+      case AppRoutes.dietChartScreen:
+        return MaterialPageRoute(builder: (_) => const DietChartScreen());
 
       case AppRoutes.settingsScreen:
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
 
       case AppRoutes.doctorScreen:
-        return MaterialPageRoute(builder: (_) => const DoctorScreen());
+        final userModel = settings.arguments as UserModel;
+
+        return MaterialPageRoute(builder: (_) => DoctorScreen(user: userModel));
 
       case AppRoutes.appointmentDetailsScreen:
         final avatarTag = settings.arguments as String;
@@ -92,6 +108,9 @@ class AppRouteGenerator {
           builder: (_) => SelectAppointmentScreen(),
         );
 
+
+      case AppRoutes.chooseSpecialtyScreen:
+        return MaterialPageRoute(builder: (_) => const ChooseSpecialtyScreen());
 
       default:
         return MaterialPageRoute(

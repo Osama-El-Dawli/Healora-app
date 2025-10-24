@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:healora/core/theme/app_colors.dart';
 
 class AppTheme {
@@ -24,12 +23,13 @@ class AppTheme {
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
-        textStyle: WidgetStateProperty.all(
-          GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
       ),
     ),
-
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: AppColors.primary,
+      selectionColor: AppColors.hintColor.withValues(alpha: 0.2),
+      selectionHandleColor: AppColors.secondary,
+    ),
     dropdownMenuTheme: DropdownMenuThemeData(
       textStyle: TextStyle(
         color: AppColors.primary,

@@ -41,7 +41,11 @@ class _MessagesListViewState extends State<MessagesListView> {
 
   void _scrollToBottom() {
     if (_scrollController.hasClients) {
-      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
     }
   }
 
@@ -52,6 +56,14 @@ class _MessagesListViewState extends State<MessagesListView> {
   }
 
   @override
+  /*************  ✨ Windsurf Command ⭐  *************/
+  /// Builds a ListView containing all messages from the given list.
+  ///
+  /// The list is built from the top down, with newer messages
+  /// appearing below older ones. Each message is rendered as a
+  /// [BubbleMessage] widget, with the top margin of each message
+  /*******  fd27abcd-4be6-466a-a78b-d2e440fce6f1  *******/
+  /// as the previous message, or 16 logical pixels otherwise.
   Widget build(BuildContext context) {
     return ListView.builder(
       controller: _scrollController,

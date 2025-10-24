@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/home/presentation/widgets/home_screen_list_view.dart';
@@ -27,20 +28,25 @@ class HomeScreenBody extends StatelessWidget {
                     color: AppColors.primary,
                   ),
                 ),
-                CircleAvatar(
-                  radius: 23.r,
-                  backgroundColor: AppColors.lightGray,
+                InkWell(
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    AppRoutes.settingsScreen,
+                    arguments: user,
+                  ),
                   child: CircleAvatar(
-                    radius: 15.r,
-                    backgroundImage: AssetImage('assets/images/avatar.png'),
+                    radius: 23.r,
+                    backgroundColor: AppColors.lightGray,
+                    child: CircleAvatar(
+                      radius: 15.r,
+                      backgroundImage: AssetImage('assets/images/avatar.png'),
+                    ),
                   ),
                 ),
               ],
             ),
             SizedBox(height: 16.h),
-            Expanded(child: HomeScreenListView(
-              user: user,
-            )),
+            Expanded(child: HomeScreenListView(user: user)),
           ],
         ),
       ),

@@ -41,9 +41,12 @@ class _LoginScreenState extends State<LoginScreen> {
               textColor: AppColors.backgroundColor,
               fontSize: 16.sp,
             );
-            Navigator.of(
-              context,
-            ).pushReplacementNamed(AppRoutes.homeScreen, arguments: state.user);
+            Navigator.of(context).pushReplacementNamed(
+              state.user.role == 'doctor'
+                  ? AppRoutes.doctorScreen
+                  : AppRoutes.homeScreen,
+              arguments: state.user,
+            );
           } else if (state is LoginFailure) {
             Fluttertoast.showToast(
               msg: state.generalError!,
