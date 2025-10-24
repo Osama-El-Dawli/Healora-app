@@ -49,9 +49,8 @@ class Healora extends StatelessWidget {
         theme: AppTheme.lightMode,
         darkTheme: AppTheme.darkMode,
         themeMode: ThemeMode.light,
-        initialRoute: AppRoutes.loginScreen,
+        initialRoute: AppRoutes.selectDoctorScreen,
       ),
     );
   }
-  }
-
+}
