@@ -39,6 +39,7 @@ class Healora extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => MaterialApp(
+
         title: 'Healora',
         debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,
@@ -48,8 +49,9 @@ class Healora extends StatelessWidget {
         theme: AppTheme.lightMode,
         darkTheme: AppTheme.darkMode,
         themeMode: ThemeMode.light,
-        initialRoute: AppRoutes.loginScreen,
+        initialRoute: AppRoutes.chooseSpecialtyScreen,
       ),
     );
   }
-}
+  }
+

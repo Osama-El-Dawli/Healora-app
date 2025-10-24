@@ -10,14 +10,6 @@ class Assets {
   /// assets/images/avatar.png
   static const String imagesAvatar = "assets/images/avatar.png";
 
-  /// Assets for imagesChatBot
-  /// assets/images/chat_bot.png
-  static const String imagesChatBot = "assets/images/chat_bot.png";
-
-  /// Assets for imagesEG
-  /// assets/images/EG.png
-  static const String imagesEG = "assets/images/EG.png";
-
   /// Assets for imagesHealoraBranding
   /// assets/images/healora_branding.png
   static const String imagesHealoraBranding = "assets/images/healora_branding.png";
@@ -65,14 +57,6 @@ class Assets {
   /// Assets for imagesOnboarding3
   /// assets/images/onboarding3.png
   static const String imagesOnboarding3 = "assets/images/onboarding3.png";
-
-  /// Assets for imagesSelect
-  /// assets/images/select.png
-  static const String imagesSelect = "assets/images/select.png";
-
-  /// Assets for imagesSend
-  /// assets/images/send.png
-  static const String imagesSend = "assets/images/send.png";
 
   /// Assets for imagesSplash
   /// assets/images/splash.png
