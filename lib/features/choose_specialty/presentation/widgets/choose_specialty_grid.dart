@@ -80,7 +80,16 @@ class ChooseSpecialtyGrid extends StatelessWidget {
                   onTap: () {
                     Navigator.pushNamed(context, AppRoutes.selectDoctorScreen);
                   },
-                  child: ChooseSpecialtyCard(choose: specialty[index]),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(12.r),
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.selectDoctorScreen,
+                      );
+                    },
+                    child: ChooseSpecialtyCard(choose: specialty[index]),
+                  ),
                 ),
               ),
             ),

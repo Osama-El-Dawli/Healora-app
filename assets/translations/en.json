@@ -65,7 +65,7 @@
   "Radiology": "Radiology",
   "Physiotherapy": "Physiotherapy",
   "Gastroenterology": "Gastroenterology",
-  "Choose Specialty":"Choose Specialty",
+  "Choose Specialty": "Choose Specialty",
   "Hepatology": "Hepatology",
   "Psychiatry": "Psychiatry",
   "Follow-up Date": "Follow-up Date",
@@ -78,5 +78,8 @@
   "neurologist": "🧠 Neurologist",
   "ophthalmologist": "👁️ Ophthalmologist",
   "dentist": "🦷 Dentist",
-  "gynecologist": "🤰 Gynecologist"
+  "gynecologist": "🤰 Gynecologist",
+  "Book Appointment": "Book Appointment",
+  "Select date": "Select date",
+  "Book": "Book"
 }

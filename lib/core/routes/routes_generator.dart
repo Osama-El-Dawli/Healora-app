@@ -85,7 +85,7 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const MedicalHistoryScreen());
 
       case AppRoutes.selectDoctorScreen:
-        return MaterialPageRoute(builder: (_) =>  SelectDoctorScreen());
+        return MaterialPageRoute(builder: (_) => SelectDoctorScreen());
 
       case AppRoutes.dietChartScreen:
         return MaterialPageRoute(builder: (_) => const DietChartScreen());
@@ -104,10 +104,7 @@ class AppRouteGenerator {
           builder: (_) => AppointmentDetailsScreen(avatarTag: avatarTag),
         );
       case AppRoutes.selectAppointmentScreen:
-        return MaterialPageRoute(
-          builder: (_) => SelectAppointmentScreen(),
-        );
-
+        return MaterialPageRoute(builder: (_) => SelectAppointmentScreen());
 
       case AppRoutes.chooseSpecialtyScreen:
         return MaterialPageRoute(builder: (_) => const ChooseSpecialtyScreen());

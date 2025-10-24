@@ -13,5 +13,5 @@ abstract class AppRoutes {
   static const String appointmentDetailsScreen = '/appointment-details';
   static const String dietChartScreen = '/diet-chart';
   static const String chooseSpecialtyScreen = '/choose-specialty';
-
+  static const String selectAppointmentScreen = '/select-appointment';
 }
