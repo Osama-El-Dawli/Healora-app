@@ -10,6 +10,14 @@ class Assets {
   /// assets/images/avatar.png
   static const String imagesAvatar = "assets/images/avatar.png";
 
+  /// Assets for imagesChatBot
+  /// assets/images/chat_bot.png
+  static const String imagesChatBot = "assets/images/chat_bot.png";
+
+  /// Assets for imagesEG
+  /// assets/images/EG.png
+  static const String imagesEG = "assets/images/EG.png";
+
   /// Assets for imagesHealoraBranding
   /// assets/images/healora_branding.png
   static const String imagesHealoraBranding = "assets/images/healora_branding.png";
@@ -57,6 +65,74 @@ class Assets {
   /// Assets for imagesOnboarding3
   /// assets/images/onboarding3.png
   static const String imagesOnboarding3 = "assets/images/onboarding3.png";
+
+  /// Assets for imagesSelect
+  /// assets/images/select.png
+  static const String imagesSelect = "assets/images/select.png";
+
+  /// Assets for imagesSend
+  /// assets/images/send.png
+  static const String imagesSend = "assets/images/send.png";
+
+  /// Assets for imagesSpecialtyCardiology
+  /// assets/images/specialty/Cardiology.png
+  static const String imagesSpecialtyCardiology = "assets/images/specialty/Cardiology.png";
+
+  /// Assets for imagesSpecialtyGastroenterology
+  /// assets/images/specialty/Gastroenterology.png
+  static const String imagesSpecialtyGastroenterology = "assets/images/specialty/Gastroenterology.png";
+
+  /// Assets for imagesSpecialtyGeneralInternal
+  /// assets/images/specialty/General_Internal.png
+  static const String imagesSpecialtyGeneralInternal = "assets/images/specialty/General_Internal.png";
+
+  /// Assets for imagesSpecialtyHepatology
+  /// assets/images/specialty/Hepatology.png
+  static const String imagesSpecialtyHepatology = "assets/images/specialty/Hepatology.png";
+
+  /// Assets for imagesSpecialtyImg1
+  /// assets/images/specialty/img_1.png
+  static const String imagesSpecialtyImg1 = "assets/images/specialty/img_1.png";
+
+  /// Assets for imagesSpecialtyImg2
+  /// assets/images/specialty/img_2.png
+  static const String imagesSpecialtyImg2 = "assets/images/specialty/img_2.png";
+
+  /// Assets for imagesSpecialtyImg3
+  /// assets/images/specialty/img_3.png
+  static const String imagesSpecialtyImg3 = "assets/images/specialty/img_3.png";
+
+  /// Assets for imagesSpecialtyImg5
+  /// assets/images/specialty/img_5.png
+  static const String imagesSpecialtyImg5 = "assets/images/specialty/img_5.png";
+
+  /// Assets for imagesSpecialtyNephrology
+  /// assets/images/specialty/Nephrology.png
+  static const String imagesSpecialtyNephrology = "assets/images/specialty/Nephrology.png";
+
+  /// Assets for imagesSpecialtyOphthalmology
+  /// assets/images/specialty/Ophthalmology.png
+  static const String imagesSpecialtyOphthalmology = "assets/images/specialty/Ophthalmology.png";
+
+  /// Assets for imagesSpecialtyPathology
+  /// assets/images/specialty/Pathology.png
+  static const String imagesSpecialtyPathology = "assets/images/specialty/Pathology.png";
+
+  /// Assets for imagesSpecialtyPhysiotherapy
+  /// assets/images/specialty/Physiotherapy.png
+  static const String imagesSpecialtyPhysiotherapy = "assets/images/specialty/Physiotherapy.png";
+
+  /// Assets for imagesSpecialtyPsychiatry
+  /// assets/images/specialty/Psychiatry.png
+  static const String imagesSpecialtyPsychiatry = "assets/images/specialty/Psychiatry.png";
+
+  /// Assets for imagesSpecialtyPulmonology
+  /// assets/images/specialty/Pulmonology.png
+  static const String imagesSpecialtyPulmonology = "assets/images/specialty/Pulmonology.png";
+
+  /// Assets for imagesSpecialtyRadiology
+  /// assets/images/specialty/Radiology.png
+  static const String imagesSpecialtyRadiology = "assets/images/specialty/Radiology.png";
 
   /// Assets for imagesSplash
   /// assets/images/splash.png

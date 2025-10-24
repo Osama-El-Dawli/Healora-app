@@ -19,7 +19,7 @@ class HomeScreenListView extends StatelessWidget {
     HomeScreenModel(
       image: 'assets/images/home_page3.png',
       title: 'Choose a Doctor'.tr(),
-      route: AppRoutes.selectDoctorScreen,
+      route: AppRoutes.chooseSpecialtyScreen,
     ),
     HomeScreenModel(
       image: 'assets/images/home_page1.png',

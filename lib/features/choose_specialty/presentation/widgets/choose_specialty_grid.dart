@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:healora/core/utils/app_assets.dart';
+import 'package:healora/features/choose_specialty/data/models/choose_specialty_model.dart';
 import 'package:healora/features/choose_specialty/presentation/widgets/choose_specialty_card.dart';
-
-import '../../data/models/choose_specialty_model.dart';
 
 class ChooseSpecialtyGrid extends StatelessWidget {
   const ChooseSpecialtyGrid({super.key});
