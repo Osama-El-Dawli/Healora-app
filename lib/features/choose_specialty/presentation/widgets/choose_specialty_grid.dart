@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/utils/app_assets.dart';
 import 'package:healora/features/choose_specialty/data/models/choose_specialty_model.dart';
 import 'package:healora/features/choose_specialty/presentation/widgets/choose_specialty_card.dart';
@@ -75,7 +76,12 @@ class ChooseSpecialtyGrid extends StatelessWidget {
               verticalOffset: 100.0,
               curve: Curves.easeOutCubic,
               child: FadeInAnimation(
-                child: ChooseSpecialtyCard(choose: specialty[index]),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.selectDoctorScreen);
+                  },
+                  child: ChooseSpecialtyCard(choose: specialty[index]),
+                ),
               ),
             ),
           );
