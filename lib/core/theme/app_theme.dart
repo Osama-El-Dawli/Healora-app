@@ -157,19 +157,20 @@ class AppTheme {
     ),
     // fontFamily: GoogleFonts.raleway().fontFamily,
   );
+
   static ThemeData darkMode = ThemeData(
     brightness: Brightness.dark,
 
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: AppColors.darkTextPrimary,
-      foregroundColor: AppColors.darkBackground,
+      backgroundColor: AppColors.primary,
+      foregroundColor: Colors.white,
       shape: CircleBorder(),
     ),
 
     scaffoldBackgroundColor: AppColors.darkBackground,
 
     appBarTheme: AppBarTheme(
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.darkCard,
       foregroundColor: AppColors.darkTextPrimary,
       elevation: 0,
       scrolledUnderElevation: 0,
@@ -179,19 +180,18 @@ class AppTheme {
         fontWeight: FontWeight.w700,
         color: AppColors.darkTextPrimary,
       ),
+      iconTheme: const IconThemeData(color: AppColors.darkTextPrimary),
     ),
 
     switchTheme: SwitchThemeData(
-      trackColor: WidgetStateProperty.all(
-        AppColors.darkHint.withValues(alpha: 0.4),
-      ),
-      trackOutlineColor: WidgetStateProperty.all(AppColors.primary),
+      trackColor: WidgetStateProperty.all(AppColors.darkHint.withOpacity(0.4)),
       thumbColor: WidgetStateProperty.all(AppColors.primary),
+      trackOutlineColor: WidgetStateProperty.all(AppColors.primary),
     ),
 
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        foregroundColor: WidgetStateProperty.all(AppColors.white),
+        foregroundColor: WidgetStateProperty.all(Colors.white),
         backgroundColor: WidgetStateProperty.all(AppColors.primary),
         minimumSize: WidgetStateProperty.all(const Size(double.infinity, 48)),
         shape: WidgetStateProperty.all(
@@ -201,9 +201,9 @@ class AppTheme {
     ),
 
     textSelectionTheme: TextSelectionThemeData(
-      cursorColor: AppColors.darkTextPrimary,
-      selectionColor: AppColors.darkHint.withValues(alpha: 0.2),
-      selectionHandleColor: AppColors.darkTextPrimary,
+      cursorColor: AppColors.primary,
+      selectionColor: AppColors.primary.withOpacity(0.3),
+      selectionHandleColor: AppColors.primary,
     ),
 
     dropdownMenuTheme: DropdownMenuThemeData(
@@ -262,11 +262,6 @@ class AppTheme {
         borderSide: BorderSide(color: AppColors.darkBorder, width: 1.w),
       ),
 
-      disabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.r),
-        borderSide: BorderSide(color: AppColors.darkBorder, width: 1.w),
-      ),
-
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.r),
         borderSide: BorderSide(color: AppColors.primary, width: 1.5.w),
@@ -300,7 +295,7 @@ class AppTheme {
       ),
       titleMedium: TextStyle(
         fontSize: 20.sp,
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w600,
         color: AppColors.darkTextPrimary,
       ),
       titleSmall: TextStyle(
@@ -311,11 +306,11 @@ class AppTheme {
       labelLarge: TextStyle(
         fontSize: 14.sp,
         fontWeight: FontWeight.w500,
-        color: AppColors.darkTextPrimary,
+        color: AppColors.darkTextSecondary,
       ),
       labelSmall: TextStyle(
         fontSize: 12.sp,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
         color: AppColors.darkTextSecondary,
       ),
     ),

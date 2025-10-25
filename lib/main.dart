@@ -64,7 +64,7 @@ class Healora extends StatelessWidget {
 
         theme: AppTheme.lightMode,
         darkTheme: AppTheme.darkMode,
-        themeMode: ThemeMode.light,
+        themeMode: ThemeMode.dark,
         initialRoute: isOnboardingVisited
             ? (user != null
                   ? (user.role == 'doctor'
