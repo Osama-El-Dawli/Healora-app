@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/utils/app_assets.dart';
 import 'package:healora/core/widgets/custom_profile_avatar.dart';
@@ -22,7 +23,12 @@ class DoctorHeader extends StatelessWidget {
           ),
         ),
         Spacer(),
-        CustomProfileAvatar(imageUrl: Assets.imagesAvatar),
+        InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, AppRoutes.settingsScreen);
+          },
+          child: CustomProfileAvatar(imageUrl: Assets.imagesAvatar),
+        ),
       ],
     );
   }
