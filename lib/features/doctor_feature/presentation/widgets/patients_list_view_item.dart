@@ -18,8 +18,8 @@ class PatientsListViewItem extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
         subtitle: Text(
           '12 Oct, 2025 | 10:00 AM',
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: Color(0xff6FA4C8),
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            color: AppColors.hintColor,
             fontWeight: FontWeight.w500,
           ),
         ),
