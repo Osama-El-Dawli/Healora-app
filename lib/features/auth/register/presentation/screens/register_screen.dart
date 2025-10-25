@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:healora/core/cache/hive_manager.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/validators/form_validators.dart';
@@ -38,6 +39,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final phoneController = TextEditingController();
 
   @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final items = ['doctor', 'patient'];
     final List<String> specializations = [
@@ -65,6 +77,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               textColor: AppColors.backgroundColor,
               fontSize: 16.sp,
             );
+
+            HiveManager.saveUser(state.user);
 
             Navigator.of(context).pushReplacementNamed(
               selectedRole == 'doctor'

@@ -31,8 +31,8 @@ class AppRouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.homeScreen:
-        final userModel = settings.arguments as UserModel;
-        return MaterialPageRoute(builder: (_) => HomeScreen(user: userModel));
+        final userModel = settings.arguments as UserModel?;
+        return MaterialPageRoute(builder: (_) => HomeScreen(user: userModel!));
 
       case AppRoutes.loginScreen:
         return MaterialPageRoute(
@@ -94,9 +94,11 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const SettingsScreen());
 
       case AppRoutes.doctorScreen:
-        final userModel = settings.arguments as UserModel;
+        final userModel = settings.arguments as UserModel?;
 
-        return MaterialPageRoute(builder: (_) => DoctorScreen(user: userModel));
+        return MaterialPageRoute(
+          builder: (_) => DoctorScreen(user: userModel!),
+        );
 
       case AppRoutes.appointmentDetailsScreen:
         final avatarTag = settings.arguments as String;

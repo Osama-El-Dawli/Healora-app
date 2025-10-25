@@ -1,12 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hive_ce/hive.dart';
 
-class UserModel {
+part 'user_model.g.dart';
+
+@HiveType(typeId: 0)
+class UserModel extends HiveObject {
+  @HiveField(0)
   final String uid;
+  @HiveField(1)
   final String firstName;
+  @HiveField(2)
   final String lastName;
+  @HiveField(3)
   final String email;
+  @HiveField(4)
   final String phoneNumber;
+  @HiveField(5)
   final String role;
+  @HiveField(6)
   final String specialization;
 
   UserModel({

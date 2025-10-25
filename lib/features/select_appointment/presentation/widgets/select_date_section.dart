@@ -55,7 +55,7 @@ class _SelectDateSectionState extends State<SelectDateSection> {
             ),
             Expanded(
               child: SizedBox(
-                height: 70.h,
+                height: 75.h,
                 child: ListView.separated(
                   controller: _scrollController,
                   separatorBuilder: (_, index) => SizedBox(width: 10.w),
