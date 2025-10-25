@@ -12,8 +12,22 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.backgroundColor,
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
+      foregroundColor: AppColors.primary,
       elevation: 0,
       scrolledUnderElevation: 0,
+      centerTitle: true,
+      titleTextStyle: TextStyle(
+        fontSize: 20.sp,
+        fontWeight: FontWeight.w700,
+        color: AppColors.primary,
+      ),
+    ),
+    switchTheme: SwitchThemeData(
+      trackColor: WidgetStateProperty.all(
+        AppColors.suffixIconColor.withValues(alpha: 0.4),
+      ),
+      trackOutlineColor: WidgetStateProperty.all(AppColors.primary),
+      thumbColor: WidgetStateProperty.all(AppColors.primary),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(

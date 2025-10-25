@@ -16,12 +16,14 @@ import 'package:healora/features/diet_chart/presentation/screens/settings_screen
 import 'package:healora/features/choose_specialty/presentation/screens/choose_specialty_scrren.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
+import 'package:healora/features/edit_account/presentation/screens/edit_account.dart';
 import 'package:healora/features/home/presentation/screens/home_screen.dart';
 import 'package:healora/features/lab_results/presentation/screens/lab_results_screen.dart';
 import 'package:healora/features/medical_chatbot/cubit/chat_bot_cubit/chat_bot_cubit.dart';
 import 'package:healora/features/medical_chatbot/data/repositories/chat_bot_repo.dart';
 import 'package:healora/features/medical_chatbot/presentation/screens/medical_chatbot_screen.dart';
 import 'package:healora/features/medical_history/presentation/screens/medical_history_screen.dart';
+import 'package:healora/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:healora/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:healora/features/select_appointment/presentation/screens/select_appointment_screen.dart';
 import 'package:healora/features/select_doctor/presentation/screens/select_doctor_screen.dart';
@@ -77,6 +79,12 @@ class AppRouteGenerator {
 
       case AppRoutes.labResultsScreen:
         return MaterialPageRoute(builder: (_) => const LabResultsScreen());
+
+      case AppRoutes.editAccountScreen:
+        return MaterialPageRoute(builder: (_) => const EditAccountScreen());
+
+      case AppRoutes.notificationsScreen:
+        return MaterialPageRoute(builder: (_) => const NotificationsScreen());
 
       case AppRoutes.onBoardingScreen:
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
