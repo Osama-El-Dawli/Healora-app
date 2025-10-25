@@ -158,36 +158,165 @@ class AppTheme {
     // fontFamily: GoogleFonts.raleway().fontFamily,
   );
   static ThemeData darkMode = ThemeData(
+    brightness: Brightness.dark,
+
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: AppColors.darkTextPrimary,
+      foregroundColor: AppColors.darkBackground,
+      shape: CircleBorder(),
+    ),
+
+    scaffoldBackgroundColor: AppColors.darkBackground,
+
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.primary,
+      foregroundColor: AppColors.darkTextPrimary,
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      centerTitle: true,
+      titleTextStyle: TextStyle(
+        fontSize: 20.sp,
+        fontWeight: FontWeight.w700,
+        color: AppColors.darkTextPrimary,
+      ),
+    ),
+
+    switchTheme: SwitchThemeData(
+      trackColor: WidgetStateProperty.all(
+        AppColors.darkHint.withValues(alpha: 0.4),
+      ),
+      trackOutlineColor: WidgetStateProperty.all(AppColors.primary),
+      thumbColor: WidgetStateProperty.all(AppColors.primary),
+    ),
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: WidgetStateProperty.all(AppColors.white),
+        backgroundColor: WidgetStateProperty.all(AppColors.primary),
+        minimumSize: WidgetStateProperty.all(const Size(double.infinity, 48)),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+      ),
+    ),
+
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: AppColors.darkTextPrimary,
+      selectionColor: AppColors.darkHint.withValues(alpha: 0.2),
+      selectionHandleColor: AppColors.darkTextPrimary,
+    ),
+
+    dropdownMenuTheme: DropdownMenuThemeData(
+      textStyle: TextStyle(
+        color: AppColors.darkTextPrimary,
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.darkCard,
+        labelStyle: TextStyle(
+          color: AppColors.darkHint,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w500,
+        ),
+        hintStyle: TextStyle(
+          color: AppColors.darkTextSecondary,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w500,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: AppColors.darkBorder),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.r),
+          borderSide: BorderSide(color: AppColors.primary, width: 1.5.w),
+        ),
+      ),
+    ),
+
+    inputDecorationTheme: InputDecorationTheme(
+      prefixStyle: TextStyle(
+        color: AppColors.darkTextPrimary,
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500,
+      ),
+      suffixIconColor: AppColors.darkTextSecondary,
+      filled: true,
+      fillColor: AppColors.darkCard,
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      hintStyle: TextStyle(
+        color: AppColors.darkTextSecondary,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
+
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.r),
+        borderSide: BorderSide(color: AppColors.darkBorder, width: 1.w),
+      ),
+
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.r),
+        borderSide: BorderSide(color: AppColors.darkBorder, width: 1.w),
+      ),
+
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.r),
+        borderSide: BorderSide(color: AppColors.darkBorder, width: 1.w),
+      ),
+
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.r),
+        borderSide: BorderSide(color: AppColors.primary, width: 1.5.w),
+      ),
+
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.r),
+        borderSide: BorderSide(color: AppColors.red, width: 1.5.w),
+      ),
+
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.r),
+        borderSide: BorderSide(color: AppColors.red, width: 2.w),
+      ),
+
+      labelStyle: TextStyle(color: AppColors.darkHint),
+      helperStyle: TextStyle(color: AppColors.darkTextSecondary),
+      errorStyle: TextStyle(color: AppColors.red, fontSize: 12.sp),
+    ),
+
     textTheme: TextTheme(
+      displaySmall: TextStyle(
+        fontSize: 32.sp,
+        fontWeight: FontWeight.w700,
+        color: AppColors.darkTextPrimary,
+      ),
       titleLarge: TextStyle(
         fontSize: 24.sp,
-        fontWeight: FontWeight.w500,
-        color: AppColors.backgroundColor,
+        fontWeight: FontWeight.w700,
+        color: AppColors.darkTextPrimary,
       ),
       titleMedium: TextStyle(
-        fontSize: 16.sp,
-        fontWeight: FontWeight.w400,
-        color: AppColors.backgroundColor,
+        fontSize: 20.sp,
+        fontWeight: FontWeight.w700,
+        color: AppColors.darkTextPrimary,
       ),
       titleSmall: TextStyle(
-        fontSize: 14.sp,
-        fontWeight: FontWeight.w400,
-        color: AppColors.backgroundColor,
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500,
+        color: AppColors.darkTextSecondary,
       ),
       labelLarge: TextStyle(
-        fontSize: 20.sp,
-        fontWeight: FontWeight.w400,
-        color: AppColors.black,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w500,
+        color: AppColors.darkTextPrimary,
       ),
       labelSmall: TextStyle(
         fontSize: 12.sp,
         fontWeight: FontWeight.w500,
-        color: AppColors.gray,
-      ),
-      displaySmall: TextStyle(
-        fontSize: 36.sp,
-        fontWeight: FontWeight.bold,
-        color: AppColors.backgroundColor,
+        color: AppColors.darkTextSecondary,
       ),
     ),
   );
