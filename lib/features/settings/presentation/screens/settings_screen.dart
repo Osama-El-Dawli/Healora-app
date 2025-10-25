@@ -1,13 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:healora/core/routes/routes.dart';
+import 'package:healora/features/settings/presentation/widgets/settings_screen_body.dart';
 
 class SettingsScreen extends StatelessWidget {
-  static const String routeName = AppRoutes.settingsScreen;
-
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(title: Text('settings'.tr())),
+      body: SafeArea(child: SettingsScreenBody()),
+    );
   }
 }

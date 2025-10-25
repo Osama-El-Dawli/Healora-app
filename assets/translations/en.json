@@ -81,5 +81,10 @@
   "gynecologist": "🤰 Gynecologist",
   "Book Appointment": "Book Appointment",
   "Select date": "Select date",
-  "Book": "Book"
+  "Book": "Book",
+  "settings": "Settings",
+  "account": "Account",
+  "notifications": "Notifications",
+  "dark_mode": "Dark Mode",
+  "logout": "Logout"
 }
