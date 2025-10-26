@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
+import 'package:healora/core/utils/app_assets.dart';
+import 'package:healora/core/widgets/custom_profile_avatar.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/home/presentation/widgets/home_screen_list_view.dart';
 
@@ -29,19 +31,13 @@ class HomeScreenBody extends StatelessWidget {
                   ),
                 ),
                 InkWell(
+                  borderRadius: BorderRadius.circular(23.r),
                   onTap: () => Navigator.pushNamed(
                     context,
                     AppRoutes.settingsScreen,
                     arguments: user,
                   ),
-                  child: CircleAvatar(
-                    radius: 23.r,
-                    backgroundColor: AppColors.lightGray,
-                    child: CircleAvatar(
-                      radius: 15.r,
-                      backgroundImage: AssetImage('assets/images/avatar.png'),
-                    ),
-                  ),
+                  child: CustomProfileAvatar(imageUrl: Assets.imagesAvatar),
                 ),
               ],
             ),

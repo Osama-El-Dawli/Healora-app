@@ -184,7 +184,9 @@ class AppTheme {
     ),
 
     switchTheme: SwitchThemeData(
-      trackColor: WidgetStateProperty.all(AppColors.darkHint.withOpacity(0.4)),
+      trackColor: WidgetStateProperty.all(
+        AppColors.darkHint.withValues(alpha: 0.4),
+      ),
       thumbColor: WidgetStateProperty.all(AppColors.primary),
       trackOutlineColor: WidgetStateProperty.all(AppColors.primary),
     ),
@@ -202,7 +204,7 @@ class AppTheme {
 
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: AppColors.primary,
-      selectionColor: AppColors.primary.withOpacity(0.3),
+      selectionColor: AppColors.primary.withValues(alpha: 0.3),
       selectionHandleColor: AppColors.primary,
     ),
 
