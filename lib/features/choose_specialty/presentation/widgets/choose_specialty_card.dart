@@ -43,12 +43,13 @@ class ChooseSpecialtyCard extends StatelessWidget {
             ),
             SizedBox(height: 8.h),
             Expanded(
-              child: Center(
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.only(bottom: 5.h),
                 child: Text(
-
                   choose.spacialityName,
                   style: textTheme.titleSmall?.copyWith(color: AppColors.primary),
-                  maxLines: 3,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

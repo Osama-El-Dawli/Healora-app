@@ -59,10 +59,10 @@ class ChooseSpecialityBody extends StatelessWidget {
               },
             ),
           ),
-          SliverToBoxAdapter(child: SizedBox(height: 16.h)),
+          SliverToBoxAdapter(child: SizedBox(height: 15.h)),
           SliverToBoxAdapter(
             child: Container(
-              margin: EdgeInsets.all(16.w),
+              margin: EdgeInsets.all(2.w),
               decoration: BoxDecoration(
                 color: AppColors.gray,
                 borderRadius: BorderRadius.circular(16.r),
