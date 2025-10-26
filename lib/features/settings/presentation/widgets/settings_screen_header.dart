@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
-import 'package:healora/core/utils/app_assets.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 
 class SettingsScreenHeader extends StatelessWidget {
@@ -28,7 +27,7 @@ class SettingsScreenHeader extends StatelessWidget {
                 width: 150,
                 child: CircleAvatar(
                   radius: 28.r,
-                  child: Image.asset(Assets.imagesAvatar),
+                  child: Image.asset(user.imageUrl),
                 ),
               ),
               Positioned(

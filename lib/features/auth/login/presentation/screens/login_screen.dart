@@ -5,14 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
-import 'package:healora/core/validators/form_validators.dart';
 import 'package:healora/core/widgets/auth_header.dart';
-import 'package:healora/core/widgets/custom_elevated_button.dart';
-import 'package:healora/core/widgets/custom_text_form_field.dart';
 import 'package:healora/core/widgets/lang_toggle.dart';
 import 'package:healora/core/widgets/loading_indicator.dart';
 import 'package:healora/features/auth/login/cubit/login_cubit.dart';
 import 'package:healora/features/auth/login/cubit/login_state.dart';
+import 'package:healora/features/auth/login/presentation/widgets/do_not_have_account.dart';
+import 'package:healora/features/auth/login/presentation/widgets/logn_form.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = AppRoutes.loginScreen;
@@ -22,24 +21,20 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
+          if (state is LoginLoading) {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) => const LoadingIndicator(),
+            );
+          }
           if (state is LoginSuccess) {
+            Navigator.pop(context);
             Fluttertoast.showToast(
               msg: "login_successfully".tr(),
               toastLength: Toast.LENGTH_LONG,
@@ -56,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
               arguments: state.user,
             );
           } else if (state is LoginFailure) {
+            Navigator.pop(context);
             Fluttertoast.showToast(
               msg: state.generalError!,
               toastLength: Toast.LENGTH_LONG,
@@ -68,85 +64,28 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },
         builder: (context, state) {
-          return Stack(
-            children: [
-              SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: SingleChildScrollView(
-                    child: Form(
-                      key: formKey,
-                      child: Column(
-                        children: [
-                          AuthHeader(
-                            message: 'welcome_back'.tr(),
-                            action: 'login'.tr(),
-                          ),
-                          CustomTextFormField(
-                            hintText: 'email'.tr(),
-                            controller: emailController,
-                            validator: FormValidators.validateLoginEmail,
-                          ),
-                          CustomTextFormField(
-                            hintText: 'password'.tr(),
-                            isPassword: true,
-                            controller: passwordController,
-                            validator: FormValidators.validateLoginPassword,
-                          ),
-                          SizedBox(height: 12.h),
-                          SizedBox(
-                            width: double.infinity,
-                            child: CustomElevatedButton(
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  context.read<LoginCubit>().login(
-                                    email: emailController.text.trim(),
-                                    password: passwordController.text.trim(),
-                                  );
-                                }
-                              },
-                              label: 'login'.tr(),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'dont_have_an_account?'.tr(),
-                                style: textTheme.labelLarge?.copyWith(
-                                  color: AppColors.darkGreen,
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    AppRoutes.registerScreen,
-                                  );
-                                },
-                                child: Text(
-                                  'sign_up'.tr(),
-                                  style: textTheme.labelLarge?.copyWith(
-                                    color: AppColors.primary,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          LanguageSwitchRow(
-                            currentLang: context.locale.languageCode,
-                            onSelect: (lang) async {
-                              await context.setLocale(Locale(lang));
-                            },
-                          ),
-                        ],
-                      ),
+          return SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    AuthHeader(
+                      message: 'welcome_back'.tr(),
+                      action: 'login'.tr(),
                     ),
-                  ),
+                    LoginForm(),
+                    DoNotHaveAccount(),
+                    LanguageSwitchRow(
+                      currentLang: context.locale.languageCode,
+                      onSelect: (lang) async {
+                        await context.setLocale(Locale(lang));
+                      },
+                    ),
+                  ],
                 ),
               ),
-              if (state is LoginLoading) const LoadingIndicator(),
-            ],
+            ),
           );
         },
       ),

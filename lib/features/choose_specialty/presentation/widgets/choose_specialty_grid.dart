@@ -53,7 +53,7 @@ class ChooseSpecialtyGrid extends StatelessWidget {
     ChooseSpecialtyModel(
       specialtyName: "General Internal Medicine",
       image: Assets.imagesSpecialtyGeneralInternal,
-    ),
+    ), 
   ];
 
   @override

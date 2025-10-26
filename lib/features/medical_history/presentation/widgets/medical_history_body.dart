@@ -53,7 +53,7 @@ class MedicalHistoryBody extends StatelessWidget {
                       top: kToolbarHeight + 16.h,
                     ),
                     child: Hero(
-                      tag: 'Medical History'.tr(),
+                      tag: 'Medical History',
                       child: CustomCard(
                         title: 'Medical History'.tr(),
                         imageUrl: Assets.imagesHomePage1,
