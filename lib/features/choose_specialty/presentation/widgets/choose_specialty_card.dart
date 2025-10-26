@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:healora/features/choose_specialty/data/models/choose_spacialty_model.dart';
-
+import 'package:healora/features/choose_specialty/data/models/choose_specialty_model.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class ChooseSpecialtyCard extends StatelessWidget {
   const ChooseSpecialtyCard({super.key, required this.choose});
-  final ChooseSpacialityModel choose;
+  final ChooseSpecialtyModel choose;
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +42,12 @@ class ChooseSpecialtyCard extends StatelessWidget {
             ),
             SizedBox(height: 8.h),
             Expanded(
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.only(bottom: 5.h),
+              child: Center(
                 child: Text(
-                  choose.spacialityName,
+
+                  choose.specialtyName,
                   style: textTheme.titleSmall?.copyWith(color: AppColors.primary),
-                  maxLines: 2,
+                  maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

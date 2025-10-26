@@ -10,6 +10,7 @@ import 'package:healora/features/auth/register/data/data_sources/firebase_regist
 import 'package:healora/features/auth/register/data/repositories/register_repository.dart';
 import 'package:healora/features/auth/register/presentation/screens/register_screen.dart';
 import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
+import 'package:healora/features/choose_specialty/presentation/screens/choose_specialty_scrren.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
 import 'package:healora/features/home/presentation/screens/home_screen.dart';
@@ -77,6 +78,9 @@ class AppRouteGenerator {
         return MaterialPageRoute(
           builder: (_) => AppointmentDetailsScreen(avatarTag: avatarTag),
         );
+
+      case AppRoutes.chooseSpecialtyScreen:
+        return MaterialPageRoute(builder: (_) => const ChooseSpecialtyScreen());
 
       default:
         return MaterialPageRoute(

@@ -2,8 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
-
-import 'package:healora/features/choose_specialty/presentation/widgets/choose_speciality_grid.dart';
+import 'package:healora/features/choose_specialty/presentation/widgets/choose_specialty_grid.dart';
 
 class ChooseSpecialityBody extends StatelessWidget {
   const ChooseSpecialityBody({super.key});
@@ -59,15 +58,16 @@ class ChooseSpecialityBody extends StatelessWidget {
               },
             ),
           ),
-          SliverToBoxAdapter(child: SizedBox(height: 15.h)),
+          SliverToBoxAdapter(child: SizedBox(height: 16.h)),
           SliverToBoxAdapter(
             child: Container(
-              margin: EdgeInsets.all(2.w),
+              margin: EdgeInsets.all(16.w),
               decoration: BoxDecoration(
                 color: AppColors.gray,
                 borderRadius: BorderRadius.circular(16.r),
               ),
-              child: const ChooseSpecialityGrid(),
+              child: const ChooseSpecialtyGrid(
+              ),
             ),
           ),
         ],
