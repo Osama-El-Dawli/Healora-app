@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
+import 'package:healora/core/theme/cubit/theme_cubit.dart';
+import 'package:healora/core/theme/cubit/theme_state.dart';
 
 import 'package:healora/features/settings/presentation/widgets/settings_item.dart';
 
-class SettingsList extends StatefulWidget {
+class SettingsList extends StatelessWidget {
   const SettingsList({super.key});
-
-  @override
-  State<SettingsList> createState() => _SettingsListState();
-}
-
-class _SettingsListState extends State<SettingsList> {
-  bool isDark = true;
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +23,11 @@ class _SettingsListState extends State<SettingsList> {
           child: Padding(
             padding: EdgeInsetsDirectional.only(start: 8.w),
             child: SettingsItem(
-              onpressed: () {
-                Navigator.pushNamed(context, AppRoutes.editAccountScreen);
-              },
+              onpressed: () =>
+                  Navigator.pushNamed(context, AppRoutes.editAccountScreen),
               icon: Icons.person,
               title: 'account',
-              leading: Icon(Icons.arrow_forward_ios),
+              leading: const Icon(Icons.arrow_forward_ios),
             ),
           ),
         ),
@@ -44,29 +39,28 @@ class _SettingsListState extends State<SettingsList> {
           child: Padding(
             padding: EdgeInsetsDirectional.only(start: 8.w),
             child: SettingsItem(
-              onpressed: () {
-                Navigator.pushNamed(context, AppRoutes.notificationsScreen);
-              },
+              onpressed: () =>
+                  Navigator.pushNamed(context, AppRoutes.notificationsScreen),
               icon: Icons.notifications,
               title: 'notifications',
-              leading: Icon(Icons.arrow_forward_ios),
+              leading: const Icon(Icons.arrow_forward_ios),
             ),
           ),
         ),
         Padding(
           padding: EdgeInsetsDirectional.only(start: 8.w),
-          child: SettingsItem(
-            onpressed: () {},
-            icon: Icons.dark_mode,
-            title: 'dark_mode',
-            leading: Switch(
-              value: isDark,
-              onChanged: (bool value) {
-                setState(() {
-                  isDark = value;
-                });
-              },
-            ),
+          child: BlocBuilder<ThemeCubit, ThemeState>(
+            builder: (context, state) {
+              final isDark = state is DarkThemeState;
+              return SettingsItem(
+                icon: Icons.dark_mode,
+                title: 'dark_mode',
+                leading: Switch(
+                  value: isDark,
+                  onChanged: (_) => context.read<ThemeCubit>().toggleTheme(),
+                ),
+              );
+            },
           ),
         ),
       ],

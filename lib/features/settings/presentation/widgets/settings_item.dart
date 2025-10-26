@@ -8,13 +8,13 @@ class SettingsItem extends StatelessWidget {
   IconData icon;
   String title;
   Widget leading;
-  VoidCallback onpressed;
+  VoidCallback? onpressed;
   SettingsItem({
     super.key,
     required this.icon,
     required this.title,
     required this.leading,
-    required this.onpressed,
+    this.onpressed,
   });
 
   @override
