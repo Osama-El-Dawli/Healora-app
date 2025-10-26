@@ -7,8 +7,8 @@ import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/validators/form_validators.dart';
 import 'package:healora/core/widgets/auth_header.dart';
-import 'package:healora/core/widgets/custome_elevated_button.dart';
-import 'package:healora/core/widgets/custome_text_form_field.dart';
+import 'package:healora/core/widgets/custom_elevated_button.dart';
+import 'package:healora/core/widgets/custom_text_form_field.dart';
 import 'package:healora/core/widgets/lang_toggle.dart';
 import 'package:healora/core/widgets/loading_indicator.dart';
 import 'package:healora/features/auth/login/cubit/login_cubit.dart';
@@ -25,6 +25,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -41,7 +49,12 @@ class _LoginScreenState extends State<LoginScreen> {
               textColor: AppColors.backgroundColor,
               fontSize: 16.sp,
             );
-            Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen);
+            Navigator.of(context).pushReplacementNamed(
+              state.user.role == 'doctor'
+                  ? AppRoutes.doctorScreen
+                  : AppRoutes.homeScreen,
+              arguments: state.user,
+            );
           } else if (state is LoginFailure) {
             Fluttertoast.showToast(
               msg: state.generalError!,
@@ -69,12 +82,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             message: 'welcome_back'.tr(),
                             action: 'login'.tr(),
                           ),
-                          CustomeTextFormField(
+                          CustomTextFormField(
                             hintText: 'email'.tr(),
                             controller: emailController,
                             validator: FormValidators.validateLoginEmail,
                           ),
-                          CustomeTextFormField(
+                          CustomTextFormField(
                             hintText: 'password'.tr(),
                             isPassword: true,
                             controller: passwordController,
@@ -83,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(height: 12.h),
                           SizedBox(
                             width: double.infinity,
-                            child: CustomeElevatedButton(
+                            child: CustomElevatedButton(
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
                                   context.read<LoginCubit>().login(
@@ -106,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pushReplacementNamed(
+                                  Navigator.pushNamed(
                                     context,
                                     AppRoutes.registerScreen,
                                   );

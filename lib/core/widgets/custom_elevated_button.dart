@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 
-class CustomeElevatedButton extends StatelessWidget {
+class CustomElevatedButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
+  final Color? color;
 
-  const CustomeElevatedButton({
+  const CustomElevatedButton({
     super.key,
     required this.label,
     required this.onPressed,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: ElevatedButton(onPressed: onPressed, child: Text(label)),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(backgroundColor: color),
+        child: Text(label),
+      ),
     );
   }
 }

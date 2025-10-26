@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/doctor_feature/presentation/widgets/doctor_header.dart';
 import 'package:healora/features/doctor_feature/presentation/widgets/patient_list_view.dart';
 
 class DoctorScreenBody extends StatelessWidget {
-  const DoctorScreenBody({super.key});
+  final UserModel user;
+
+  const DoctorScreenBody({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,7 @@ class DoctorScreenBody extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
           children: [
-            DoctorHeader(),
+            DoctorHeader(user: user),
             SizedBox(height: 8.h),
             Expanded(child: PatientListView()),
           ],

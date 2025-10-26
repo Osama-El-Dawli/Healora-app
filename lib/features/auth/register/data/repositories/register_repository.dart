@@ -11,15 +11,17 @@ class RegisterRepository {
     required String password,
     required String phoneNumber,
     required String role,
+    required String specialization,
   }) async {
     try {
       final user = await dataSource.register(
-        firstname: firstName,
+        firstName: firstName,
         lastName: lastName,
         email: email,
         password: password,
         phoneNumber: phoneNumber,
         role: role,
+        specialization: specialization,
       );
 
       return user;

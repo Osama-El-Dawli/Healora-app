@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:healora/core/cache/hive_manager.dart';
 import 'package:healora/features/auth/login/cubit/login_state.dart';
 import 'package:healora/features/auth/login/data/repositories/login_repository.dart';
 
@@ -10,8 +11,9 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> login({required String email, required String password}) async {
     emit(LoginLoading());
     try {
-      final uid = await repository.login(email: email, password: password);
-      emit(LoginSuccess(uid));
+      final user = await repository.login(email: email, password: password);
+      HiveManager.saveUser(user);
+      emit(LoginSuccess(user: user));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-credential') {
         emit(LoginFailure(generalError: 'invalid_email_or_password'.tr()));

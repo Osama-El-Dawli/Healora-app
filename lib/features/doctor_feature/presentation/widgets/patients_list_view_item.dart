@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/utils/app_assets.dart';
 
@@ -19,8 +18,8 @@ class PatientsListViewItem extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
         subtitle: Text(
           '12 Oct, 2025 | 10:00 AM',
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: Color(0xff6FA4C8),
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            color: AppColors.hintColor,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -32,9 +31,7 @@ class PatientsListViewItem extends StatelessWidget {
           ),
         ),
         trailing: IconButton(
-          onPressed: () {
-            Navigator.pushNamed(context, AppRoutes.chatScreen);
-          },
+          onPressed: () {},
           icon: Icon(Icons.chat, color: AppColors.secondary),
         ),
         title: Hero(

@@ -17,15 +17,16 @@ class CustomCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
       child: Row(
         children: [
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w700,
-              color: AppColors.primary,
+          Expanded(
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: AppColors.primary,
+              ),
             ),
           ),
-          Spacer(),
-          Image.asset(imageUrl, width: 144.w),
+          Image.asset(imageUrl, width: 142.w),
         ],
       ),
     );
