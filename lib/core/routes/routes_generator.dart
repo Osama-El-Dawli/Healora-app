@@ -26,6 +26,8 @@ import 'package:healora/features/medical_history/presentation/screens/medical_hi
 import 'package:healora/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:healora/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:healora/features/select_appointment/presentation/screens/select_appointment_screen.dart';
+import 'package:healora/features/select_doctor/cubit/select_doctor_cubit/select_doctor_cubit.dart';
+import 'package:healora/features/select_doctor/data/repositories/select_doctor_repo.dart';
 import 'package:healora/features/select_doctor/presentation/screens/select_doctor_screen.dart';
 import 'package:healora/features/settings/presentation/screens/settings_screen.dart';
 
@@ -93,7 +95,14 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const MedicalHistoryScreen());
 
       case AppRoutes.selectDoctorScreen:
-        return MaterialPageRoute(builder: (_) => SelectDoctorScreen());
+        final specialty = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                SelectDoctorCubit(ServiceLocator.getIt<SelectDoctorRepo>())..getDoctorsBySpecialty(specialty: specialty),
+            child: SelectDoctorScreen(),
+          ),
+        );
 
       case AppRoutes.dietChartScreen:
         return MaterialPageRoute(builder: (_) => const DietChartScreen());

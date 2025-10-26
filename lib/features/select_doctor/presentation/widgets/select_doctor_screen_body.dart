@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/utils/app_assets.dart';
 import 'package:healora/core/widgets/custom_card.dart';
+import 'package:healora/features/select_doctor/cubit/select_doctor_cubit/select_doctor_cubit.dart';
 import 'package:healora/features/select_doctor/presentation/widgets/select_doctor_list_view.dart';
 
 class SelectDoctorScreenBody extends StatelessWidget {
@@ -62,7 +64,21 @@ class SelectDoctorScreenBody extends StatelessWidget {
           ),
           SliverToBoxAdapter(child: SizedBox(height: 24.h)),
           SliverPadding(
-            sliver: SelectDoctorListView(),
+            sliver: BlocBuilder<SelectDoctorCubit, SelectDoctorState>(
+              builder: (context, state) {
+                if (state is SelectDoctorSuccess) {
+                  return SelectDoctorListView(doctors: state.doctors);
+                } else if ((state is SelectDoctorFailure)) {
+                  return SliverToBoxAdapter(
+                    child: Center(child: Text(state.errorMessage)),
+                  );
+                } else {
+                  return SliverToBoxAdapter(
+                    child: const Center(child: CircularProgressIndicator()),
+                  );
+                }
+              },
+            ),
             padding: EdgeInsets.symmetric(horizontal: 16.w),
           ),
         ],

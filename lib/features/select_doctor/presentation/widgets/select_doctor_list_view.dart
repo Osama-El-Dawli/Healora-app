@@ -3,34 +3,33 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
-import 'package:healora/core/utils/app_assets.dart';
-import 'package:healora/features/select_doctor/data/models/select_doctor_model.dart';
+import 'package:healora/features/select_doctor/data/models/doctor_model.dart';
 import 'package:healora/core/widgets/custom_info_card.dart';
 
 class SelectDoctorListView extends StatelessWidget {
-  const SelectDoctorListView({super.key});
-  static final List<SelectDoctorModel> doctors = [
-    SelectDoctorModel(
-      name: 'Osama',
-      image: Assets.imagesAvatar,
-      specialty: 'teeth',
-    ),
-    SelectDoctorModel(
-      name: 'Osos',
-      image: Assets.imagesAvatar,
-      specialty: 'teeth',
-    ),
-    SelectDoctorModel(
-      name: 'osama',
-      image: Assets.imagesAvatar,
-      specialty: 'teeth',
-    ),
-    SelectDoctorModel(
-      name: 'osos',
-      image: Assets.imagesAvatar,
-      specialty: 'teeth',
-    ),
-  ];
+  const SelectDoctorListView({super.key, required this.doctors});
+  final List<DoctorModel> doctors;
+    // SelectDoctorModel(
+    //   name: 'Osama',
+    //   image: Assets.imagesAvatar,
+    //   specialty: 'teeth',
+    // ),
+    // SelectDoctorModel(
+    //   name: 'Osos',
+    //   image: Assets.imagesAvatar,
+    //   specialty: 'teeth',
+    // ),
+    // SelectDoctorModel(
+    //   name: 'osama',
+    //   image: Assets.imagesAvatar,
+    //   specialty: 'teeth',
+    // ),
+    // SelectDoctorModel(
+    //   name: 'osos',
+    //   image: Assets.imagesAvatar,
+    //   specialty: 'teeth',
+    // ),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +49,11 @@ class SelectDoctorListView extends StatelessWidget {
                 Navigator.pushNamed(context, AppRoutes.selectAppointmentScreen);
               },
               child: Hero(
-                tag: doctors[index].name,
+                tag: doctors[index].firstName,
                 child: CustomInfoCard(
-                  title: doctors[index].name,
-                  image: doctors[index].image,
-                  subTitle: doctors[index].specialty,
+                  title: doctors[index].firstName,
+                  image: doctors[index].imageUrl,
+                  subTitle: doctors[index].specialization,
                   trailing: IconButton(
                     onPressed: () {},
                     icon: Icon(
