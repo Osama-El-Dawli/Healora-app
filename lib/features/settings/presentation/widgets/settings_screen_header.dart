@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/utils/app_assets.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 
 class SettingsScreenHeader extends StatelessWidget {
-  const SettingsScreenHeader({super.key});
+  const SettingsScreenHeader({super.key, required this.user});
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -59,12 +61,12 @@ class SettingsScreenHeader extends StatelessWidget {
           ),
           SizedBox(height: 12.h),
           Text(
-            'Name',
+            '${user.firstName} ${user.lastName}',
             style: textTheme.titleLarge!.copyWith(color: AppColors.primary),
           ),
           SizedBox(height: 12.h),
           Text(
-            'name@gmail.com',
+            user.email,
             style: textTheme.labelSmall!.copyWith(color: AppColors.secondary),
           ),
         ],
