@@ -9,12 +9,14 @@ import 'package:healora/core/routes/routes_generator.dart';
 import 'package:healora/core/theme/app_theme.dart';
 import 'package:healora/firebase_options.dart';
 
+import 'core/helper/service_locator.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = MyBlocObserver();
-
+  ServiceLocator.setup();
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
