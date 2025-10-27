@@ -68,7 +68,7 @@ class UserModel extends HiveObject {
       phoneNumber: map['phoneNumber'] ?? '',
       role: map['role'] ?? '',
       specialization: map['specialization'] ?? '',
-      imageUrl: map['imageUrl'],
+      imageUrl: map['imageUrl'] ?? Assets.imagesAvatar,
     );
   }
 }

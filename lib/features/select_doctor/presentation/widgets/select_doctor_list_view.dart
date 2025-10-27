@@ -9,27 +9,6 @@ import 'package:healora/core/widgets/custom_info_card.dart';
 class SelectDoctorListView extends StatelessWidget {
   const SelectDoctorListView({super.key, required this.doctors});
   final List<DoctorModel> doctors;
-    // SelectDoctorModel(
-    //   name: 'Osama',
-    //   image: Assets.imagesAvatar,
-    //   specialty: 'teeth',
-    // ),
-    // SelectDoctorModel(
-    //   name: 'Osos',
-    //   image: Assets.imagesAvatar,
-    //   specialty: 'teeth',
-    // ),
-    // SelectDoctorModel(
-    //   name: 'osama',
-    //   image: Assets.imagesAvatar,
-    //   specialty: 'teeth',
-    // ),
-    // SelectDoctorModel(
-    //   name: 'osos',
-    //   image: Assets.imagesAvatar,
-    //   specialty: 'teeth',
-    // ),
-  // ];
 
   @override
   Widget build(BuildContext context) {
