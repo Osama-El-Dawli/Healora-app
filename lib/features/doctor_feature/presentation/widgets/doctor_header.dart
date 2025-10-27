@@ -25,8 +25,7 @@ class DoctorHeader extends StatelessWidget {
         ),
         Spacer(),
         InkWell(
-          borderRadius: BorderRadius.circular(50.r),
-          splashColor: AppColors.suffixIconColor.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(23.r),
           onTap: () {
             Navigator.pushNamed(
               context,

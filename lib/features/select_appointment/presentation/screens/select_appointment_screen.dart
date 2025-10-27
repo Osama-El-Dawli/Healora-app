@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:healora/features/select_appointment/presentation/widgets/select_appointment_screen_body.dart';
+import 'package:healora/features/select_doctor/data/models/doctor_model.dart';
 
 class SelectAppointmentScreen extends StatelessWidget {
-  const SelectAppointmentScreen({super.key});
+  const SelectAppointmentScreen({super.key, required this.doctorModel});
+  final DoctorModel doctorModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +16,7 @@ class SelectAppointmentScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: SelectAppointmentScreenBody(),
+      body: SelectAppointmentScreenBody(doctorModel: doctorModel,),
     );
   }
 }

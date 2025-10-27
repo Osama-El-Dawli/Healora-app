@@ -53,7 +53,7 @@ class ChooseSpecialtyGrid extends StatelessWidget {
     ChooseSpecialtyModel(
       specialtyName: "General Internal Medicine",
       image: Assets.imagesSpecialtyGeneralInternal,
-    ), 
+    ),
   ];
 
   @override
@@ -79,7 +79,11 @@ class ChooseSpecialtyGrid extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(12.r),
                   onTap: () {
-                    Navigator.pushNamed(context, AppRoutes.selectDoctorScreen);
+                    Navigator.pushNamed(
+                      context,
+                      AppRoutes.selectDoctorScreen,
+                      arguments: specialty[index].specialtyName,
+                    );
                   },
                   child: ChooseSpecialtyCard(
                     specialtyName: specialty[index].specialtyName.tr(),
