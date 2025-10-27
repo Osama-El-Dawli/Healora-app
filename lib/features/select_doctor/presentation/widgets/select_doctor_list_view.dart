@@ -25,10 +25,14 @@ class SelectDoctorListView extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.circular(12.r),
               onTap: () {
-                Navigator.pushNamed(context, AppRoutes.selectAppointmentScreen);
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.selectAppointmentScreen,
+                  arguments: doctors[index],
+                );
               },
               child: Hero(
-                tag: doctors[index].firstName,
+                tag: doctors[index].uid,
                 child: CustomInfoCard(
                   title: doctors[index].firstName,
                   image: doctors[index].imageUrl,

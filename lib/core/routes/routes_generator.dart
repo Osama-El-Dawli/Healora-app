@@ -27,6 +27,7 @@ import 'package:healora/features/notifications/presentation/screens/notification
 import 'package:healora/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:healora/features/select_appointment/presentation/screens/select_appointment_screen.dart';
 import 'package:healora/features/select_doctor/cubit/select_doctor_cubit/select_doctor_cubit.dart';
+import 'package:healora/features/select_doctor/data/models/doctor_model.dart';
 import 'package:healora/features/select_doctor/data/repositories/select_doctor_repo.dart';
 import 'package:healora/features/select_doctor/presentation/screens/select_doctor_screen.dart';
 import 'package:healora/features/settings/presentation/screens/settings_screen.dart';
@@ -99,7 +100,8 @@ class AppRouteGenerator {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
-                SelectDoctorCubit(ServiceLocator.getIt<SelectDoctorRepo>())..getDoctorsBySpecialty(specialty: specialty),
+                SelectDoctorCubit(ServiceLocator.getIt<SelectDoctorRepo>())
+                  ..getDoctorsBySpecialty(specialty: specialty),
             child: SelectDoctorScreen(),
           ),
         );
@@ -124,7 +126,10 @@ class AppRouteGenerator {
           builder: (_) => AppointmentDetailsScreen(avatarTag: avatarTag),
         );
       case AppRoutes.selectAppointmentScreen:
-        return MaterialPageRoute(builder: (_) => SelectAppointmentScreen());
+        final doctorModel = settings.arguments as DoctorModel;
+        return MaterialPageRoute(
+          builder: (_) => SelectAppointmentScreen(doctorModel: doctorModel),
+        );
 
       case AppRoutes.chooseSpecialtyScreen:
         return MaterialPageRoute(builder: (_) => const ChooseSpecialtyScreen());
