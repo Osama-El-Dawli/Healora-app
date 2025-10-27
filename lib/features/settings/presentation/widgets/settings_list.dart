@@ -23,11 +23,11 @@ class SettingsList extends StatelessWidget {
           child: Padding(
             padding: EdgeInsetsDirectional.only(start: 8.w),
             child: SettingsItem(
-              onpressed: () =>
+              onPressed: () =>
                   Navigator.pushNamed(context, AppRoutes.editAccountScreen),
               icon: Icons.person,
               title: 'account',
-              leading: const Icon(Icons.arrow_forward_ios),
+              trailing: const Icon(Icons.arrow_forward_ios),
             ),
           ),
         ),
@@ -39,11 +39,11 @@ class SettingsList extends StatelessWidget {
           child: Padding(
             padding: EdgeInsetsDirectional.only(start: 8.w),
             child: SettingsItem(
-              onpressed: () =>
+              onPressed: () =>
                   Navigator.pushNamed(context, AppRoutes.notificationsScreen),
               icon: Icons.notifications,
               title: 'notifications',
-              leading: const Icon(Icons.arrow_forward_ios),
+              trailing: const Icon(Icons.arrow_forward_ios),
             ),
           ),
         ),
@@ -55,7 +55,7 @@ class SettingsList extends StatelessWidget {
               return SettingsItem(
                 icon: Icons.dark_mode,
                 title: 'dark_mode',
-                leading: Switch(
+                trailing: Switch(
                   value: isDark,
                   onChanged: (_) => context.read<ThemeCubit>().toggleTheme(),
                 ),

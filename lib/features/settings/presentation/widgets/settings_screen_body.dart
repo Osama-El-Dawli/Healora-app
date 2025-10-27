@@ -35,6 +35,7 @@ class SettingsScreenBody extends StatelessWidget {
             onPressed: () {},
             color: AppColors.red,
           ),
+          SizedBox(height: 12.h),
         ],
       ),
     );
