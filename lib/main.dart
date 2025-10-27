@@ -10,8 +10,6 @@ import 'package:healora/core/helper/service_locator.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/routes/routes_generator.dart';
 import 'package:healora/core/theme/app_theme.dart';
-import 'package:healora/core/theme/cubit/theme_cubit.dart';
-import 'package:healora/core/theme/cubit/theme_state.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/firebase_options.dart';
 
@@ -30,10 +28,7 @@ Future<void> main() async {
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
-      child: BlocProvider(
-        create: (_) => ThemeCubit(),
-        child: Healora(isOnboardingVisited: isOnboardingVisited),
-      ),
+      child: Healora(isOnboardingVisited: isOnboardingVisited),
     ),
   );
 }
@@ -49,40 +44,34 @@ class Healora extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) => BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, state) {
-          final isDark = state is DarkThemeState;
+      builder: (context, child) => MaterialApp(
+        title: 'Healora',
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        onGenerateRoute: (settings) {
+          final user = HiveManager.getUser();
+          if (settings.name == AppRoutes.homeScreen ||
+              settings.name == AppRoutes.doctorScreen) {
+            return AppRouteGenerator.generateRoute(
+              RouteSettings(name: settings.name, arguments: user),
+            );
+          }
 
-          return MaterialApp(
-            title: 'Healora',
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            onGenerateRoute: (settings) {
-              final user = HiveManager.getUser();
-              if (settings.name == AppRoutes.homeScreen ||
-                  settings.name == AppRoutes.doctorScreen) {
-                return AppRouteGenerator.generateRoute(
-                  RouteSettings(name: settings.name, arguments: user),
-                );
-              }
-
-              return AppRouteGenerator.generateRoute(settings);
-            },
-
-            theme: AppTheme.lightMode,
-            darkTheme: AppTheme.darkMode,
-            themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
-            initialRoute: isOnboardingVisited
-                ? (user != null
-                      ? (user.role == 'doctor'
-                            ? AppRoutes.doctorScreen
-                            : AppRoutes.homeScreen)
-                      : AppRoutes.loginScreen)
-                : AppRoutes.onBoardingScreen,
-          );
+          return AppRouteGenerator.generateRoute(settings);
         },
+
+        theme: AppTheme.lightMode,
+        darkTheme: AppTheme.darkMode,
+        themeMode: ThemeMode.dark,
+        initialRoute: isOnboardingVisited
+            ? (user != null
+                  ? (user.role == 'doctor'
+                        ? AppRoutes.doctorScreen
+                        : AppRoutes.homeScreen)
+                  : AppRoutes.loginScreen)
+            : AppRoutes.onBoardingScreen,
       ),
     );
   }

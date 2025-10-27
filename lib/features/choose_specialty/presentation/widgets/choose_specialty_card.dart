@@ -11,14 +11,6 @@ class ChooseSpecialtyCard extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 4),
-            blurRadius: 8.r,
-            color: Colors.black.withValues(alpha: 0.16),
-            spreadRadius: 0,
-          ),
-        ],
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
