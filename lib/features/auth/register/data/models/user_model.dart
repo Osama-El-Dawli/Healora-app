@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:healora/core/utils/app_assets.dart';
 import 'package:hive_ce/hive.dart';
 
 part 'user_model.g.dart';
@@ -19,6 +20,8 @@ class UserModel extends HiveObject {
   final String role;
   @HiveField(6)
   final String specialization;
+  @HiveField(7)
+  String imageUrl;
 
   UserModel({
     required this.uid,
@@ -28,6 +31,7 @@ class UserModel extends HiveObject {
     required this.phoneNumber,
     required this.role,
     required this.specialization,
+    this.imageUrl = Assets.imagesAvatar,
   });
 
   factory UserModel.fromFirebase(User firebaseUser) {
@@ -39,6 +43,7 @@ class UserModel extends HiveObject {
       phoneNumber: '',
       role: '',
       specialization: '',
+      imageUrl: '',
     );
   }
   Map<String, dynamic> toMap() {
@@ -50,6 +55,7 @@ class UserModel extends HiveObject {
       'phoneNumber': phoneNumber,
       'role': role,
       'specialization': specialization,
+      'imageUrl': imageUrl,
     };
   }
 
@@ -62,6 +68,7 @@ class UserModel extends HiveObject {
       phoneNumber: map['phoneNumber'] ?? '',
       role: map['role'] ?? '',
       specialization: map['specialization'] ?? '',
+      imageUrl: map['imageUrl'] ?? Assets.imagesAvatar,
     );
   }
 }

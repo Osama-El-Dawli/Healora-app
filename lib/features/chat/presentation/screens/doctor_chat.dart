@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
-import 'package:healora/core/utils/app_assets.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/chat/presentation/widgets/chat_screen_body.dart';
 
@@ -28,7 +27,7 @@ class DoctorChat extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 25.r,
-              backgroundImage: AssetImage(Assets.imagesAvatar),
+              backgroundImage: AssetImage(user.imageUrl),
             ),
             SizedBox(width: 20.w),
             Text(

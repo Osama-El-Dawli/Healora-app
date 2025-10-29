@@ -4,6 +4,8 @@ import 'package:healora/core/theme/app_colors.dart';
 
 class AppTheme {
   static ThemeData lightMode = ThemeData(
+    primaryColor: AppColors.primary,
+    colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: AppColors.secondary,
       foregroundColor: Colors.white,
@@ -184,7 +186,9 @@ class AppTheme {
     ),
 
     switchTheme: SwitchThemeData(
-      trackColor: WidgetStateProperty.all(AppColors.darkHint.withOpacity(0.4)),
+      trackColor: WidgetStateProperty.all(
+        AppColors.darkHint.withValues(alpha: 0.4),
+      ),
       thumbColor: WidgetStateProperty.all(AppColors.primary),
       trackOutlineColor: WidgetStateProperty.all(AppColors.primary),
     ),
@@ -202,7 +206,7 @@ class AppTheme {
 
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: AppColors.primary,
-      selectionColor: AppColors.primary.withOpacity(0.3),
+      selectionColor: AppColors.primary.withValues(alpha: 0.3),
       selectionHandleColor: AppColors.primary,
     ),
 

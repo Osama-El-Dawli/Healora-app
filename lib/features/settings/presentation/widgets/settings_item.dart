@@ -3,18 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
 
-// ignore: must_be_immutable
 class SettingsItem extends StatelessWidget {
-  IconData icon;
-  String title;
-  Widget leading;
-  VoidCallback onpressed;
-  SettingsItem({
+  final IconData icon;
+  final String title;
+  final Widget trailing;
+  final VoidCallback? onPressed;
+  const SettingsItem({
     super.key,
     required this.icon,
     required this.title,
-    required this.leading,
-    required this.onpressed,
+    required this.trailing,
+    this.onPressed,
   });
 
   @override
@@ -35,8 +34,8 @@ class SettingsItem extends StatelessWidget {
           ),
           Spacer(),
           IconButton(
-            onPressed: onpressed,
-            icon: leading,
+            onPressed: onPressed,
+            icon: trailing,
             color: AppColors.suffixIconColor,
             padding: EdgeInsets.all(0),
           ),

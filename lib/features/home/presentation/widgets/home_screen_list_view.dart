@@ -14,22 +14,22 @@ class HomeScreenListView extends StatelessWidget {
   static final List<HomeScreenModel> items = [
     HomeScreenModel(
       image: 'assets/images/home_page2.png',
-      title: 'Lab Results'.tr(),
+      title: 'Lab Results',
       route: AppRoutes.labResultsScreen,
     ),
     HomeScreenModel(
       image: 'assets/images/home_page3.png',
-      title: 'Choose a Doctor'.tr(),
+      title: 'Choose a Doctor',
       route: AppRoutes.chooseSpecialtyScreen,
     ),
     HomeScreenModel(
       image: 'assets/images/home_page1.png',
-      title: 'Medical History'.tr(),
+      title: 'Medical History',
       route: AppRoutes.medicalHistoryScreen,
     ),
     HomeScreenModel(
       image: 'assets/images/home_page4.png',
-      title: 'Your Diet Chart'.tr(),
+      title: 'Your Diet Chart',
       route: AppRoutes.dietChartScreen,
     ),
     HomeScreenModel(
@@ -63,7 +63,7 @@ class HomeScreenListView extends StatelessWidget {
                     transitionOnUserGestures: true,
                     tag: items[index].title,
                     child: CustomCard(
-                      title: items[index].title,
+                      title: items[index].title.tr(),
                       imageUrl: items[index].image,
                     ),
                   ),

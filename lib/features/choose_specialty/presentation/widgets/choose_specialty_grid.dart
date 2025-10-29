@@ -11,47 +11,47 @@ class ChooseSpecialtyGrid extends StatelessWidget {
   const ChooseSpecialtyGrid({super.key});
   static final List<ChooseSpecialtyModel> specialty = [
     ChooseSpecialtyModel(
-      specialtyName: "Cardiology".tr(),
+      specialtyName: "Cardiology",
       image: Assets.imagesSpecialtyCardiology,
     ),
     ChooseSpecialtyModel(
-      specialtyName: "Pathology".tr(),
+      specialtyName: "Pathology",
       image: Assets.imagesSpecialtyPathology,
     ),
     ChooseSpecialtyModel(
-      specialtyName: "Hepatology".tr(),
+      specialtyName: "Hepatology",
       image: Assets.imagesSpecialtyHepatology,
     ),
     ChooseSpecialtyModel(
-      specialtyName: "Pulmonology".tr(),
+      specialtyName: "Pulmonology",
       image: Assets.imagesSpecialtyPulmonology,
     ),
     ChooseSpecialtyModel(
-      specialtyName: "Ophthalmology".tr(),
+      specialtyName: "Ophthalmology",
       image: Assets.imagesSpecialtyOphthalmology,
     ),
     ChooseSpecialtyModel(
-      specialtyName: "Nephrology".tr(),
+      specialtyName: "Nephrology",
       image: Assets.imagesSpecialtyNephrology,
     ),
     ChooseSpecialtyModel(
-      specialtyName: "Radiology".tr(),
+      specialtyName: "Radiology",
       image: Assets.imagesSpecialtyRadiology,
     ),
     ChooseSpecialtyModel(
-      specialtyName: "Physiotherapy".tr(),
+      specialtyName: "Physiotherapy",
       image: Assets.imagesSpecialtyPhysiotherapy,
     ),
     ChooseSpecialtyModel(
-      specialtyName: "Gastroenterology".tr(),
+      specialtyName: "Gastroenterology",
       image: Assets.imagesSpecialtyGastroenterology,
     ),
     ChooseSpecialtyModel(
-      specialtyName: 'Psychiatry'.tr(),
+      specialtyName: 'Psychiatry',
       image: Assets.imagesSpecialtyPsychiatry,
     ),
     ChooseSpecialtyModel(
-      specialtyName: "General Internal Medicine".tr(),
+      specialtyName: "General Internal Medicine",
       image: Assets.imagesSpecialtyGeneralInternal,
     ),
   ];
@@ -77,18 +77,17 @@ class ChooseSpecialtyGrid extends StatelessWidget {
               curve: Curves.easeOutCubic,
               child: FadeInAnimation(
                 child: InkWell(
+                  borderRadius: BorderRadius.circular(12.r),
                   onTap: () {
-                    Navigator.pushNamed(context, AppRoutes.selectDoctorScreen);
+                    Navigator.pushNamed(
+                      context,
+                      AppRoutes.selectDoctorScreen,
+                      arguments: specialty[index].specialtyName,
+                    );
                   },
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(12.r),
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        AppRoutes.selectDoctorScreen,
-                      );
-                    },
-                    child: ChooseSpecialtyCard(choose: specialty[index]),
+                  child: ChooseSpecialtyCard(
+                    specialtyName: specialty[index].specialtyName.tr(),
+                    image: specialty[index].image,
                   ),
                 ),
               ),

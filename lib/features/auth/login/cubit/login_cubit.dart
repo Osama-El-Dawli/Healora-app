@@ -26,6 +26,8 @@ class LoginCubit extends Cubit<LoginState> {
       } else {
         emit(LoginFailure(generalError: 'unknown_error'.tr()));
       }
+    } catch (e) {
+      emit(LoginFailure(generalError: e.toString()));
     }
   }
 }

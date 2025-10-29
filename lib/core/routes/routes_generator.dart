@@ -26,6 +26,9 @@ import 'package:healora/features/medical_history/presentation/screens/medical_hi
 import 'package:healora/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:healora/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:healora/features/select_appointment/presentation/screens/select_appointment_screen.dart';
+import 'package:healora/features/select_doctor/cubit/select_doctor_cubit/select_doctor_cubit.dart';
+import 'package:healora/features/select_doctor/data/models/doctor_model.dart';
+import 'package:healora/features/select_doctor/data/repositories/select_doctor_repo.dart';
 import 'package:healora/features/select_doctor/presentation/screens/select_doctor_screen.dart';
 import 'package:healora/features/settings/presentation/screens/settings_screen.dart';
 
@@ -33,8 +36,8 @@ class AppRouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.homeScreen:
-        final userModel = settings.arguments as UserModel?;
-        return MaterialPageRoute(builder: (_) => HomeScreen(user: userModel!));
+        final userModel = settings.arguments as UserModel;
+        return MaterialPageRoute(builder: (_) => HomeScreen(user: userModel));
 
       case AppRoutes.loginScreen:
         return MaterialPageRoute(
@@ -93,20 +96,29 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const MedicalHistoryScreen());
 
       case AppRoutes.selectDoctorScreen:
-        return MaterialPageRoute(builder: (_) => SelectDoctorScreen());
+        final specialty = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                SelectDoctorCubit(ServiceLocator.getIt<SelectDoctorRepo>())
+                  ..getDoctorsBySpecialty(specialty: specialty),
+            child: SelectDoctorScreen(),
+          ),
+        );
 
       case AppRoutes.dietChartScreen:
         return MaterialPageRoute(builder: (_) => const DietChartScreen());
 
       case AppRoutes.settingsScreen:
-        return MaterialPageRoute(builder: (_) => const SettingsScreen());
+        final userModel = settings.arguments as UserModel;
+        return MaterialPageRoute(
+          builder: (_) => SettingsScreen(user: userModel),
+        );
 
       case AppRoutes.doctorScreen:
-        final userModel = settings.arguments as UserModel?;
+        final userModel = settings.arguments as UserModel;
 
-        return MaterialPageRoute(
-          builder: (_) => DoctorScreen(user: userModel!),
-        );
+        return MaterialPageRoute(builder: (_) => DoctorScreen(user: userModel));
 
       case AppRoutes.appointmentDetailsScreen:
         final avatarTag = settings.arguments as String;
@@ -114,7 +126,10 @@ class AppRouteGenerator {
           builder: (_) => AppointmentDetailsScreen(avatarTag: avatarTag),
         );
       case AppRoutes.selectAppointmentScreen:
-        return MaterialPageRoute(builder: (_) => SelectAppointmentScreen());
+        final doctorModel = settings.arguments as DoctorModel;
+        return MaterialPageRoute(
+          builder: (_) => SelectAppointmentScreen(doctorModel: doctorModel),
+        );
 
       case AppRoutes.chooseSpecialtyScreen:
         return MaterialPageRoute(builder: (_) => const ChooseSpecialtyScreen());

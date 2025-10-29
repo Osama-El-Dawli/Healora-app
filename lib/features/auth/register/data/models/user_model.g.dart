@@ -24,13 +24,14 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       phoneNumber: fields[4] as String,
       role: fields[5] as String,
       specialization: fields[6] as String,
+      imageUrl: fields[7] == null ? Assets.imagesAvatar : fields[7] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.uid)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(5)
       ..write(obj.role)
       ..writeByte(6)
-      ..write(obj.specialization);
+      ..write(obj.specialization)
+      ..writeByte(7)
+      ..write(obj.imageUrl);
   }
 
   @override

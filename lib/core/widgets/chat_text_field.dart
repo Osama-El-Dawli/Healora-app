@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
@@ -46,7 +47,10 @@ class ChatTextField extends StatelessWidget {
               InkWell(
                 splashColor: null,
                 onTap: onSend,
-                child: Image.asset(Assets.imagesSend),
+                child: Transform.rotate(
+                  angle: (context.locale == Locale('ar')) ? 3.14 : 0,
+                  child: Image.asset(Assets.imagesSend),
+                ),
               ),
             ],
           ),
