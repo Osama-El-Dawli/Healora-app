@@ -12,11 +12,13 @@ class ChooseSpecialtyScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Choose Specialty'.tr(),
+          'choose_specialty'.tr(),
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
-      backgroundColor: AppColors.gray,
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? AppColors.darkBackground
+          : AppColors.gray,
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
         child: const ChooseSpecialtyGrid(),

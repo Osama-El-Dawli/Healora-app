@@ -14,12 +14,17 @@ class LanguageSwitchRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final backgroundColor = isDark
+        ? AppColors.darkBackground
+        : AppColors.backgroundColor;
+
     return Container(
       padding: EdgeInsets.all(5),
       width: 110.w,
       height: 50.h,
       decoration: BoxDecoration(
-        color: AppColors.backgroundColor,
+        color: isDark ? AppColors.darkBackground : AppColors.backgroundColor,
         borderRadius: BorderRadius.circular(40.r),
         border: Border.all(color: AppColors.primary, width: 3.w),
       ),
@@ -38,7 +43,7 @@ class LanguageSwitchRow extends StatelessWidget {
                   border: Border.all(
                     color: currentLang == "en"
                         ? AppColors.primary
-                        : AppColors.backgroundColor,
+                        : backgroundColor,
                     width: 3.w,
                   ),
                   image: const DecorationImage(
@@ -58,7 +63,7 @@ class LanguageSwitchRow extends StatelessWidget {
                   border: Border.all(
                     color: currentLang == "ar"
                         ? AppColors.primary
-                        : AppColors.backgroundColor,
+                        : backgroundColor,
                     width: 3.w,
                   ),
                   image: const DecorationImage(
