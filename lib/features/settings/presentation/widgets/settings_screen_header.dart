@@ -21,7 +21,7 @@ class SettingsScreenHeader extends StatelessWidget {
                 margin: EdgeInsets.all(10.r),
                 decoration: BoxDecoration(
                   color: AppColors.gray,
-                  borderRadius: BorderRadius.circular(70.r),
+                  borderRadius: BorderRadius.circular(80.r),
                 ),
                 height: 150,
                 width: 150,
@@ -66,7 +66,11 @@ class SettingsScreenHeader extends StatelessWidget {
           SizedBox(height: 12.h),
           Text(
             user.email,
-            style: textTheme.labelSmall!.copyWith(color: AppColors.secondary),
+            style: textTheme.labelSmall!.copyWith(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.darkTextSecondary
+                  : AppColors.secondary,
+            ),
           ),
         ],
       ),

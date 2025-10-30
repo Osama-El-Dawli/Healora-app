@@ -16,15 +16,6 @@ class MedicalChatbotScreen extends StatelessWidget {
     final TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: AppColors.primary,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         title: Row(
           children: [
             CircleAvatar(

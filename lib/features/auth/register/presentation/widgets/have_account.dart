@@ -12,9 +12,11 @@ class HaveAccount extends StatelessWidget {
       children: [
         Text(
           'already_have_an_account?'.tr(),
-          style: Theme.of(
-            context,
-          ).textTheme.labelLarge!.copyWith(color: AppColors.darkGreen),
+          style: Theme.of(context).textTheme.labelLarge!.copyWith(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? AppColors.darkTextSecondary
+                : AppColors.darkGreen,
+          ),
         ),
         TextButton(
           onPressed: () {

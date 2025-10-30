@@ -14,7 +14,11 @@ class DoNotHaveAccount extends StatelessWidget {
       children: [
         Text(
           'dont_have_an_account?'.tr(),
-          style: textTheme.labelLarge?.copyWith(color: AppColors.darkGreen),
+          style: textTheme.labelLarge?.copyWith(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? AppColors.darkTextSecondary
+                : AppColors.darkGreen,
+          ),
         ),
         TextButton(
           onPressed: () {

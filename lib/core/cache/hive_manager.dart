@@ -37,9 +37,9 @@ abstract class HiveManager {
     box.put('onboardingVisited', true);
   }
 
-  static bool getTheme() {
+  static bool? getTheme() {
     final box = Hive.box(hiveSettingsBox);
-    return box.get('isDark', defaultValue: false);
+    return box.get('isDark');
   }
 
   static Future<void> saveTheme(bool isDark) async {

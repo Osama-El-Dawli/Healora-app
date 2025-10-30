@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/widgets/chat_text_field.dart';
 import 'package:healora/features/medical_chatbot/cubit/chat_bot_cubit/chat_bot_cubit.dart';
 import 'package:healora/features/medical_chatbot/presentation/widgets/chat_bot_messages_list_view.dart';
@@ -42,13 +43,21 @@ class _ChatBotBodyState extends State<ChatBotBody> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.white.withValues(alpha: 0.0),
-                      Colors.white.withValues(alpha: 0.8),
-                      Colors.white,
-                      Colors.white.withValues(alpha: 0.8),
-                      Colors.white.withValues(alpha: 0.0),
-                    ],
+                    colors: Theme.of(context).brightness == Brightness.dark
+                        ? [
+                            AppColors.darkBackground.withValues(alpha: 0.0),
+                            AppColors.darkBackground.withValues(alpha: 0.8),
+                            AppColors.darkBackground,
+                            AppColors.darkBackground.withValues(alpha: 0.8),
+                            AppColors.darkBackground.withValues(alpha: 0.0),
+                          ]
+                        : [
+                            AppColors.backgroundColor.withValues(alpha: 0.0),
+                            AppColors.backgroundColor.withValues(alpha: 0.8),
+                            AppColors.backgroundColor,
+                            AppColors.backgroundColor.withValues(alpha: 0.8),
+                            AppColors.backgroundColor.withValues(alpha: 0.0),
+                          ],
                   ),
                 ),
               ),
