@@ -9,7 +9,8 @@ class MedicalHistoryScreen extends StatelessWidget {
     return Scaffold(
       body: MedicalHistoryBody(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+        },
         child: Icon(Icons.add),
       ),
     );
