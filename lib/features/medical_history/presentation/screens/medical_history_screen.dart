@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:healora/core/theme/app_colors.dart';
+import 'package:healora/features/medical_history/presentation/widgets/BottomBody.dart';
 import 'package:healora/features/medical_history/presentation/widgets/medical_history_body.dart';
 
 class MedicalHistoryScreen extends StatelessWidget {
@@ -14,6 +15,13 @@ class MedicalHistoryScreen extends StatelessWidget {
       body: MedicalHistoryBody(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+              ),
+              builder: (context)=>const BottomBody());
         },
         child: Icon(Icons.add),
       ),
