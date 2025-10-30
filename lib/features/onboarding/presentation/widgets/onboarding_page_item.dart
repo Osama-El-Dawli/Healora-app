@@ -24,8 +24,12 @@ class OnboardingPageItem extends StatelessWidget {
         DotsIndicator(
           dotsCount: 3,
           decorator: DotsDecorator(
-            activeColor: AppColors.secondary,
-            color: AppColors.gray,
+            activeColor: Theme.of(context).brightness == Brightness.dark
+                ? AppColors.primary
+                : AppColors.secondary,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? AppColors.darkTextSecondary
+                : AppColors.gray,
             size: Size(8.w, 8.h),
           ),
           position: currentIndex,
@@ -33,9 +37,10 @@ class OnboardingPageItem extends StatelessWidget {
         SizedBox(height: 16.h),
         Text(
           onboardingModel.title,
-          style: Theme.of(context).textTheme.displaySmall?.copyWith(
-            fontWeight: FontWeight.w700,
-            color: AppColors.primary,
+          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? AppColors.primary
+                : AppColors.primary,
           ),
         ),
         SizedBox(height: 16.h),
@@ -43,9 +48,10 @@ class OnboardingPageItem extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 8.w),
           child: Text(
             onboardingModel.description,
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.w500,
-              color: AppColors.darkGreen,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.darkTextSecondary
+                  : AppColors.darkGreen,
             ),
             textAlign: TextAlign.center,
           ),

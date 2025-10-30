@@ -86,5 +86,6 @@
   "account": "Account",
   "notifications": "Notifications",
   "dark_mode": "Dark Mode",
-  "logout": "Logout"
+  "logout": "Logout",
+  "choose_specialty": "Choose Specialty"
 }

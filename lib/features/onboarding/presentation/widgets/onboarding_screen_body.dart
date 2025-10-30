@@ -18,23 +18,21 @@ class OnboardingScreenBody extends StatelessWidget {
           Expanded(child: OnboardingPageView()),
           TextButton(
             onPressed: () {
+              HiveManager.setOnboardingVisited();
               Navigator.pushReplacementNamed(context, AppRoutes.loginScreen);
             },
-            child: TextButton(
-              onPressed: () {
-                HiveManager.setOnboardingVisited();
-                Navigator.pushReplacementNamed(context, AppRoutes.loginScreen);
-              },
-              child: Text(
-                'Skip Tour',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontSize: 14.sp,
-                  color: AppColors.darkGreen,
-                  fontWeight: FontWeight.w600,
-                ),
+            child: Text(
+              'Skip Tour',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontSize: 14.sp,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.primary
+                    : AppColors.darkGreen,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
+
           SizedBox(height: 40.h),
         ],
       ),

@@ -16,11 +16,15 @@ class MedicalHistoryCard extends StatelessWidget {
           BoxShadow(
             offset: const Offset(0, 4),
             blurRadius: 8.r,
-            color: Colors.black.withValues(alpha: 0.16),
+            color: Theme.of(context).brightness == Brightness.dark
+                ? AppColors.hintColor.withValues(alpha: 0.5)
+                : Colors.black.withValues(alpha: 0.16),
             spreadRadius: 0,
           ),
         ],
-        color: AppColors.backgroundColor,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? AppColors.lightGray
+            : AppColors.backgroundColor,
         borderRadius: BorderRadius.circular(12.r),
       ),
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),

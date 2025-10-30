@@ -31,7 +31,7 @@ Future<void> main() async {
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
       child: BlocProvider(
-        create: (_) => ThemeCubit(),
+        create: (context) => ThemeCubit(),
         child: Healora(isOnboardingVisited: isOnboardingVisited),
       ),
     ),
@@ -44,6 +44,12 @@ class Healora extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeCubit = context.read<ThemeCubit>();
+
+    // ✅ Initialize theme safely after first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      themeCubit.initTheme(context);
+    });
     final UserModel? user = HiveManager.getUser();
     return ScreenUtilInit(
       designSize: const Size(375, 812),

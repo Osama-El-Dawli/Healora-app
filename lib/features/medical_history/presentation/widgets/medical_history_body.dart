@@ -67,7 +67,9 @@ class MedicalHistoryBody extends StatelessWidget {
           SliverToBoxAdapter(child: SizedBox(height: 16.h)),
           DecoratedSliver(
             decoration: BoxDecoration(
-              color: AppColors.gray,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.darkBackground
+                  : AppColors.backgroundColor,
               borderRadius: BorderRadius.circular(16.r),
             ),
             sliver: SliverPadding(

@@ -3,7 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
 
 class ChooseSpecialtyCard extends StatelessWidget {
-  const ChooseSpecialtyCard({super.key, required this.specialtyName, required this.image});
+  const ChooseSpecialtyCard({
+    super.key,
+    required this.specialtyName,
+    required this.image,
+  });
   final String specialtyName, image;
 
   @override
@@ -11,7 +15,17 @@ class ChooseSpecialtyCard extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            offset: const Offset(0, 4),
+            blurRadius: 8.r,
+            color: Colors.black.withValues(alpha: 0.16),
+            spreadRadius: 0,
+          ),
+        ],
+        color: Theme.of(context).brightness == Brightness.dark
+            ? AppColors.lightGray
+            : AppColors.backgroundColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
