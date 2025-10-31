@@ -87,5 +87,8 @@
   "notifications": "Notifications",
   "dark_mode": "Dark Mode",
   "logout": "Logout",
-  "choose_specialty": "Choose Specialty"
+  "choose_specialty": "Choose Specialty",
+  "added_successfully": "Added Successfully",
+  "Write the title": "Write the title",
+  "Write the description": "Write the description"
 }

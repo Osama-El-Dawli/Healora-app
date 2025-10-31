@@ -1,9 +1,21 @@
-class MedicalHistoryCardModel {
+import 'package:json_annotation/json_annotation.dart';
+
+part 'medical_history_card_model.g.dart';
+
+@JsonSerializable()
+class MedicalHistoryModel {
+  final String uid;
   final String title;
   final String description;
 
-  const MedicalHistoryCardModel({
+  MedicalHistoryModel({
+    required this.uid,
     required this.title,
     required this.description,
   });
+
+  factory MedicalHistoryModel.fromFirebase(Map<String, dynamic> data) =>
+      _$MedicalHistoryModelFromFirebase(data);
+
+  Map<String, dynamic> toFirebase() => _$MedicalHistoryModelToFirebase(this);
 }

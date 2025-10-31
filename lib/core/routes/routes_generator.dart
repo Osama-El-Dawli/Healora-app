@@ -22,6 +22,8 @@ import 'package:healora/features/lab_results/presentation/screens/lab_results_sc
 import 'package:healora/features/medical_chatbot/cubit/chat_bot_cubit/chat_bot_cubit.dart';
 import 'package:healora/features/medical_chatbot/data/repositories/chat_bot_repo.dart';
 import 'package:healora/features/medical_chatbot/presentation/screens/medical_chatbot_screen.dart';
+import 'package:healora/features/medical_history/cubit/medical_history_cubit/medical_history_cubit.dart';
+import 'package:healora/features/medical_history/data/repositories/medical_history_repo.dart';
 import 'package:healora/features/medical_history/presentation/screens/medical_history_screen.dart';
 import 'package:healora/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:healora/features/onboarding/presentation/screens/onboarding_screen.dart';
@@ -93,7 +95,15 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
 
       case AppRoutes.medicalHistoryScreen:
-        return MaterialPageRoute(builder: (_) => const MedicalHistoryScreen());
+        final userModel = settings.arguments as UserModel;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                MedicalHistoryCubit(ServiceLocator.getIt<MedicalHistoryRepo>())
+                  ..getMedicalHistoryList(uid: userModel.uid),
+            child: MedicalHistoryScreen(userModel: userModel),
+          ),
+        );
 
       case AppRoutes.selectDoctorScreen:
         final specialty = settings.arguments as String;

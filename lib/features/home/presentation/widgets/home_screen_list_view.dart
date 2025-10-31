@@ -57,7 +57,17 @@ class HomeScreenListView extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(12.r),
                   onTap: () {
-                    Navigator.pushNamed(context, items[index].route);
+                    switch (items[index].route) {
+                      case AppRoutes.medicalHistoryScreen:
+                        Navigator.pushNamed(
+                          context,
+                          items[index].route,
+                          arguments: user,
+                        );
+                        break;
+                      default:
+                        Navigator.pushNamed(context, items[index].route);
+                    }
                   },
                   child: Hero(
                     transitionOnUserGestures: true,

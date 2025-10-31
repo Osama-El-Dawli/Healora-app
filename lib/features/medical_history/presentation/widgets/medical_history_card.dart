@@ -5,7 +5,7 @@ import 'package:healora/features/medical_history/data/models/medical_history_car
 
 class MedicalHistoryCard extends StatelessWidget {
   const MedicalHistoryCard({super.key, required this.model});
-  final MedicalHistoryCardModel model;
+  final MedicalHistoryModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class MedicalHistoryCard extends StatelessWidget {
             offset: const Offset(0, 4),
             blurRadius: 8.r,
             color: Theme.of(context).brightness == Brightness.dark
-                ? AppColors.hintColor.withValues(alpha: 0.5)
+                ? AppColors.hintColor.withValues(alpha: 0.7)
                 : Colors.black.withValues(alpha: 0.16),
             spreadRadius: 0,
           ),

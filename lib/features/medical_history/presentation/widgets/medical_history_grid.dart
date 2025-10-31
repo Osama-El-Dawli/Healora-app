@@ -1,76 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/medical_history/data/models/medical_history_card_model.dart';
 import 'package:healora/features/medical_history/presentation/widgets/medical_history_card.dart';
 
 class MedicalHistoryGrid extends StatelessWidget {
-  const MedicalHistoryGrid({super.key});
-
-  static const List<MedicalHistoryCardModel> items = [
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-    MedicalHistoryCardModel(
-      title: 'Medical History Title',
-      description: 'Brief description of the medical history entry goes here.',
-    ),
-  ];
+  const MedicalHistoryGrid({
+    super.key,
+    required this.user,
+    required this.items,
+  });
+  final UserModel user;
+  final List<MedicalHistoryModel> items;
 
   @override
   Widget build(BuildContext context) {

@@ -1,13 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/utils/app_assets.dart';
 import 'package:healora/core/widgets/custom_card.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
+import 'package:healora/features/medical_history/cubit/medical_history_cubit/medical_history_cubit.dart';
 import 'package:healora/features/medical_history/presentation/widgets/medical_history_grid.dart';
 
 class MedicalHistoryBody extends StatelessWidget {
-  const MedicalHistoryBody({super.key});
+  const MedicalHistoryBody({super.key, required this.userModel});
+  final UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -65,25 +69,34 @@ class MedicalHistoryBody extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(child: SizedBox(height: 16.h)),
-          DecoratedSliver(
-            decoration: BoxDecoration(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.darkBackground
-                  : AppColors.backgroundColor,
-              borderRadius: BorderRadius.circular(16.r),
-            ),
-            sliver: DecoratedSliver(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.r),
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? AppColors.darkSurface
-                    : AppColors.gray,
-              ),
-              sliver: SliverPadding(
-                padding: EdgeInsets.all(16.r),
-                sliver: const MedicalHistoryGrid(),
-              ),
-            ),
+          BlocBuilder<MedicalHistoryCubit, MedicalHistoryState>(
+            builder: (context, state) {
+              return state is MedicalHistoryLoaded
+                  ? DecoratedSliver(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.darkBackground
+                            : AppColors.backgroundColor,
+                        borderRadius: BorderRadius.circular(16.r),
+                      ),
+                      sliver: DecoratedSliver(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.r),
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? AppColors.darkSurface
+                              : AppColors.gray,
+                        ),
+                        sliver: SliverPadding(
+                          padding: EdgeInsets.all(16.r),
+                          sliver: MedicalHistoryGrid(
+                            user: userModel,
+                            items: state.medicalHistoryList,
+                          ),
+                        ),
+                      ),
+                    )
+                  : SliverToBoxAdapter(child: Container());
+            },
           ),
         ],
       ),
