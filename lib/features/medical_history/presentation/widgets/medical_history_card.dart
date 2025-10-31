@@ -29,18 +29,18 @@ class MedicalHistoryCard extends StatelessWidget {
       ),
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Medical History Title",
+            model.title,
             style: textTheme.titleSmall?.copyWith(color: AppColors.primary),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: 8.h),
           Text(
-            "Brief description of the medical history entry goes here.",
+            model.description,
             style: textTheme.labelLarge?.copyWith(color: AppColors.hintColor),
             overflow: TextOverflow.ellipsis,
             maxLines: 3,

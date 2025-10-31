@@ -91,8 +91,11 @@ class _BottomSheetBodyState extends State<BottomSheetBody> {
                     }
                   },
                   child: state is MedicalHistoryLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(color: Colors.white),
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            padding: EdgeInsets.all(12.r),
+                            color: Colors.white,
+                          ),
                         )
                       : const Text("Save"),
                 ),

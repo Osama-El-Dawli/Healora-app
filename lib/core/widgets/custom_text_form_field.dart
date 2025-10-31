@@ -9,7 +9,7 @@ class CustomTextFormField extends StatefulWidget {
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
   final bool isPhone;
-  final int? maxLines;
+  final int maxLines;
 
   const CustomTextFormField({
     super.key,
@@ -19,7 +19,7 @@ class CustomTextFormField extends StatefulWidget {
     this.onChanged,
     this.validator,
     this.isPhone = false,
-    this.maxLines,
+    this.maxLines = 1,
   });
 
   @override
