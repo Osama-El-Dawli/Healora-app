@@ -46,9 +46,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         keyboardType: widget.isPhone ? TextInputType.phone : TextInputType.text,
 
         onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
-        style: Theme.of(
-          context,
-        ).textTheme.titleSmall!.copyWith(color: AppColors.primary),
+        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.white
+              : AppColors.primary,
+        ),
         decoration: InputDecoration(
           hintText: widget.hintText,
 

@@ -17,7 +17,7 @@ class MedicalHistoryCard extends StatelessWidget {
             offset: const Offset(0, 4),
             blurRadius: 8.r,
             color: Theme.of(context).brightness == Brightness.dark
-                ? AppColors.hintColor.withValues(alpha: 0.7)
+                ? AppColors.hintColor.withValues(alpha: 0.6)
                 : Colors.black.withValues(alpha: 0.16),
             spreadRadius: 0,
           ),
@@ -27,7 +27,7 @@ class MedicalHistoryCard extends StatelessWidget {
             : AppColors.backgroundColor,
         borderRadius: BorderRadius.circular(12.r),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

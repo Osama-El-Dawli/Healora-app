@@ -19,6 +19,7 @@ class MedicalHistoryGrid extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
+        childAspectRatio: 1.5,
       ),
       itemCount: items.length,
       itemBuilder: (context, index) {

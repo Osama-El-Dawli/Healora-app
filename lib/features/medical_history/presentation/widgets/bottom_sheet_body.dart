@@ -39,6 +39,9 @@ class _BottomSheetBodyState extends State<BottomSheetBody> {
             textColor: Colors.white,
           );
           Navigator.pop(context);
+          context.read<MedicalHistoryCubit>().getMedicalHistoryList(
+            uid: widget.user.uid,
+          );
         }
         if (state is MedicalHistoryFailure) {
           Fluttertoast.showToast(msg: state.errorMessage);
@@ -85,16 +88,15 @@ class _BottomSheetBodyState extends State<BottomSheetBody> {
                           uid: widget.user.uid,
                         ),
                       );
-                      context.read<MedicalHistoryCubit>().getMedicalHistoryList(
-                        uid: widget.user.uid,
-                      );
                     }
                   },
                   child: state is MedicalHistoryLoading
-                      ? Center(
-                          child: CircularProgressIndicator(
-                            padding: EdgeInsets.all(12.r),
-                            color: Colors.white,
+                      ? Padding(
+                          padding: EdgeInsets.all(12.r),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       : const Text("Save"),

@@ -7,7 +7,10 @@ import 'package:healora/core/utils/app_assets.dart';
 import 'package:healora/core/widgets/custom_card.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/medical_history/cubit/medical_history_cubit/medical_history_cubit.dart';
+import 'package:healora/features/medical_history/data/models/medical_history_card_model.dart';
+import 'package:healora/features/medical_history/presentation/widgets/medical_history_card.dart';
 import 'package:healora/features/medical_history/presentation/widgets/medical_history_grid.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class MedicalHistoryBody extends StatelessWidget {
   const MedicalHistoryBody({super.key, required this.userModel});
@@ -69,34 +72,63 @@ class MedicalHistoryBody extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(child: SizedBox(height: 16.h)),
-          BlocBuilder<MedicalHistoryCubit, MedicalHistoryState>(
-            builder: (context, state) {
-              return state is MedicalHistoryLoaded
-                  ? DecoratedSliver(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.darkBackground
-                            : AppColors.backgroundColor,
-                        borderRadius: BorderRadius.circular(16.r),
-                      ),
-                      sliver: DecoratedSliver(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.r),
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? AppColors.darkSurface
-                              : AppColors.gray,
-                        ),
-                        sliver: SliverPadding(
-                          padding: EdgeInsets.all(16.r),
-                          sliver: MedicalHistoryGrid(
+          DecoratedSliver(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16.r),
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? AppColors.darkSurface
+                  : AppColors.gray,
+            ),
+            sliver: SliverPadding(
+              padding: EdgeInsets.all(16.r),
+              sliver: BlocBuilder<MedicalHistoryCubit, MedicalHistoryState>(
+                builder: (context, state) {
+                  if (state is MedicalHistoryLoaded) {
+                    return state.medicalHistoryList.isEmpty
+                        ? SliverToBoxAdapter(
+                            child: Center(
+                              child: Text('No Medical History'.tr()),
+                            ),
+                          )
+                        : MedicalHistoryGrid(
                             user: userModel,
                             items: state.medicalHistoryList,
+                          );
+                  } else if (state is MedicalHistoryFailure) {
+                    return SliverToBoxAdapter(
+                      child: Center(child: Text(state.errorMessage)),
+                    );
+                  } else if (state is MedicalHistoryLoading) {
+                    return SliverToBoxAdapter(
+                      child: Skeletonizer(
+                        enabled: true,
+                        enableSwitchAnimation: true,
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                childAspectRatio: 1.5,
+                              ),
+                          itemBuilder: (context, index) => MedicalHistoryCard(
+                            model: MedicalHistoryModel(
+                              description: 'loading',
+                              title: 'loading',
+                              uid: 'loading',
+                            ),
                           ),
+                          itemCount: 10,
                         ),
                       ),
-                    )
-                  : SliverToBoxAdapter(child: Container());
-            },
+                    );
+                  } else {
+                    return SliverToBoxAdapter(child: SizedBox.shrink());
+                  }
+                },
+              ),
+            ),
           ),
         ],
       ),
