@@ -73,7 +73,6 @@ class Healora extends StatelessWidget {
                   RouteSettings(name: settings.name, arguments: user),
                 );
               }
-
               return AppRouteGenerator.generateRoute(settings);
             },
 

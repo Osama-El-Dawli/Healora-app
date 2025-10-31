@@ -1,41 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:healora/features/medical_history/presentation/widgets/custom_bottom.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:healora/core/widgets/custom_text_form_field.dart';
 
-class BottomBody extends StatefulWidget {
-  const BottomBody({super.key});
+class BottomSheetBody extends StatefulWidget {
+  const BottomSheetBody({super.key});
 
   @override
-  State<BottomBody> createState() => _BottomBodyState();
+  State<BottomSheetBody> createState() => _BottomSheetBodyState();
 }
 
-class _BottomBodyState extends State<BottomBody> {
+class _BottomSheetBodyState extends State<BottomSheetBody> {
   final TextEditingController _titleControlar = TextEditingController();
   final TextEditingController _descriptionControlar = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 20, top: 40),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CustomBottom(
+          CustomTextFormField(
             controller: _titleControlar,
-            hintText: "write the Title ",
-            maxLine: 2,
+            hintText: "write the Title",
+            maxLines: 2,
           ),
-          const SizedBox(height: 20),
-          CustomBottom(
+          CustomTextFormField(
             controller: _descriptionControlar,
             hintText: "write the description",
-            maxLine: 3,
+            maxLines: 3,
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: 16.h),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
             },
             child: Text("Save"),
           ),
+          SizedBox(height: 24.h),
         ],
       ),
     );

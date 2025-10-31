@@ -39,7 +39,7 @@ class MedicalHistoryBody extends StatelessWidget {
                   title: Opacity(
                     opacity: opacity,
                     child: Padding(
-                      padding: EdgeInsets.only(top: 12.h),
+                      padding: EdgeInsets.only(top: 10.h),
                       child: Text(
                         'Medical History'.tr(),
                         style: textTheme.titleMedium,
@@ -72,9 +72,17 @@ class MedicalHistoryBody extends StatelessWidget {
                   : AppColors.backgroundColor,
               borderRadius: BorderRadius.circular(16.r),
             ),
-            sliver: SliverPadding(
-              padding: EdgeInsets.all(16.w),
-              sliver: const MedicalHistoryGrid(),
+            sliver: DecoratedSliver(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16.r),
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.darkSurface
+                    : AppColors.gray,
+              ),
+              sliver: SliverPadding(
+                padding: EdgeInsets.all(16.r),
+                sliver: const MedicalHistoryGrid(),
+              ),
             ),
           ),
         ],

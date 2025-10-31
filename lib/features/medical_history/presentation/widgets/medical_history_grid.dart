@@ -34,6 +34,42 @@ class MedicalHistoryGrid extends StatelessWidget {
       title: 'Medical History Title',
       description: 'Brief description of the medical history entry goes here.',
     ),
+    MedicalHistoryCardModel(
+      title: 'Medical History Title',
+      description: 'Brief description of the medical history entry goes here.',
+    ),
+    MedicalHistoryCardModel(
+      title: 'Medical History Title',
+      description: 'Brief description of the medical history entry goes here.',
+    ),
+    MedicalHistoryCardModel(
+      title: 'Medical History Title',
+      description: 'Brief description of the medical history entry goes here.',
+    ),
+    MedicalHistoryCardModel(
+      title: 'Medical History Title',
+      description: 'Brief description of the medical history entry goes here.',
+    ),
+    MedicalHistoryCardModel(
+      title: 'Medical History Title',
+      description: 'Brief description of the medical history entry goes here.',
+    ),
+    MedicalHistoryCardModel(
+      title: 'Medical History Title',
+      description: 'Brief description of the medical history entry goes here.',
+    ),
+    MedicalHistoryCardModel(
+      title: 'Medical History Title',
+      description: 'Brief description of the medical history entry goes here.',
+    ),
+    MedicalHistoryCardModel(
+      title: 'Medical History Title',
+      description: 'Brief description of the medical history entry goes here.',
+    ),
+    MedicalHistoryCardModel(
+      title: 'Medical History Title',
+      description: 'Brief description of the medical history entry goes here.',
+    ),
   ];
 
   @override

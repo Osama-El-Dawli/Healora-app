@@ -9,6 +9,7 @@ class CustomTextFormField extends StatefulWidget {
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
   final bool isPhone;
+  final int? maxLines;
 
   const CustomTextFormField({
     super.key,
@@ -18,6 +19,7 @@ class CustomTextFormField extends StatefulWidget {
     this.onChanged,
     this.validator,
     this.isPhone = false,
+    this.maxLines,
   });
 
   @override
@@ -37,6 +39,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         controller: widget.controller,
         onChanged: widget.onChanged,
         validator: widget.validator,
+        maxLines: widget.maxLines,
 
         autovalidateMode: AutovalidateMode.onUserInteraction,
         cursorColor: AppColors.primary,

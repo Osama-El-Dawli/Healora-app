@@ -172,7 +172,7 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.darkBackground,
 
     appBarTheme: AppBarTheme(
-      backgroundColor: AppColors.darkCard,
+      backgroundColor: AppColors.darkBackground,
       foregroundColor: AppColors.darkTextPrimary,
       elevation: 0,
       scrolledUnderElevation: 0,
