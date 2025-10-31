@@ -12,8 +12,22 @@ class SelectDateSection extends StatefulWidget {
 }
 
 class _SelectDateSectionState extends State<SelectDateSection> {
-  int _selectedIndex = -1;
+  int _selectedIndex = 0;
   final ScrollController _scrollController = ScrollController();
+  List<DateTime> getWeekDates() {
+    final tomorrow = DateTime.now().add(const Duration(days: 1));
+
+    List<DateTime> dates = [];
+    DateTime current = tomorrow;
+
+    while (dates.length < 6) {
+      if (current.weekday != DateTime.friday) {
+        dates.add(current);
+      }
+      current = current.add(const Duration(days: 1));
+    }
+    return dates;
+  }
 
   void scrollToIndex(int index) {
     _scrollController.animateTo(
@@ -42,7 +56,7 @@ class _SelectDateSectionState extends State<SelectDateSection> {
           children: [
             IconButton(
               onPressed: () {
-                if (_selectedIndex == -1) {
+                if (_selectedIndex == 0) {
                   return;
                 } else {
                   setState(() {
@@ -79,8 +93,10 @@ class _SelectDateSectionState extends State<SelectDateSection> {
                               },
                               child: DateItem(
                                 isSelected: index == _selectedIndex,
-                                dayName: 'Mon',
-                                dayNumber: '22',
+                                dayName: DateFormat(
+                                  'EEE',
+                                ).format(getWeekDates()[index]),
+                                dayNumber: getWeekDates()[index].day.toString(),
                               ),
                             ),
                           ),
