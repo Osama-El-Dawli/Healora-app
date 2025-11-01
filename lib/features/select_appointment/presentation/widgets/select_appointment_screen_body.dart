@@ -126,7 +126,7 @@ class _SelectAppointmentScreenBodyState
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Text(
-              "Available Times for ${DateFormat('dd MMM').format(selectedDate!)}"
+              "${'Available Times for'.tr()} ${DateFormat('dd MMM').format(selectedDate!)}"
                   .tr(),
               style: Theme.of(
                 context,
