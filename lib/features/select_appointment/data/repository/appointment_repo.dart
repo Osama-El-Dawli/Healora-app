@@ -17,4 +17,18 @@ class AppointmentRepo {
   }) async {
     return await _dataSource.getAvailableTimes(day: day, docId: docId);
   }
+
+  Future<AppointmentModel?> isBooked({
+    required String docId,
+    required String patientId,
+  }) async {
+    return await _dataSource.isBooked(docId: docId, patientId: patientId);
+  }
+
+  Future<void> cancelAppointment({
+    required String patientId,
+    required String docId,
+  }) async {
+    await _dataSource.cancelAppointment(patientId: patientId, docId: docId);
+  }
 }

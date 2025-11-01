@@ -4,12 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/select_doctor/data/models/doctor_model.dart';
 import 'package:healora/core/widgets/custom_info_card.dart';
 
 class SelectDoctorListView extends StatelessWidget {
-  const SelectDoctorListView({super.key, required this.doctors});
+  const SelectDoctorListView({super.key, required this.doctors, required this.patient});
   final List<DoctorModel> doctors;
+  final UserModel patient;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,10 @@ class SelectDoctorListView extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   AppRoutes.selectAppointmentScreen,
-                  arguments: doctors[index],
+                  arguments: {
+                    'doctorModel': doctors[index],
+                    'patientModel': patient,
+                  },
                 );
               },
               child: Hero(

@@ -27,9 +27,11 @@ import 'package:healora/features/medical_history/data/repositories/medical_histo
 import 'package:healora/features/medical_history/presentation/screens/medical_history_screen.dart';
 import 'package:healora/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:healora/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:healora/features/select_appointment/cubit/appointment_cubit/appointment_cubit.dart';
+import 'package:healora/features/select_appointment/data/repository/appointment_repo.dart';
+import 'package:healora/features/select_appointment/presentation/screens/booking_details_screen.dart';
 import 'package:healora/features/select_appointment/presentation/screens/select_appointment_screen.dart';
 import 'package:healora/features/select_doctor/cubit/select_doctor_cubit/select_doctor_cubit.dart';
-import 'package:healora/features/select_doctor/data/models/doctor_model.dart';
 import 'package:healora/features/select_doctor/data/repositories/select_doctor_repo.dart';
 import 'package:healora/features/select_doctor/presentation/screens/select_doctor_screen.dart';
 import 'package:healora/features/settings/presentation/screens/settings_screen.dart';
@@ -106,13 +108,13 @@ class AppRouteGenerator {
         );
 
       case AppRoutes.selectDoctorScreen:
-        final specialty = settings.arguments as String;
+        final arguments = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
                 SelectDoctorCubit(ServiceLocator.getIt<SelectDoctorRepo>())
-                  ..getDoctorsBySpecialty(specialty: specialty),
-            child: SelectDoctorScreen(),
+                  ..getDoctorsBySpecialty(specialty: arguments['specialty']),
+            child: SelectDoctorScreen(patient: arguments['patient']),
           ),
         );
 
@@ -136,13 +138,37 @@ class AppRouteGenerator {
           builder: (_) => AppointmentDetailsScreen(avatarTag: avatarTag),
         );
       case AppRoutes.selectAppointmentScreen:
-        final doctorModel = settings.arguments as DoctorModel;
+        final arguments = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => SelectAppointmentScreen(doctorModel: doctorModel),
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                AppointmentCubit(ServiceLocator.getIt<AppointmentRepo>()),
+            child: SelectAppointmentScreen(
+              doctorModel: arguments['doctorModel'],
+              patientModel: arguments['patientModel'],
+            ),
+          ),
         );
 
       case AppRoutes.chooseSpecialtyScreen:
-        return MaterialPageRoute(builder: (_) => const ChooseSpecialtyScreen());
+        final patientModel = settings.arguments as UserModel;
+        return MaterialPageRoute(
+          builder: (_) => ChooseSpecialtyScreen(patient: patientModel),
+        );
+
+      case AppRoutes.bookingDetailsScreen:
+        final arguments = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                AppointmentCubit(ServiceLocator.getIt<AppointmentRepo>()),
+            child: BookingDetailsScreen(
+              patient: arguments['patient'],
+              doctor: arguments['doctor'],
+              appointment: arguments['appointment'],
+            ),
+          ),
+        );
 
       default:
         return MaterialPageRoute(

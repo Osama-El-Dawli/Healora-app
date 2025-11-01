@@ -2,10 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/choose_specialty/presentation/widgets/choose_specialty_grid.dart';
 
 class ChooseSpecialtyScreen extends StatelessWidget {
-  const ChooseSpecialtyScreen({super.key});
+  const ChooseSpecialtyScreen({super.key, required this.patient});
+  final UserModel patient;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class ChooseSpecialtyScreen extends StatelessWidget {
           : AppColors.gray,
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
-        child: const ChooseSpecialtyGrid(),
+        child: ChooseSpecialtyGrid(patient: patient),
       ),
     );
   }

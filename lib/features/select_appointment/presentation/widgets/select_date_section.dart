@@ -5,7 +5,14 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:healora/features/select_appointment/presentation/widgets/date_item.dart';
 
 class SelectDateSection extends StatefulWidget {
-  const SelectDateSection({super.key});
+  const SelectDateSection({
+    super.key,
+    required this.onDateSelected,
+    required this.initialSelectedDate,
+  });
+
+  final Function(DateTime) onDateSelected;
+  final DateTime initialSelectedDate;
 
   @override
   State<SelectDateSection> createState() => _SelectDateSectionState();
@@ -14,6 +21,7 @@ class SelectDateSection extends StatefulWidget {
 class _SelectDateSectionState extends State<SelectDateSection> {
   int _selectedIndex = 0;
   final ScrollController _scrollController = ScrollController();
+
   List<DateTime> getWeekDates() {
     final tomorrow = DateTime.now().add(const Duration(days: 1));
 
@@ -29,6 +37,17 @@ class _SelectDateSectionState extends State<SelectDateSection> {
     return dates;
   }
 
+  @override
+  void initState() {
+    super.initState();
+    final dates = getWeekDates();
+    _selectedIndex = dates.indexWhere(
+      (d) =>
+          DateFormat('dd MMM').format(d) ==
+          DateFormat('dd MMM').format(widget.initialSelectedDate),
+    );
+  }
+
   void scrollToIndex(int index) {
     _scrollController.animateTo(
       index * 50.w,
@@ -38,7 +57,15 @@ class _SelectDateSectionState extends State<SelectDateSection> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final dates = getWeekDates();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -51,28 +78,26 @@ class _SelectDateSectionState extends State<SelectDateSection> {
             ).textTheme.titleSmall!.copyWith(color: Colors.black),
           ),
         ),
-        SizedBox(height: 15),
+        SizedBox(height: 15.h),
         Row(
           children: [
             IconButton(
               onPressed: () {
-                if (_selectedIndex == 0) {
-                  return;
-                } else {
-                  setState(() {
-                    _selectedIndex--;
-                  });
-                }
+                if (_selectedIndex == 0) return;
+                setState(() {
+                  _selectedIndex--;
+                });
+                widget.onDateSelected(dates[_selectedIndex]);
                 scrollToIndex(_selectedIndex);
               },
-              icon: Icon(Icons.arrow_back_ios_new),
+              icon: const Icon(Icons.arrow_back_ios_new),
             ),
             Expanded(
               child: SizedBox(
                 height: 75.h,
                 child: ListView.separated(
                   controller: _scrollController,
-                  separatorBuilder: (_, index) => SizedBox(width: 10.w),
+                  separatorBuilder: (_, _) => SizedBox(width: 10.w),
                   itemBuilder: (_, index) =>
                       AnimationConfiguration.staggeredList(
                         delay: const Duration(milliseconds: 100),
@@ -86,39 +111,36 @@ class _SelectDateSectionState extends State<SelectDateSection> {
                               borderRadius: BorderRadius.circular(12.r),
                               onTap: () {
                                 if (index != _selectedIndex) {
-                                  setState(() {
-                                    _selectedIndex = index;
-                                  });
+                                  setState(() => _selectedIndex = index);
+                                  widget.onDateSelected(dates[index]);
                                 }
                               },
                               child: DateItem(
                                 isSelected: index == _selectedIndex,
-                                dayName: DateFormat(
-                                  'EEE',
-                                ).format(getWeekDates()[index]),
-                                dayNumber: getWeekDates()[index].day.toString(),
+                                dayName: DateFormat('EEE').format(dates[index]),
+                                dayNumber: DateFormat(
+                                  'dd',
+                                ).format(dates[index]),
                               ),
                             ),
                           ),
                         ),
                       ),
-                  itemCount: 6,
+                  itemCount: dates.length,
                   scrollDirection: Axis.horizontal,
                 ),
               ),
             ),
             IconButton(
               onPressed: () {
-                if (_selectedIndex == 5) {
-                  return;
-                } else {
-                  setState(() {
-                    _selectedIndex++;
-                  });
-                }
+                if (_selectedIndex == dates.length - 1) return;
+                setState(() {
+                  _selectedIndex++;
+                });
+                widget.onDateSelected(dates[_selectedIndex]);
                 scrollToIndex(_selectedIndex);
               },
-              icon: Icon(Icons.arrow_forward_ios_rounded),
+              icon: const Icon(Icons.arrow_forward_ios_rounded),
             ),
           ],
         ),

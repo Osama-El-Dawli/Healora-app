@@ -2,6 +2,14 @@
 class Assets {
   Assets._();
   
+  /// Assets for iconsCalendar
+  /// assets/icons/calendar.svg
+  static const String iconsCalendar = "assets/icons/calendar.svg";
+
+  /// Assets for iconsConfirmed
+  /// assets/icons/confirmed.svg
+  static const String iconsConfirmed = "assets/icons/confirmed.svg";
+
   /// Assets for imagesAuthHeader
   /// assets/images/auth_header.png
   static const String imagesAuthHeader = "assets/images/auth_header.png";

@@ -24,30 +24,61 @@ class SelectAppointmentFirebaseDataSource {
       '10:30',
     ];
 
-    List<String> availableTimes = List.from(allTimes);
+    final bookedAppointments = await _getBookedAppointment(
+      docId: docId,
+      day: day,
+    );
 
-    final bookedAppointments = await _getBookedAppointment(docId: docId);
+    final bookedTimes = bookedAppointments.map((e) => e.time).toList();
 
-    for (AppointmentModel item in bookedAppointments) {
-      if (item.date == day) {
-        availableTimes.remove(item.time);
-      }
-    }
-
-    availableTimes.sort((a, b) => a.compareTo(b));
+    final availableTimes =
+        allTimes.where((t) => !bookedTimes.contains(t)).toList()
+          ..sort((a, b) => a.compareTo(b));
 
     return availableTimes;
   }
 
   Future<List<AppointmentModel>> _getBookedAppointment({
     required String docId,
+    required String day,
   }) async {
     final appointments = await _firebase
         .collection('appointments')
         .where('doctorId', isEqualTo: docId)
+        .where('date', isEqualTo: day)
         .get();
+
     return appointments.docs
         .map((e) => AppointmentModel.fromFirebase(e.data()))
         .toList();
+  }
+
+  Future<AppointmentModel?> isBooked({
+    required String docId,
+    required String patientId,
+  }) async {
+    final appointments = await _firebase
+        .collection('appointments')
+        .where('doctorId', isEqualTo: docId)
+        .where('patientId', isEqualTo: patientId)
+        .get();
+
+    if (appointments.docs.isEmpty) {
+      return null;
+    }
+
+    return AppointmentModel.fromFirebase(appointments.docs.first.data());
+  }
+
+  Future<void> cancelAppointment({
+    required String patientId,
+    required String docId,
+  }) async {
+    await _firebase
+        .collection('appointments')
+        .where('patientId', isEqualTo: patientId)
+        .where('doctorId', isEqualTo: docId)
+        .get()
+        .then((value) => value.docs.first.reference.delete());
   }
 }
