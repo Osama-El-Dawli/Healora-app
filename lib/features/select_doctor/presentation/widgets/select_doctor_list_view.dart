@@ -9,7 +9,11 @@ import 'package:healora/features/select_doctor/data/models/doctor_model.dart';
 import 'package:healora/core/widgets/custom_info_card.dart';
 
 class SelectDoctorListView extends StatelessWidget {
-  const SelectDoctorListView({super.key, required this.doctors, required this.patient});
+  const SelectDoctorListView({
+    super.key,
+    required this.doctors,
+    required this.patient,
+  });
   final List<DoctorModel> doctors;
   final UserModel patient;
 
@@ -47,7 +51,9 @@ class SelectDoctorListView extends StatelessWidget {
                     onPressed: () {},
                     icon: Icon(
                       Icons.chat,
-                      color: AppColors.secondary,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.primary
+                          : AppColors.darkGreen,
                       size: 28.sp,
                     ),
                   ),

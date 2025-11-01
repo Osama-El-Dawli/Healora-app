@@ -92,7 +92,12 @@ class _SelectAppointmentScreenBodyState
   Widget build(BuildContext context) {
     final cubit = context.read<AppointmentCubit>();
     return Skeletonizer(
+      effect: ShimmerEffect(
+        baseColor: AppColors.lightGray,
+        highlightColor: AppColors.primary.withValues(alpha: 0.3),
+      ),
       enabled: isCheckingBooking,
+
       ignoreContainers: true,
       enableSwitchAnimation: true,
       child: Column(
@@ -128,9 +133,11 @@ class _SelectAppointmentScreenBodyState
             child: Text(
               "${'Available Times for'.tr()} ${DateFormat('dd MMM').format(selectedDate!)}"
                   .tr(),
-              style: Theme.of(
-                context,
-              ).textTheme.titleSmall!.copyWith(color: AppColors.black),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: Theme.brightnessOf(context) == Brightness.dark
+                    ? AppColors.darkTextSecondary
+                    : AppColors.black,
+              ),
             ),
           ),
           SizedBox(height: 15.h),
@@ -139,6 +146,10 @@ class _SelectAppointmentScreenBodyState
               builder: (context, state) {
                 if (state is AppointmentLoading) {
                   return Skeletonizer(
+                    effect: ShimmerEffect(
+                      baseColor: AppColors.lightGray,
+                      highlightColor: AppColors.primary.withValues(alpha: 0.3),
+                    ),
                     enabled: true,
                     child: SelectTimeSection(
                       times: List.generate(6, (index) => 'loading'),
@@ -159,6 +170,10 @@ class _SelectAppointmentScreenBodyState
                   return Center(child: Text('Error: ${state.errorMessage}'));
                 } else {
                   return Skeletonizer(
+                    effect: ShimmerEffect(
+                      baseColor: AppColors.lightGray,
+                      highlightColor: AppColors.primary.withValues(alpha: 0.3),
+                    ),
                     enabled: true,
                     enableSwitchAnimation: true,
                     child: SelectTimeSection(

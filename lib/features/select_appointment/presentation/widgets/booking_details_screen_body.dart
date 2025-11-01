@@ -66,7 +66,16 @@ class BookingDetailsScreenBody extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Column(
                   children: [
-                    SvgPicture.asset(Assets.iconsConfirmed, width: 80.w),
+                    SvgPicture.asset(
+                      Assets.iconsConfirmed,
+                      width: 80.w,
+                      colorFilter: ColorFilter.mode(
+                        Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.darkTextSecondary
+                            : AppColors.darkGreen,
+                        BlendMode.srcIn,
+                      ),
+                    ),
                     SizedBox(height: 20.h),
                     Text(
                       'Booking Confirmed'.tr(),
@@ -161,7 +170,9 @@ class BookingDetailsScreenBody extends StatelessWidget {
                     onPressed: () {},
                     icon: Icon(
                       Icons.chat,
-                      color: AppColors.secondary,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.primary
+                          : AppColors.darkGreen,
                       size: 30.sp,
                     ),
                   ),

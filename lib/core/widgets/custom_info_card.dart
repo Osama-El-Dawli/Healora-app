@@ -34,6 +34,9 @@ class CustomInfoCard extends StatelessWidget {
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,
+              color: Theme.brightnessOf(context) == Brightness.dark
+                  ? AppColors.primary
+                  : AppColors.primary,
             ),
           ),
           subtitle: Text(

@@ -77,9 +77,13 @@ class SelectDoctorScreenBody extends StatelessWidget {
                     if (state is SelectDoctorLoading) {
                       return SliverToBoxAdapter(
                         child: Skeletonizer(
-                          containersColor: AppColors.lightGray.withValues(
-                            alpha: 0.5,
+                          effect: ShimmerEffect(
+                            baseColor: AppColors.lightGray,
+                            highlightColor: AppColors.primary.withValues(
+                              alpha: 0.3,
+                            ),
                           ),
+
                           enableSwitchAnimation: true,
                           enabled: true,
                           child: Column(
@@ -93,9 +97,11 @@ class SelectDoctorScreenBody extends StatelessWidget {
                                   subTitle: 'Loading...',
                                   trailing: Icon(
                                     Icons.chat,
-                                    color: AppColors.secondary.withValues(
-                                      alpha: 0.3,
-                                    ),
+                                    color:
+                                        Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.primary
+                                        : AppColors.darkGreen,
                                     size: 28.sp,
                                   ),
                                 ),

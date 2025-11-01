@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/features/select_appointment/presentation/widgets/date_item.dart';
 
 class SelectDateSection extends StatefulWidget {
@@ -73,9 +74,11 @@ class _SelectDateSectionState extends State<SelectDateSection> {
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Text(
             "Select date".tr(),
-            style: Theme.of(
-              context,
-            ).textTheme.titleSmall!.copyWith(color: Colors.black),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              color: Theme.brightnessOf(context) == Brightness.dark
+                  ? AppColors.darkTextSecondary
+                  : AppColors.black,
+            ),
           ),
         ),
         SizedBox(height: 15.h),

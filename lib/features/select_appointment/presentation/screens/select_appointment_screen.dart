@@ -22,7 +22,10 @@ class SelectAppointmentScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: SelectAppointmentScreenBody(doctorModel: doctorModel, patientModel: patientModel,),
+      body: SelectAppointmentScreenBody(
+        doctorModel: doctorModel,
+        patientModel: patientModel,
+      ),
     );
   }
 }

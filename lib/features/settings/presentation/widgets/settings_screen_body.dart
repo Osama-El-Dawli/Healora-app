@@ -20,7 +20,7 @@ class SettingsScreenBody extends StatelessWidget {
         children: [
           SettingsScreenHeader(user: user),
           SizedBox(height: 12.h),
-          SettingsList(),
+          SettingsList(user: user),
           Spacer(),
           LanguageSwitchRow(
             currentLang: context.locale.languageCode,
