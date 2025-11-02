@@ -46,7 +46,7 @@ To simplify healthcare services, improve communication, and enhance diagnosis ac
 | **Backend** | Firebase (Authentication, Firestore, Cloud Functions, Cloud Messaging) |
 | **AI Chatbot** | Gemini API integrated with Firebase Cloud Functions |
 | **State Management** | Cubit / Bloc |
-| **Storage** | Firebase Storage for medical files & attachments |
+| **Storage** | Supabase Storage for medical files & attachments |
 
 ---
 
