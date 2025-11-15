@@ -51,7 +51,6 @@ class Healora extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeCubit = context.read<ThemeCubit>();
 
-    // ✅ Initialize theme safely after first frame
     WidgetsBinding.instance.addPostFrameCallback((_) {
       themeCubit.initTheme(context);
     });

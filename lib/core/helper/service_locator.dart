@@ -14,6 +14,8 @@ import 'package:healora/features/select_appointment/data/data_source/select_appo
 import 'package:healora/features/select_appointment/data/repository/appointment_repo.dart';
 import 'package:healora/features/select_doctor/data/data_sources/firebase_select_doctor_remote_data_source.dart';
 import 'package:healora/features/select_doctor/data/repositories/select_doctor_repo.dart';
+import 'package:healora/features/settings/data/data_sources/firebase_logout_remote_data_source.dart';
+import 'package:healora/features/settings/data/repositories/logout_repo.dart';
 
 class ServiceLocator {
   static final getIt = GetIt.instance;
@@ -85,6 +87,15 @@ class ServiceLocator {
       () => AppointmentRepo(
         dataSource: getIt<SelectAppointmentFirebaseDataSource>(),
       ),
+    );
+
+    // settings Feature
+    getIt.registerLazySingleton<FirebaseLogoutRemoteDataSource>(
+      () => FirebaseLogoutRemoteDataSource(),
+    );
+    getIt.registerLazySingleton<LogoutRepo>(
+      () =>
+          LogoutRepo(remoteDataSource: getIt<FirebaseLogoutRemoteDataSource>()),
     );
   }
 }

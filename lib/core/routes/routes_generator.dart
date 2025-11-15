@@ -34,6 +34,8 @@ import 'package:healora/features/select_appointment/presentation/screens/select_
 import 'package:healora/features/select_doctor/cubit/select_doctor_cubit/select_doctor_cubit.dart';
 import 'package:healora/features/select_doctor/data/repositories/select_doctor_repo.dart';
 import 'package:healora/features/select_doctor/presentation/screens/select_doctor_screen.dart';
+import 'package:healora/features/settings/cubits/logout_cubit/logout_cubit.dart';
+import 'package:healora/features/settings/data/repositories/logout_repo.dart';
 import 'package:healora/features/settings/presentation/screens/settings_screen.dart';
 
 class AppRouteGenerator {
@@ -129,7 +131,11 @@ class AppRouteGenerator {
       case AppRoutes.settingsScreen:
         final userModel = settings.arguments as UserModel;
         return MaterialPageRoute(
-          builder: (_) => SettingsScreen(user: userModel),
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                LogoutCubit(ServiceLocator.getIt<LogoutRepo>()),
+            child: SettingsScreen(user: userModel),
+          ),
         );
 
       case AppRoutes.doctorScreen:
