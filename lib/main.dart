@@ -13,7 +13,8 @@ import 'package:healora/core/routes/routes_generator.dart';
 import 'package:healora/core/theme/app_theme.dart';
 import 'package:healora/core/theme/cubit/theme_cubit.dart';
 import 'package:healora/core/theme/cubit/theme_state.dart';
-import 'package:healora/features/auth/register/data/models/user_model.dart';
+import 'package:healora/features/edit_account/cubit/update_account_info_cubit.dart';
+import 'package:healora/features/edit_account/data/repositories/update_user_info_repository.dart';
 import 'package:healora/firebase_options.dart';
 
 Future<void> main() async {
@@ -23,8 +24,10 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = MyBlocObserver();
+
   await HiveManager.init();
   final isOnboardingVisited = HiveManager.isOnboardingVisited();
+  final user = HiveManager.getUser();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
     _,
@@ -34,8 +37,16 @@ Future<void> main() async {
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: 'assets/translations',
         fallbackLocale: const Locale('en'),
-        child: BlocProvider(
-          create: (context) => ThemeCubit(),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => ThemeCubit()),
+            BlocProvider(
+              create: (_) => UpdateAccountCubit(
+                ServiceLocator.getIt<UpdateUserInfoRepository>(),
+                userModel: user,
+              ),
+            ),
+          ],
           child: Healora(isOnboardingVisited: isOnboardingVisited),
         ),
       ),
@@ -54,7 +65,7 @@ class Healora extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       themeCubit.initTheme(context);
     });
-    final UserModel? user = HiveManager.getUser();
+
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -62,6 +73,7 @@ class Healora extends StatelessWidget {
       builder: (context, child) => BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           final isDark = state is DarkThemeState;
+          final user = HiveManager.getUser();
 
           return MaterialApp(
             title: 'Healora',
@@ -69,7 +81,9 @@ class Healora extends StatelessWidget {
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
+
             onGenerateRoute: (settings) {
+              // تمرير المستخدم لجميع الصفحات اللي محتاجة بياناته
               final user = HiveManager.getUser();
               if (settings.name == AppRoutes.homeScreen ||
                   settings.name == AppRoutes.doctorScreen) {
@@ -83,6 +97,7 @@ class Healora extends StatelessWidget {
             theme: AppTheme.lightMode,
             darkTheme: AppTheme.darkMode,
             themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+
             initialRoute: isOnboardingVisited
                 ? (user != null
                       ? (user.role == 'doctor'

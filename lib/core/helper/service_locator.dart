@@ -5,6 +5,7 @@ import 'package:healora/features/auth/register/data/data_sources/firebase_regist
 import 'package:healora/features/auth/register/data/repositories/register_repository.dart';
 import 'package:healora/features/chat/data/data_sources/firestore_chat_remote_data_source.dart';
 import 'package:healora/features/chat/data/repositories/chat_repo.dart';
+import 'package:healora/features/edit_account/data/repositories/update_user_info_repository.dart';
 import 'package:healora/features/medical_chatbot/data/data_sources/gemini_remote_data_source.dart';
 import 'package:healora/features/medical_chatbot/data/data_sources/gemini_service.dart';
 import 'package:healora/features/medical_chatbot/data/repositories/chat_bot_repo.dart';
@@ -96,6 +97,9 @@ class ServiceLocator {
     getIt.registerLazySingleton<LogoutRepo>(
       () =>
           LogoutRepo(remoteDataSource: getIt<FirebaseLogoutRemoteDataSource>()),
+    );
+    getIt.registerLazySingleton<UpdateUserInfoRepository>(
+      () => UpdateUserInfoRepository(),
     );
   }
 }

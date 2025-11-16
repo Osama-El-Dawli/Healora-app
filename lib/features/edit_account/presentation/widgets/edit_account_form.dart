@@ -1,68 +1,57 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:healora/core/cache/hive_manager.dart';
 import 'package:healora/core/theme/app_colors.dart';
-import 'package:healora/core/widgets/custom_elevated_button.dart';
-import 'package:healora/core/widgets/custom_text_form_field.dart';
-import 'package:healora/features/auth/register/data/models/user_model.dart';
-import 'package:healora/features/edit_account/presentation/widgets/change_avatar.dart';
+import 'package:healora/core/widgets/loading_indicator.dart';
+import 'package:healora/features/edit_account/cubit/update_account_info_cubit.dart';
+import 'package:healora/features/edit_account/cubit/update_account_info_state.dart';
+import 'package:healora/features/edit_account/presentation/widgets/edit_form_fields.dart';
 
 class EditAccountForm extends StatelessWidget {
-  const EditAccountForm({super.key, required this.user});
-  final UserModel user;
+  const EditAccountForm({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          minHeight: MediaQuery.of(context).size.height * 0.83,
-        ),
-        child: IntrinsicHeight(
-          child: Column(
-            children: [
-              ChangeAvatar(user: user),
-              SizedBox(height: 20.h),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextFormField(initialValue: user.firstName),
-                  ),
-                  SizedBox(width: 12.w),
-                  Expanded(
-                    child: CustomTextFormField(initialValue: user.lastName),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8.h),
+    return BlocConsumer<UpdateAccountCubit, UpdateAccountState>(
+      listener: (context, state) async {
+        if (state is UpdateAccountLoading) {
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (_) => const LoadingIndicator(),
+          );
+        } else if (state is UpdateAccountSuccess) {
+          if (Navigator.canPop(context)) Navigator.pop(context);
+          Fluttertoast.showToast(
+            msg: state.message.tr(),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: AppColors.secondary,
+            textColor: AppColors.backgroundColor,
+            fontSize: 16.sp,
+          );
 
-              CustomTextFormField(initialValue: user.phoneNumber),
-              SizedBox(height: 8.h),
+          await HiveManager.saveUser(state.user);
 
-              CustomTextFormField(initialValue: user.email, readOnly: true),
-              SizedBox(height: 8.h),
-
-              CustomTextFormField(readOnly: true, initialValue: user.role.tr()),
-              if (user.specialization != '') ...[
-                SizedBox(height: 8.h),
-                CustomTextFormField(
-                  readOnly: true,
-                  initialValue: user.specialization.tr(),
-                ),
-              ],
-              Spacer(),
-              CustomElevatedButton(
-                label: 'Save',
-                onPressed: () {},
-                color: Theme.brightnessOf(context) == Brightness.dark
-                    ? AppColors.primary
-                    : AppColors.secondary,
-              ),
-            ],
-          ),
-        ),
-      ),
+          if (Navigator.canPop(context)) Navigator.pop(context, state.user);
+        } else if (state is UpdateAccountError) {
+          if (Navigator.canPop(context)) Navigator.pop(context);
+          Fluttertoast.showToast(
+            msg: state.message.tr(),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: AppColors.red,
+            textColor: AppColors.backgroundColor,
+            fontSize: 16.sp,
+          );
+        }
+      },
+      builder: (context, state) {
+        return const EditAccountFormFields();
+      },
     );
   }
 }

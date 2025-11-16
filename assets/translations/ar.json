@@ -82,5 +82,10 @@
     "dark_mode": "الوضع الداكن",
     "logout": "تسجيل الخروج",
     "choose_specialty": "اختر التخصص",
-    "logout_successfully": "تم تسجيل الخروج بنجاح"
+    "logout_successfully": "تم تسجيل الخروج بنجاح",
+    "avatar": "الصورة الشخصية",
+    "no_changes_made": "لم يتم تعديل أي بيانات",
+    "updated_successfully": "تم تحديث {field} بنجاح",
+    "failed_to_update": "فشل تحديث البيانات: {error}",
+    "save": "حفظ"
 }

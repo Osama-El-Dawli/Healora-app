@@ -11,7 +11,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('settings'.tr())),
-      body: SafeArea(child: SettingsScreenBody(user: user,)),
+      body: SafeArea(child: SettingsScreenBody()),
     );
   }
 }

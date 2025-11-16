@@ -91,7 +91,7 @@ class AppRouteGenerator {
 
       case AppRoutes.editAccountScreen:
         return MaterialPageRoute(
-          builder: (_) {
+          builder: (context) {
             final userModel = settings.arguments as UserModel;
             return EditAccountScreen(user: userModel);
           },

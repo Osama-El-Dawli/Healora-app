@@ -7,8 +7,13 @@ import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ChangeAvatar extends StatefulWidget {
-  const ChangeAvatar({super.key, required this.user});
+  const ChangeAvatar({
+    super.key,
+    required this.user,
+    required this.onImagePicked,
+  });
   final UserModel user;
+  final void Function(String path)? onImagePicked;
 
   @override
   State<ChangeAvatar> createState() => _ChangeAvatarState();
@@ -25,6 +30,7 @@ class _ChangeAvatarState extends State<ChangeAvatar> {
       setState(() {
         _selectedImage = File(image.path);
         widget.user.imageUrl = _selectedImage!.path;
+        widget.onImagePicked?.call(_selectedImage!.path);
       });
     }
   }
@@ -46,10 +52,12 @@ class _ChangeAvatarState extends State<ChangeAvatar> {
             radius: 28.r,
             backgroundImage: _selectedImage != null
                 ? FileImage(_selectedImage!)
-                : (widget.user.imageUrl.startsWith('/data/')
-                          ? FileImage(File(widget.user.imageUrl))
-                          : AssetImage(widget.user.imageUrl))
-                      as ImageProvider,
+                : (widget.user.imageUrl.isNotEmpty
+                      ? (widget.user.imageUrl.startsWith('/data/')
+                                ? FileImage(File(widget.user.imageUrl))
+                                : AssetImage(widget.user.imageUrl))
+                            as ImageProvider
+                      : AssetImage('assets/images/avatar.png')),
           ),
         ),
         Positioned(
