@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
@@ -14,50 +16,25 @@ class SettingsScreenHeader extends StatelessWidget {
       width: double.infinity,
       child: Column(
         children: [
-          Stack(
-            children: [
-              Container(
-                padding: EdgeInsets.all(10.r),
-                margin: EdgeInsets.all(10.r),
-                decoration: BoxDecoration(
-                  color: AppColors.gray,
-                  borderRadius: BorderRadius.circular(80.r),
-                ),
-                height: 150,
-                width: 150,
-                child: CircleAvatar(
-                  radius: 28.r,
-                  child: Image.asset(user.imageUrl),
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(28.r)),
-                  child: Container(
-                    margin: EdgeInsets.all(8.r),
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.black.withValues(alpha: 0.2),
-                          blurRadius: 5,
-                          offset: Offset(0, 4),
-                        ),
-                      ],
-                      color: AppColors.backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(28.r)),
-                    ),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.edit),
-                      color: AppColors.primary,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          Container(
+            padding: EdgeInsets.all(10.r),
+            margin: EdgeInsets.all(10.r),
+            decoration: BoxDecoration(
+              color: AppColors.gray,
+              borderRadius: BorderRadius.circular(80.r),
+            ),
+            height: 150,
+            width: 150,
+            child: CircleAvatar(
+              radius: 28.r,
+              backgroundImage:
+                  (user.imageUrl.startsWith('/data/')
+                          ? FileImage(File(user.imageUrl))
+                          : AssetImage(user.imageUrl))
+                      as ImageProvider,
+            ),
           ),
+
           SizedBox(height: 12.h),
           Text(
             '${user.firstName} ${user.lastName}',

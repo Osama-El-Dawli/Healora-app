@@ -81,5 +81,6 @@
     "notifications": "الإشعارات",
     "dark_mode": "الوضع الداكن",
     "logout": "تسجيل الخروج",
-    "choose_specialty": "اختر التخصص"
+    "choose_specialty": "اختر التخصص",
+    "logout_successfully": "تم تسجيل الخروج بنجاح"
 }

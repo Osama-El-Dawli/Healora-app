@@ -16,6 +16,7 @@ class DateItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 60.w,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: isSelected ? AppColors.primary : AppColors.lightGray,

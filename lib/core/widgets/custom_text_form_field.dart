@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
 
+// ignore: must_be_immutable
 class CustomTextFormField extends StatefulWidget {
   final String hintText;
   final bool isPassword;
@@ -10,16 +11,20 @@ class CustomTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final bool isPhone;
   final int maxLines;
+  bool readOnly;
+  String initialValue;
 
-  const CustomTextFormField({
+  CustomTextFormField({
     super.key,
-    required this.hintText,
+    this.hintText = '',
     this.isPassword = false,
     this.controller,
     this.onChanged,
     this.validator,
     this.isPhone = false,
     this.maxLines = 1,
+    this.readOnly = false,
+    this.initialValue = '',
   });
 
   @override
@@ -40,6 +45,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         onChanged: widget.onChanged,
         validator: widget.validator,
         maxLines: widget.maxLines,
+        readOnly: widget.readOnly,
+        initialValue: widget.controller == null ? widget.initialValue : null,
 
         autovalidateMode: AutovalidateMode.onUserInteraction,
         cursorColor: AppColors.primary,

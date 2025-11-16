@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,13 +8,18 @@ class CustomProfileAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider imageProvider;
+
+    if (imageUrl.startsWith('/data/') || imageUrl.startsWith('/storage/')) {
+      imageProvider = FileImage(File(imageUrl));
+    } else {
+      imageProvider = AssetImage(imageUrl);
+    }
+
     return CircleAvatar(
-      backgroundColor: Color(0xffEAF2F7),
-      radius: 23.r,
-      child: CircleAvatar(
-        radius: 15.r,
-        backgroundImage: AssetImage(imageUrl),
-      ),
+      backgroundColor: const Color(0xffEAF2F7),
+      radius: 24.r,
+      child: CircleAvatar(radius: 18.r, backgroundImage: imageProvider),
     );
   }
 }

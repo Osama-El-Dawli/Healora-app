@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,17 +26,21 @@ Future<void> main() async {
   await HiveManager.init();
   final isOnboardingVisited = HiveManager.isOnboardingVisited();
 
-  runApp(
-    EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('ar')],
-      path: 'assets/translations',
-      fallbackLocale: const Locale('en'),
-      child: BlocProvider(
-        create: (context) => ThemeCubit(),
-        child: Healora(isOnboardingVisited: isOnboardingVisited),
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
+    _,
+  ) {
+    runApp(
+      EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('ar')],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('en'),
+        child: BlocProvider(
+          create: (context) => ThemeCubit(),
+          child: Healora(isOnboardingVisited: isOnboardingVisited),
+        ),
       ),
-    ),
-  );
+    );
+  });
 }
 
 class Healora extends StatelessWidget {
@@ -46,7 +51,6 @@ class Healora extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeCubit = context.read<ThemeCubit>();
 
-    // ✅ Initialize theme safely after first frame
     WidgetsBinding.instance.addPostFrameCallback((_) {
       themeCubit.initTheme(context);
     });

@@ -65,6 +65,13 @@ class HomeScreenListView extends StatelessWidget {
                           arguments: user,
                         );
                         break;
+                      case AppRoutes.chooseSpecialtyScreen:
+                        Navigator.pushNamed(
+                          context,
+                          items[index].route,
+                          arguments: user,
+                        );
+                        break;
                       default:
                         Navigator.pushNamed(context, items[index].route);
                     }

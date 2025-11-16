@@ -2,10 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/choose_specialty/presentation/widgets/choose_specialty_grid.dart';
 
 class ChooseSpecialityBody extends StatelessWidget {
-  const ChooseSpecialityBody({super.key});
+  const ChooseSpecialityBody({super.key, required this.patient});
+  final UserModel patient;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,9 @@ class ChooseSpecialityBody extends StatelessWidget {
                     50.h + MediaQuery.of(context).padding.top;
 
                 double scrollRatio =
-                ((top - collapsedHeight) /
-                    (expandedHeight - collapsedHeight))
-                    .clamp(0.0, 1.0);
+                    ((top - collapsedHeight) /
+                            (expandedHeight - collapsedHeight))
+                        .clamp(0.0, 1.0);
 
                 double opacity = scrollRatio > 0.7
                     ? 0.0
@@ -51,9 +53,16 @@ class ChooseSpecialityBody extends StatelessWidget {
                       right: 16.w,
                       top: kToolbarHeight + 16.h,
                     ),
-                    child: Center(child: Text("speciality".tr(),style:
-                    TextStyle(fontWeight: FontWeight.bold,fontSize: 30),))
+                    child: Center(
+                      child: Text(
+                        "speciality".tr(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
                     ),
+                  ),
                 );
               },
             ),
@@ -66,14 +75,15 @@ class ChooseSpecialityBody extends StatelessWidget {
                 color: AppColors.gray,
                 borderRadius: BorderRadius.circular(16.r),
               ),
-              child: const ChooseSpecialtyGrid(
-              ),
+              child: ChooseSpecialtyGrid(patient: patient),
             ),
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed:(){},
-      child: Icon(Icons.add),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

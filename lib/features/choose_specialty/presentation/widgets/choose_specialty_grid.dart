@@ -4,11 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/utils/app_assets.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/choose_specialty/data/models/choose_specialty_model.dart';
 import 'package:healora/features/choose_specialty/presentation/widgets/choose_specialty_card.dart';
 
 class ChooseSpecialtyGrid extends StatelessWidget {
-  const ChooseSpecialtyGrid({super.key});
+  const ChooseSpecialtyGrid({super.key, required this.patient});
+  final UserModel patient;
   static final List<ChooseSpecialtyModel> specialty = [
     ChooseSpecialtyModel(
       specialtyName: "Cardiology",
@@ -82,7 +84,10 @@ class ChooseSpecialtyGrid extends StatelessWidget {
                     Navigator.pushNamed(
                       context,
                       AppRoutes.selectDoctorScreen,
-                      arguments: specialty[index].specialtyName,
+                      arguments: {
+                        'specialty': specialty[index].specialtyName,
+                        'patient': patient,
+                      },
                     );
                   },
                   child: ChooseSpecialtyCard(

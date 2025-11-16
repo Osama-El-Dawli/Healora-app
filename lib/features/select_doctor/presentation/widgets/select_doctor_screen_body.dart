@@ -6,12 +6,14 @@ import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/utils/app_assets.dart';
 import 'package:healora/core/widgets/custom_card.dart';
 import 'package:healora/core/widgets/custom_info_card.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/select_doctor/cubit/select_doctor_cubit/select_doctor_cubit.dart';
 import 'package:healora/features/select_doctor/presentation/widgets/select_doctor_list_view.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class SelectDoctorScreenBody extends StatelessWidget {
-  const SelectDoctorScreenBody({super.key});
+  const SelectDoctorScreenBody({super.key, required this.patient});
+  final UserModel patient;
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +77,13 @@ class SelectDoctorScreenBody extends StatelessWidget {
                     if (state is SelectDoctorLoading) {
                       return SliverToBoxAdapter(
                         child: Skeletonizer(
-                          containersColor: AppColors.lightGray.withValues(
-                            alpha: 0.5,
+                          effect: ShimmerEffect(
+                            baseColor: AppColors.lightGray,
+                            highlightColor: AppColors.primary.withValues(
+                              alpha: 0.3,
+                            ),
                           ),
+
                           enableSwitchAnimation: true,
                           enabled: true,
                           child: Column(
@@ -91,9 +97,11 @@ class SelectDoctorScreenBody extends StatelessWidget {
                                   subTitle: 'Loading...',
                                   trailing: Icon(
                                     Icons.chat,
-                                    color: AppColors.secondary.withValues(
-                                      alpha: 0.3,
-                                    ),
+                                    color:
+                                        Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? AppColors.primary
+                                        : AppColors.darkGreen,
                                     size: 28.sp,
                                   ),
                                 ),
@@ -103,7 +111,10 @@ class SelectDoctorScreenBody extends StatelessWidget {
                         ),
                       );
                     } else if (state is SelectDoctorSuccess) {
-                      return SelectDoctorListView(doctors: state.doctors);
+                      return SelectDoctorListView(
+                        patient: patient,
+                        doctors: state.doctors,
+                      );
                     } else if (state is SelectDoctorFailure) {
                       return SliverToBoxAdapter(
                         child: Center(

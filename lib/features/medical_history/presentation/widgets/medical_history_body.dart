@@ -102,6 +102,13 @@ class MedicalHistoryBody extends StatelessWidget {
                     return SliverToBoxAdapter(
                       child: Skeletonizer(
                         enabled: true,
+                        effect: ShimmerEffect(
+                          baseColor: AppColors.lightGray,
+                          highlightColor: AppColors.primary.withValues(
+                            alpha: 0.3,
+                          ),
+                          duration: const Duration(seconds: 2), // optional
+                        ),
                         enableSwitchAnimation: true,
                         child: GridView.builder(
                           shrinkWrap: true,

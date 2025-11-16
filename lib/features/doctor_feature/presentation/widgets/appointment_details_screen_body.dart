@@ -83,7 +83,10 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                           onPressed: () {},
                           icon: Icon(
                             Icons.chat,
-                            color: AppColors.secondary,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                ? AppColors.primary
+                                : AppColors.darkGreen,
                             size: 28.sp,
                           ),
                         ),

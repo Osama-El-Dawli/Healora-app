@@ -16,4 +16,5 @@ abstract class AppRoutes {
   static const String selectAppointmentScreen = '/select-appointment';
   static const String editAccountScreen = '/edit-account';
   static const String notificationsScreen = '/notifications';
+  static const String bookingDetailsScreen = '/booking-details';
 }

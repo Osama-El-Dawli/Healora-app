@@ -90,5 +90,14 @@
   "choose_specialty": "Choose Specialty",
   "added_successfully": "Added Successfully",
   "Write the title": "Write the title",
-  "Write the description": "Write the description"
+  "Write the description": "Write the description",
+  "booking_details": "Booking Details",
+  "Booking Confirmed": "Booking Confirmed",
+  "Booking Information": "Booking Information",
+  "Cancel": "Cancel",
+  "Date & Time": "Date & Time",
+  "Doctor Information": "Doctor Information",
+  "Done": "Done",
+  "Available Times for": "Available Times for",
+  "logout_successfully" : "Logout successfully"
 }

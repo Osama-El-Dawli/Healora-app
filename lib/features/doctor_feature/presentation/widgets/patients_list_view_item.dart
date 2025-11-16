@@ -32,7 +32,12 @@ class PatientsListViewItem extends StatelessWidget {
         ),
         trailing: IconButton(
           onPressed: () {},
-          icon: Icon(Icons.chat, color: AppColors.secondary),
+          icon: Icon(
+            Icons.chat,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? AppColors.primary
+                : AppColors.darkGreen,
+          ),
         ),
         title: Hero(
           tag: 'name$avatarTag',
