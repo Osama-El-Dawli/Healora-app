@@ -8,6 +8,6 @@ class EditAccountBody extends StatelessWidget {
   final UserModel user;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(child: EditAccountForm(user: user));
+    return SingleChildScrollView(child: EditAccountForm());
   }
 }

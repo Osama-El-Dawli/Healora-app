@@ -9,13 +9,13 @@ class UserModel extends HiveObject {
   @HiveField(0)
   final String uid;
   @HiveField(1)
-  final String firstName;
+  String firstName;
   @HiveField(2)
-  final String lastName;
+  String lastName;
   @HiveField(3)
   final String email;
   @HiveField(4)
-  final String phoneNumber;
+  String phoneNumber;
   @HiveField(5)
   final String role;
   @HiveField(6)

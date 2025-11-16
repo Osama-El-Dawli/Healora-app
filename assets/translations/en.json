@@ -99,5 +99,10 @@
   "Doctor Information": "Doctor Information",
   "Done": "Done",
   "Available Times for": "Available Times for",
-  "logout_successfully" : "Logout successfully"
+  "logout_successfully": "Logout successfully",
+  "avatar": "Avatar",
+  "no_changes_made": "No changes made",
+  "updated_successfully": "updated successfully",
+  "failed_to_update": "Failed to update",
+  "save": "Save"
 }

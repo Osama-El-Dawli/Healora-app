@@ -8,17 +8,23 @@ import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/widgets/custom_elevated_button.dart';
 import 'package:healora/core/widgets/lang_toggle.dart';
 import 'package:healora/core/widgets/loading_indicator.dart';
-import 'package:healora/features/auth/register/data/models/user_model.dart';
+import 'package:healora/features/edit_account/cubit/update_account_info_cubit.dart';
 import 'package:healora/features/settings/cubits/logout_cubit/logout_cubit.dart';
 import 'package:healora/features/settings/presentation/widgets/settings_list.dart';
 import 'package:healora/features/settings/presentation/widgets/settings_screen_header.dart';
 
 class SettingsScreenBody extends StatelessWidget {
-  const SettingsScreenBody({super.key, required this.user});
-  final UserModel user;
+  const SettingsScreenBody({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final updateUserCubit = context.read<UpdateAccountCubit>();
+    final user = updateUserCubit.userModel;
+
+    if (user == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
     return BlocListener<LogoutCubit, LogoutState>(
       listener: (context, state) {
         if (state is LogoutSuccess) {
@@ -53,7 +59,7 @@ class SettingsScreenBody extends StatelessWidget {
             SettingsScreenHeader(user: user),
             SizedBox(height: 12.h),
             SettingsList(user: user),
-            Spacer(),
+            const Spacer(),
             LanguageSwitchRow(
               currentLang: context.locale.languageCode,
               onSelect: (lang) async {
@@ -61,7 +67,6 @@ class SettingsScreenBody extends StatelessWidget {
               },
             ),
             SizedBox(height: 12.h),
-
             CustomElevatedButton(
               label: 'logout'.tr(),
               onPressed: () {
