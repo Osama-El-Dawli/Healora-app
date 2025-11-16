@@ -5,14 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/widgets/custom_profile_avatar.dart';
-import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/edit_account/cubit/update_account_info_cubit.dart';
 import 'package:healora/features/edit_account/cubit/update_account_info_state.dart';
 import 'package:healora/features/home/presentation/widgets/home_screen_list_view.dart';
 
 class HomeScreenBody extends StatelessWidget {
-  const HomeScreenBody({super.key, required this.user});
-  final UserModel user;
+  const HomeScreenBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,33 +20,44 @@ class HomeScreenBody extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 12.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                BlocBuilder<UpdateAccountCubit, UpdateAccountState>(
-                  builder: (context, state) {
-                    return Text(
+            BlocBuilder<UpdateAccountCubit, UpdateAccountState>(
+              builder: (context, state) {
+                final updateUserCubit = context.read<UpdateAccountCubit>();
+                final user = updateUserCubit.userModel;
+                debugPrint('HomeScreenBody user: ${user?.toMap()}');
+                if (user == null) return const SizedBox();
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
                       '👋🏻 ${'Hi'.tr()} ${user.firstName}',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w700,
                         color: AppColors.primary,
                       ),
-                    );
-                  },
-                ),
-                InkWell(
-                  borderRadius: BorderRadius.circular(23.r),
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    AppRoutes.settingsScreen,
-                    arguments: user,
-                  ),
-                  child: CustomProfileAvatar(imageUrl: user.imageUrl),
-                ),
-              ],
+                    ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(23.r),
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        AppRoutes.settingsScreen,
+                        arguments: user,
+                      ),
+                      child: CustomProfileAvatar(imageUrl: user.imageUrl),
+                    ),
+                  ],
+                );
+              },
             ),
             SizedBox(height: 16.h),
-            Expanded(child: HomeScreenListView(user: user)),
+            BlocBuilder<UpdateAccountCubit, UpdateAccountState>(
+              builder: (context, state) {
+                final updateUserCubit = context.read<UpdateAccountCubit>();
+                final user = updateUserCubit.userModel;
+                if (user == null) return const SizedBox();
+                return Expanded(child: HomeScreenListView(user: user));
+              },
+            ),
           ],
         ),
       ),

@@ -7,7 +7,7 @@ import 'package:healora/features/edit_account/data/repositories/update_user_info
 
 class UpdateAccountCubit extends Cubit<UpdateAccountState> {
   final UpdateUserInfoRepository repository;
-  final UserModel? userModel;
+  UserModel? userModel;
 
   UpdateAccountCubit(this.repository, {this.userModel})
     : super(UpdateAccountInitial());
@@ -52,6 +52,8 @@ class UpdateAccountCubit extends Cubit<UpdateAccountState> {
         userModel!.imageUrl = updatedUser.imageUrl;
 
         await HiveManager.saveUser(userModel!);
+        final user = HiveManager.getUser();
+        userModel = user;
       }
 
       String message;
