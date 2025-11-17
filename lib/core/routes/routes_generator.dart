@@ -16,6 +16,9 @@ import 'package:healora/features/diet_chart/presentation/screens/settings_screen
 import 'package:healora/features/choose_specialty/presentation/screens/choose_specialty_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
+import 'package:healora/features/edit_account/cubit/update_account_info_cubit.dart';
+import 'package:healora/features/edit_account/data/repositories/update_user_info_repository.dart';
+import 'package:healora/features/edit_account/data/repositories/upload_profile_image_repo.dart';
 import 'package:healora/features/edit_account/presentation/screens/edit_account_screen.dart';
 import 'package:healora/features/home/presentation/screens/home_screen.dart';
 import 'package:healora/features/lab_results/presentation/screens/lab_results_screen.dart';
@@ -43,7 +46,16 @@ class AppRouteGenerator {
     switch (settings.name) {
       case AppRoutes.homeScreen:
         final userModel = settings.arguments as UserModel;
-        return MaterialPageRoute(builder: (_) => HomeScreen(user: userModel));
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => UpdateAccountCubit(
+              ServiceLocator.getIt<UpdateUserInfoRepository>(),
+              ServiceLocator.getIt<UploadProfileImageRepo>(),
+              userModel: userModel,
+            ),
+            child: HomeScreen(user: userModel),
+          ),
+        );
 
       case AppRoutes.loginScreen:
         return MaterialPageRoute(
@@ -90,11 +102,15 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const LabResultsScreen());
 
       case AppRoutes.editAccountScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        final userModel = args['user'] as UserModel;
+        final updateCubit = args['cubit'] as UpdateAccountCubit;
+
         return MaterialPageRoute(
-          builder: (context) {
-            final userModel = settings.arguments as UserModel;
-            return EditAccountScreen(user: userModel);
-          },
+          builder: (_) => BlocProvider.value(
+            value: updateCubit,
+            child: EditAccountScreen(user: userModel),
+          ),
         );
 
       case AppRoutes.notificationsScreen:
@@ -129,11 +145,19 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const DietChartScreen());
 
       case AppRoutes.settingsScreen:
-        final userModel = settings.arguments as UserModel;
+        final args = settings.arguments as Map<String, dynamic>;
+        final userModel = args['user'] as UserModel;
+        final updateCubit = args['cubit'] as UpdateAccountCubit;
+
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) =>
-                LogoutCubit(ServiceLocator.getIt<LogoutRepo>()),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    LogoutCubit(ServiceLocator.getIt<LogoutRepo>()),
+              ),
+              BlocProvider.value(value: updateCubit),
+            ],
             child: SettingsScreen(user: userModel),
           ),
         );
@@ -141,13 +165,23 @@ class AppRouteGenerator {
       case AppRoutes.doctorScreen:
         final userModel = settings.arguments as UserModel;
 
-        return MaterialPageRoute(builder: (_) => DoctorScreen(user: userModel));
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => UpdateAccountCubit(
+              ServiceLocator.getIt<UpdateUserInfoRepository>(),
+              ServiceLocator.getIt<UploadProfileImageRepo>(),
+              userModel: userModel,
+            ),
+            child: DoctorScreen(user: userModel),
+          ),
+        );
 
       case AppRoutes.appointmentDetailsScreen:
         final avatarTag = settings.arguments as String;
         return MaterialPageRoute(
           builder: (_) => AppointmentDetailsScreen(avatarTag: avatarTag),
         );
+
       case AppRoutes.selectAppointmentScreen:
         final arguments = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(

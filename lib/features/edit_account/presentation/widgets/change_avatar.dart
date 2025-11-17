@@ -13,7 +13,7 @@ class ChangeAvatar extends StatefulWidget {
     required this.onImagePicked,
   });
   final UserModel user;
-  final void Function(String path)? onImagePicked;
+  final void Function(File file)? onImagePicked;
 
   @override
   State<ChangeAvatar> createState() => _ChangeAvatarState();
@@ -27,13 +27,15 @@ class _ChangeAvatarState extends State<ChangeAvatar> {
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
+      final file = File(image.path);
       setState(() {
-        _selectedImage = File(image.path);
-        widget.user.imageUrl = _selectedImage!.path;
-        widget.onImagePicked?.call(_selectedImage!.path);
+        _selectedImage = file;
+        widget.user.imageUrl = file.path;
+        widget.onImagePicked?.call(file);
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

@@ -13,21 +13,23 @@ import 'package:healora/core/routes/routes_generator.dart';
 import 'package:healora/core/theme/app_theme.dart';
 import 'package:healora/core/theme/cubit/theme_cubit.dart';
 import 'package:healora/core/theme/cubit/theme_state.dart';
-import 'package:healora/features/edit_account/cubit/update_account_info_cubit.dart';
-import 'package:healora/features/edit_account/data/repositories/update_user_info_repository.dart';
 import 'package:healora/firebase_options.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   ServiceLocator.setup();
   await dotenv.load(fileName: ".env", isOptional: true);
+  await Supabase.initialize(
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_KEY']!,
+  );
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = MyBlocObserver();
 
   await HiveManager.init();
   final isOnboardingVisited = HiveManager.isOnboardingVisited();
-  final user = HiveManager.getUser();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
     _,
@@ -37,16 +39,8 @@ Future<void> main() async {
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: 'assets/translations',
         fallbackLocale: const Locale('en'),
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (_) => ThemeCubit()),
-            BlocProvider(
-              create: (_) => UpdateAccountCubit(
-                ServiceLocator.getIt<UpdateUserInfoRepository>(),
-                userModel: user,
-              ),
-            ),
-          ],
+        child: BlocProvider(
+          create: (_) => ThemeCubit(),
           child: Healora(isOnboardingVisited: isOnboardingVisited),
         ),
       ),

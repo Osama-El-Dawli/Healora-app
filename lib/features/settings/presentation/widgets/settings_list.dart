@@ -6,12 +6,14 @@ import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/theme/cubit/theme_cubit.dart';
 import 'package:healora/core/theme/cubit/theme_state.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
+import 'package:healora/features/edit_account/cubit/update_account_info_cubit.dart';
 
 import 'package:healora/features/settings/presentation/widgets/settings_item.dart';
 
 class SettingsList extends StatelessWidget {
-  const SettingsList({super.key, required this.user});
+  const SettingsList({super.key, required this.user, required this.updateAccountCubit});
   final UserModel user;
+  final UpdateAccountCubit updateAccountCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,10 @@ class SettingsList extends StatelessWidget {
           onTap: () => Navigator.pushNamed(
             context,
             AppRoutes.editAccountScreen,
-            arguments: user,
+            arguments: {
+              'user': user,
+              'cubit': updateAccountCubit,
+            },
           ),
           child: Padding(
             padding: EdgeInsetsDirectional.only(start: 8.w),

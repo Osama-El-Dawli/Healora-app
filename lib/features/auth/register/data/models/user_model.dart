@@ -43,9 +43,10 @@ class UserModel extends HiveObject {
       phoneNumber: '',
       role: '',
       specialization: '',
-      imageUrl: '',
+      imageUrl: Assets.imagesAvatar,
     );
   }
+
   Map<String, dynamic> toMap() {
     return {
       'uid': uid,
@@ -55,7 +56,7 @@ class UserModel extends HiveObject {
       'phoneNumber': phoneNumber,
       'role': role,
       'specialization': specialization,
-      'imageUrl': imageUrl,
+      'image': imageUrl,
     };
   }
 
@@ -68,7 +69,7 @@ class UserModel extends HiveObject {
       phoneNumber: map['phoneNumber'] ?? '',
       role: map['role'] ?? '',
       specialization: map['specialization'] ?? '',
-      imageUrl: map['imageUrl'] ?? Assets.imagesAvatar,
+      imageUrl: map['image'] ?? Assets.imagesAvatar,
     );
   }
 }
