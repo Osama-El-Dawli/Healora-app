@@ -53,15 +53,6 @@ class ChooseSpecialityBody extends StatelessWidget {
                       right: 16.w,
                       top: kToolbarHeight + 16.h,
                     ),
-                    child: Center(
-                      child: Text(
-                        "speciality".tr(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        ),
-                      ),
-                    ),
                   ),
                 );
               },
