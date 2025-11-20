@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +25,7 @@ class _EditAccountFormFieldsState extends State<EditAccountFormFields> {
   late final TextEditingController roleController;
   late final TextEditingController specializationController;
 
-  String? selectedImagePath;
+  File? selectedImageFile;
 
   @override
   void initState() {
@@ -67,9 +69,9 @@ class _EditAccountFormFieldsState extends State<EditAccountFormFields> {
             children: [
               ChangeAvatar(
                 user: user,
-                onImagePicked: (path) {
+                onImagePicked: (file) {
                   setState(() {
-                    selectedImagePath = path;
+                    selectedImageFile = file;
                   });
                 },
               ),
@@ -106,7 +108,7 @@ class _EditAccountFormFieldsState extends State<EditAccountFormFields> {
                     firstName: firstNameController.text,
                     lastName: lastNameController.text,
                     phone: phoneController.text,
-                    image: selectedImagePath,
+                    image: selectedImageFile,
                   );
                 },
                 color: Theme.of(context).brightness == Brightness.dark
