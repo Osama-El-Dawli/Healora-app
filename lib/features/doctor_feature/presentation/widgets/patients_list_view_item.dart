@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/utils/app_assets.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 
 class PatientsListViewItem extends StatelessWidget {
-  const PatientsListViewItem({super.key, required this.avatarTag});
-  final String avatarTag;
+  const PatientsListViewItem({super.key, required this.patient});
+  final UserModel patient;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +25,12 @@ class PatientsListViewItem extends StatelessWidget {
           ),
         ),
         leading: Hero(
-          tag: avatarTag,
+          tag: patient.uid,
           child: CircleAvatar(
             radius: 28.r,
-            child: Image.asset(Assets.imagesAvatar),
+            child: patient.imageUrl.startsWith('http')
+                ? Image.network(patient.imageUrl)
+                : Image.asset(Assets.imagesAvatar),
           ),
         ),
         trailing: IconButton(
@@ -40,9 +43,9 @@ class PatientsListViewItem extends StatelessWidget {
           ),
         ),
         title: Hero(
-          tag: 'name$avatarTag',
+          tag: 'name${patient.uid}',
           child: Text(
-            'Patient',
+            '${patient.firstName} ${patient.lastName}',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontSize: 18.sp,
               color: AppColors.primary,

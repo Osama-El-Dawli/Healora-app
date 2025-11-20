@@ -5,6 +5,8 @@ import 'package:healora/features/auth/register/data/data_sources/firebase_regist
 import 'package:healora/features/auth/register/data/repositories/register_repository.dart';
 import 'package:healora/features/chat/data/data_sources/firestore_chat_remote_data_source.dart';
 import 'package:healora/features/chat/data/repositories/chat_repo.dart';
+import 'package:healora/features/doctor_feature/data/data_sources/firebase_doctor_feature_remote_data_source.dart';
+import 'package:healora/features/doctor_feature/data/repositories/doctor_feature_repo.dart';
 import 'package:healora/features/edit_account/data/repositories/update_user_info_repository.dart';
 import 'package:healora/features/medical_chatbot/data/data_sources/gemini_remote_data_source.dart';
 import 'package:healora/features/medical_chatbot/data/data_sources/gemini_service.dart';
@@ -100,6 +102,16 @@ class ServiceLocator {
     );
     getIt.registerLazySingleton<UpdateUserInfoRepository>(
       () => UpdateUserInfoRepository(),
+    );
+
+    // Doctor Feature
+    getIt.registerLazySingleton<FirebaseDoctorFeatureRemoteDataSource>(
+      () => FirebaseDoctorFeatureRemoteDataSource(),
+    );
+    getIt.registerLazySingleton<DoctorFeatureRepo>(
+      () => DoctorFeatureRepo(
+        dataSource: getIt<FirebaseDoctorFeatureRemoteDataSource>(),
+      ),
     );
   }
 }

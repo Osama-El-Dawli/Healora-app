@@ -14,6 +14,8 @@ import 'package:healora/features/chat/data/repositories/chat_repo.dart';
 import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
 import 'package:healora/features/diet_chart/presentation/screens/settings_screen.dart';
 import 'package:healora/features/choose_specialty/presentation/screens/choose_specialty_screen.dart';
+import 'package:healora/features/doctor_feature/data/cubit/doctor_feature_cubit.dart';
+import 'package:healora/features/doctor_feature/data/repositories/doctor_feature_repo.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
 import 'package:healora/features/edit_account/presentation/screens/edit_account_screen.dart';
@@ -141,7 +143,14 @@ class AppRouteGenerator {
       case AppRoutes.doctorScreen:
         final userModel = settings.arguments as UserModel;
 
-        return MaterialPageRoute(builder: (_) => DoctorScreen(user: userModel));
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                DoctorFeatureCubit(ServiceLocator.getIt<DoctorFeatureRepo>())
+                  ..fetchBookedPatients(doctorId: userModel.uid),
+            child: DoctorScreen(user: userModel),
+          ),
+        );
 
       case AppRoutes.appointmentDetailsScreen:
         final avatarTag = settings.arguments as String;
