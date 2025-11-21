@@ -77,7 +77,6 @@ class Healora extends StatelessWidget {
             locale: context.locale,
 
             onGenerateRoute: (settings) {
-              // تمرير المستخدم لجميع الصفحات اللي محتاجة بياناته
               final user = HiveManager.getUser();
               if (settings.name == AppRoutes.homeScreen ||
                   settings.name == AppRoutes.doctorScreen) {
