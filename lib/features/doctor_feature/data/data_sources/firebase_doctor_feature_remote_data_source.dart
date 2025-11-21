@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
+import 'package:healora/features/doctor_feature/data/models/patient_with_appointment.dart';
 import 'package:healora/features/select_appointment/data/models/appointment_model.dart';
 
 class FirebaseDoctorFeatureRemoteDataSource {
@@ -22,26 +23,30 @@ class FirebaseDoctorFeatureRemoteDataSource {
     }
   }
 
-  Future<List<UserModel>> getBookedPatients({
-    required String doctorId,
-  }) async {
+  Future<List<PatientWithAppointment>> getBookedPatients({required String doctorId})async {
     try {
       List<AppointmentModel> appointments = await getBookedAppointments(
         doctorId: doctorId,
       );
-      Set<String> patientIds = appointments
-          .map((appointment) => appointment.patientId)
-          .toSet();
 
-      List<UserModel> patients = [];
-      for (String patientId in patientIds) {
-        DocumentSnapshot patientSnapshot = await _firebase
+      List<PatientWithAppointment> result = [];
+
+      for (var appointment in appointments) {
+        DocumentSnapshot userSnapshot = await _firebase
             .collection('users')
-            .doc(patientId)
+            .doc(appointment.patientId)
             .get();
-        patients.add(UserModel.fromMap(patientSnapshot.data() as Map<String, dynamic>));
+
+        final patient = UserModel.fromMap(
+          userSnapshot.data() as Map<String, dynamic>,
+        );
+
+        result.add(
+          PatientWithAppointment(patient: patient, appointment: appointment),
+        );
       }
-      return patients;
+
+      return result;
     } catch (e) {
       throw Exception('Error fetching booked patients: $e');
     }

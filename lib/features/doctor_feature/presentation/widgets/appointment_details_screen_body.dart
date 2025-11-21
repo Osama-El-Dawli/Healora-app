@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:healora/core/theme/app_colors.dart';
-import 'package:healora/core/utils/app_assets.dart';
+import 'package:healora/core/widgets/custom_profile_avatar.dart';
+import 'package:healora/features/doctor_feature/data/models/patient_with_appointment.dart';
 import 'package:healora/features/doctor_feature/presentation/widgets/appointment_details_card.dart';
 
 class AppointmentDetailsScreenBody extends StatelessWidget {
-  const AppointmentDetailsScreenBody({super.key, required this.avatarTag});
-  final String avatarTag;
+  const AppointmentDetailsScreenBody({
+    super.key,
+    required this.patientWithAppointment,
+  });
+  final PatientWithAppointment patientWithAppointment;
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +34,17 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                   SizedBox(height: 16.h),
                   ListTile(
                     leading: Hero(
-                      tag: avatarTag,
-                      child: CircleAvatar(
-                        radius: 28.r,
-                        child: Image.asset(Assets.imagesAvatar),
+                      tag: patientWithAppointment.patient.uid,
+                      child: CustomProfileAvatar(
+                        imageUrl: patientWithAppointment.patient.imageUrl,
+                        radius1: 28.r,
+                        radius2: 22.r,
                       ),
                     ),
                     title: Hero(
-                      tag: 'name$avatarTag',
+                      tag: 'name${patientWithAppointment.patient.uid}',
                       child: Text(
-                        'Patient Name',
+                        '${patientWithAppointment.patient.firstName} ${patientWithAppointment.patient.lastName}',
                         style: Theme.of(context).textTheme.titleMedium
                             ?.copyWith(
                               color: AppColors.primary,
@@ -49,7 +54,7 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      '011 2345 6789',
+                      patientWithAppointment.patient.phoneNumber,
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         color: Color(0xffA0A0A0),
                         fontWeight: FontWeight.w400,
@@ -61,14 +66,15 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                     isDate: true,
                     leadingIcon: Icons.calendar_month_rounded,
                     title: 'Appointment Date'.tr(),
-                    subTitle: '12 Oct, 2025 | 10:00 AM',
+                    subTitle:
+                        '${patientWithAppointment.appointment.date}, ${DateTime.now().year} | ${patientWithAppointment.appointment.time} AM',
                   ),
                   SizedBox(height: 24.h),
                   Row(
                     children: [
                       Expanded(
                         child: AppointmentDetailsCard(
-                          title: '011 2345 6789',
+                          title: patientWithAppointment.patient.phoneNumber,
                           leadingIcon: Icons.phone_rounded,
                         ),
                       ),

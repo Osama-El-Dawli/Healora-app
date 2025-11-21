@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
-import 'package:healora/core/utils/app_assets.dart';
+import 'package:healora/core/widgets/custom_profile_avatar.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 
 class PatientsListViewItem extends StatelessWidget {
-  const PatientsListViewItem({super.key, required this.patient});
+  const PatientsListViewItem({super.key, required this.patient, required this.appointment});
   final UserModel patient;
+  final String appointment;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class PatientsListViewItem extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
         subtitle: Text(
-          '12 Oct, 2025 | 10:00 AM',
+          appointment,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
             color: AppColors.hintColor,
             fontWeight: FontWeight.w500,
@@ -26,11 +27,10 @@ class PatientsListViewItem extends StatelessWidget {
         ),
         leading: Hero(
           tag: patient.uid,
-          child: CircleAvatar(
-            radius: 28.r,
-            child: patient.imageUrl.startsWith('http')
-                ? Image.network(patient.imageUrl)
-                : Image.asset(Assets.imagesAvatar),
+          child: CustomProfileAvatar(
+            imageUrl: patient.imageUrl,
+            radius2: 22.r,
+            radius1: 28.r,
           ),
         ),
         trailing: IconButton(

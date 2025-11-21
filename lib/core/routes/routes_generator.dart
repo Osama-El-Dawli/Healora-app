@@ -14,7 +14,8 @@ import 'package:healora/features/chat/data/repositories/chat_repo.dart';
 import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
 import 'package:healora/features/diet_chart/presentation/screens/settings_screen.dart';
 import 'package:healora/features/choose_specialty/presentation/screens/choose_specialty_screen.dart';
-import 'package:healora/features/doctor_feature/data/cubit/doctor_feature_cubit.dart';
+import 'package:healora/features/doctor_feature/cubit/doctor_feature_cubit.dart';
+import 'package:healora/features/doctor_feature/data/models/patient_with_appointment.dart';
 import 'package:healora/features/doctor_feature/data/repositories/doctor_feature_repo.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
@@ -168,28 +169,29 @@ class AppRouteGenerator {
         final userModel = settings.arguments as UserModel;
 
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => UpdateAccountCubit(
-              ServiceLocator.getIt<UpdateUserInfoRepository>(),
-              ServiceLocator.getIt<UploadProfileImageRepo>(),
-              userModel: userModel,
-            ),
-            child: DoctorScreen(user: userModel),
-          ),
-        );
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) =>
-                DoctorFeatureCubit(ServiceLocator.getIt<DoctorFeatureRepo>())
-                  ..fetchBookedPatients(doctorId: userModel.uid),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => DoctorFeatureCubit(
+                  ServiceLocator.getIt<DoctorFeatureRepo>(),
+                )..fetchBookedPatients(doctorId: userModel.uid)
+              ),
+              BlocProvider(
+                create: (context) => UpdateAccountCubit(
+                  ServiceLocator.getIt<UpdateUserInfoRepository>(),
+                  ServiceLocator.getIt<UploadProfileImageRepo>(),
+                  userModel: userModel,
+                ),
+              ),
+            ],
             child: DoctorScreen(user: userModel),
           ),
         );
 
       case AppRoutes.appointmentDetailsScreen:
-        final avatarTag = settings.arguments as String;
+        final patientWithAppointment = settings.arguments as PatientWithAppointment;
         return MaterialPageRoute(
-          builder: (_) => AppointmentDetailsScreen(avatarTag: avatarTag),
+          builder: (_) => AppointmentDetailsScreen(patientWithAppointment: patientWithAppointment),
         );
 
       case AppRoutes.selectAppointmentScreen:

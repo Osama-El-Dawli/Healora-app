@@ -27,7 +27,9 @@ class CustomInfoCard extends StatelessWidget {
           contentPadding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
           leading: CircleAvatar(
             radius: 28.r,
-            backgroundImage: AssetImage(image),
+            backgroundImage: image.startsWith('http')
+                ? NetworkImage(image)
+                : AssetImage(image),
           ),
           title: Text(
             title,

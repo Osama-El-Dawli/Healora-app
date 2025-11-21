@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
-import 'package:healora/features/doctor_feature/data/cubit/doctor_feature_cubit.dart';
+import 'package:healora/features/doctor_feature/cubit/doctor_feature_cubit.dart';
 import 'package:healora/features/doctor_feature/presentation/widgets/loading_placeholder.dart';
 import 'package:healora/features/doctor_feature/presentation/widgets/patients_list_view_item.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -23,13 +23,12 @@ class PatientListView extends StatelessWidget {
                   highlightColor: AppColors.primary.withValues(alpha: 0.3),
                 ),
                 enabled: true,
-                ignoreContainers: true,
                 enableSwitchAnimation: true,
                 child: LoadingPlaceholder(),
               )
             : (state is DoctorFeatureSuccess)
             ? ListView.builder(
-                itemCount: state.patients.length,
+                itemCount: state.appointments.length,
                 itemBuilder: (context, index) {
                   return AnimationConfiguration.staggeredList(
                     position: index,
@@ -47,11 +46,13 @@ class PatientListView extends StatelessWidget {
                               Navigator.pushNamed(
                                 context,
                                 AppRoutes.appointmentDetailsScreen,
-                                arguments: 'avatar$index',
+                                arguments: state.appointments[index],
                               );
                             },
                             child: PatientsListViewItem(
-                              patient: state.patients[index],
+                              appointment:
+                                  '${state.appointments[index].appointment.date} ${DateTime.now().year} | ${state.appointments[index].appointment.time} AM',
+                              patient: state.appointments[index].patient,
                             ),
                           ),
                         ),
