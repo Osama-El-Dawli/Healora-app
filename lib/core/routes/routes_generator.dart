@@ -15,7 +15,6 @@ import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
 import 'package:healora/features/diet_chart/presentation/screens/settings_screen.dart';
 import 'package:healora/features/choose_specialty/presentation/screens/choose_specialty_screen.dart';
 import 'package:healora/features/doctor_feature/cubit/doctor_feature_cubit.dart';
-import 'package:healora/features/doctor_feature/data/models/patient_with_appointment.dart';
 import 'package:healora/features/doctor_feature/data/repositories/doctor_feature_repo.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
@@ -45,7 +44,7 @@ import 'package:healora/features/settings/data/repositories/logout_repo.dart';
 import 'package:healora/features/settings/presentation/screens/settings_screen.dart';
 
 class AppRouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.homeScreen:
         final userModel = settings.arguments as UserModel;
@@ -174,7 +173,7 @@ class AppRouteGenerator {
               BlocProvider(
                 create: (context) => DoctorFeatureCubit(
                   ServiceLocator.getIt<DoctorFeatureRepo>(),
-                )..fetchBookedPatients(doctorId: userModel.uid)
+                )..fetchBookedPatients(doctorId: userModel.uid),
               ),
               BlocProvider(
                 create: (context) => UpdateAccountCubit(
@@ -189,9 +188,13 @@ class AppRouteGenerator {
         );
 
       case AppRoutes.appointmentDetailsScreen:
-        final patientWithAppointment = settings.arguments as PatientWithAppointment;
+        final arguments =
+            settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => AppointmentDetailsScreen(patientWithAppointment: patientWithAppointment),
+          builder: (_) => AppointmentDetailsScreen(
+            doctor: arguments['doctor'],
+            patientWithAppointment: arguments['patientWithAppointment'],
+          ),
         );
 
       case AppRoutes.selectAppointmentScreen:
@@ -226,12 +229,8 @@ class AppRouteGenerator {
             ),
           ),
         );
-
       default:
-        return MaterialPageRoute(
-          builder: (_) =>
-              const Scaffold(body: Center(child: Text('No route defined'))),
-        );
+        return null;
     }
   }
 }

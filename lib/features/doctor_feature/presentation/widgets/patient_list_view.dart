@@ -4,13 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/doctor_feature/cubit/doctor_feature_cubit.dart';
 import 'package:healora/features/doctor_feature/presentation/widgets/loading_placeholder.dart';
 import 'package:healora/features/doctor_feature/presentation/widgets/patients_list_view_item.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class PatientListView extends StatelessWidget {
-  const PatientListView({super.key});
+  const PatientListView({super.key, required this.doctor});
+  final UserModel doctor;
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +48,15 @@ class PatientListView extends StatelessWidget {
                               Navigator.pushNamed(
                                 context,
                                 AppRoutes.appointmentDetailsScreen,
-                                arguments: state.appointments[index],
+                                arguments: {
+                                  'doctor': doctor,
+                                  'patientWithAppointment':
+                                      state.appointments[index],
+                                },
                               );
                             },
                             child: PatientsListViewItem(
+                              doctor: doctor,
                               appointment:
                                   '${state.appointments[index].appointment.date} ${DateTime.now().year} | ${state.appointments[index].appointment.time} AM',
                               patient: state.appointments[index].patient,

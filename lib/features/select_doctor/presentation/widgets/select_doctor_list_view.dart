@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:healora/core/helper/generate_chat_id.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
@@ -48,7 +49,18 @@ class SelectDoctorListView extends StatelessWidget {
                   image: doctors[index].imageUrl,
                   subTitle: doctors[index].specialization.tr(),
                   trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(
+                        AppRoutes.chatScreen,
+                        arguments: {
+                          'chatId': generateChatId(
+                            doctorId: doctors[index].uid,
+                            patientId: patient.uid,
+                          ),
+                          'user': patient,
+                        },
+                      );
+                    },
                     icon: Icon(
                       Icons.chat,
                       color: Theme.of(context).brightness == Brightness.dark

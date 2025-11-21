@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:healora/core/helper/generate_chat_id.dart';
+import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/widgets/custom_profile_avatar.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 
 class PatientsListViewItem extends StatelessWidget {
-  const PatientsListViewItem({super.key, required this.patient, required this.appointment});
-  final UserModel patient;
+  const PatientsListViewItem({
+    super.key,
+    required this.patient,
+    required this.appointment,
+    required this.doctor,
+  });
+  final UserModel patient, doctor;
   final String appointment;
 
   @override
@@ -34,7 +41,18 @@ class PatientsListViewItem extends StatelessWidget {
           ),
         ),
         trailing: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed(
+              AppRoutes.chatScreen,
+              arguments: {
+                'chatId': generateChatId(
+                  doctorId: doctor.uid,
+                  patientId: patient.uid,
+                ),
+                'user': doctor,
+              },
+            );
+          },
           icon: Icon(
             Icons.chat,
             color: Theme.of(context).brightness == Brightness.dark

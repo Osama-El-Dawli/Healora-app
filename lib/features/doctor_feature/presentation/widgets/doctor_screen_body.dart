@@ -31,7 +31,9 @@ class DoctorScreenBody extends StatelessWidget {
               },
             ),
             SizedBox(height: 8.h),
-            Expanded(child: PatientListView()),
+            Expanded(child: PatientListView(
+              doctor: user,
+            )),
           ],
         ),
       ),

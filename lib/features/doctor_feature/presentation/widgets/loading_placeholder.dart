@@ -23,6 +23,16 @@ class LoadingPlaceholder extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 12.h),
                 child: PatientsListViewItem(
+                  doctor: UserModel(
+                    uid: '',
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    phoneNumber: '',
+                    imageUrl: '',
+                    role: '',
+                    specialization: '',
+                  ),
                   patient: UserModel(
                     uid: '',
                     firstName: '',

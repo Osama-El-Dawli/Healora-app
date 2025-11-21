@@ -10,10 +10,12 @@ class AppointmentDetailsCard extends StatelessWidget {
     this.leadingIcon,
     this.isDate = false,
     this.trailingIcon,
+    this.onPressed,
   });
   final String? title, subTitle;
   final IconData? leadingIcon, trailingIcon;
   final bool isDate;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,15 @@ class AppointmentDetailsCard extends StatelessWidget {
               )
             : null,
         trailing: trailingIcon != null
-            ? Icon(size: 24.sp, trailingIcon, color: AppColors.secondary)
+            ? IconButton(
+                visualDensity: VisualDensity.compact,
+                onPressed: onPressed ?? () {},
+                icon: Icon(
+                  size: 24.sp,
+                  trailingIcon,
+                  color: AppColors.secondary,
+                ),
+              )
             : null,
       ),
     );

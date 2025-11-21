@@ -2,17 +2,21 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:healora/core/helper/generate_chat_id.dart';
+import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/widgets/custom_profile_avatar.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/doctor_feature/data/models/patient_with_appointment.dart';
 import 'package:healora/features/doctor_feature/presentation/widgets/appointment_details_card.dart';
 
 class AppointmentDetailsScreenBody extends StatelessWidget {
   const AppointmentDetailsScreenBody({
     super.key,
-    required this.patientWithAppointment,
+    required this.patientWithAppointment, required this.doctor,
   });
   final PatientWithAppointment patientWithAppointment;
+  final UserModel doctor;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +90,18 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                           color: AppColors.primary.withValues(alpha: 0.1),
                         ),
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                              AppRoutes.chatScreen,
+                              arguments: {
+                                'chatId': generateChatId(
+                                  doctorId: doctor.uid,
+                                  patientId: patientWithAppointment.patient.uid,
+                                ),
+                                'user': doctor,
+                              },
+                            );
+                          },
                           icon: Icon(
                             Icons.chat,
                             color:
@@ -104,22 +119,50 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                     isDate: true,
                     leadingIcon: Icons.calendar_month_rounded,
                     title: 'Follow-up Date'.tr(),
-                    subTitle: '20 Oct, 2025 | 11:30 AM',
+                    subTitle:
+                        '${patientWithAppointment.appointment.date}, ${DateTime.now().year} | ${patientWithAppointment.appointment.time} AM',
                     trailingIcon: Icons.edit_rounded,
                   ),
                   SizedBox(height: 24.h),
-                  AppointmentDetailsCard(
-                    leadingIcon: Icons.history_rounded,
-                    title: 'Medical History'.tr(),
-                    subTitle: 'Blood type, Medications, etc.',
-                    trailingIcon: Icons.arrow_forward_ios_rounded,
+                  InkWell(
+                    borderRadius: BorderRadius.circular(12.r),
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        AppRoutes.medicalHistoryScreen,
+                        arguments: patientWithAppointment.patient,
+                      );
+                    },
+                    child: AppointmentDetailsCard(
+                      leadingIcon: Icons.history_rounded,
+                      title: 'Medical History'.tr(),
+                      subTitle: 'Blood type, Medications, etc.',
+                      trailingIcon: Icons.arrow_forward_ios_rounded,
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(
+                          AppRoutes.medicalHistoryScreen,
+                          arguments: patientWithAppointment.patient,
+                        );
+                      },
+                    ),
                   ),
                   SizedBox(height: 24.h),
-                  AppointmentDetailsCard(
-                    leadingIcon: Icons.science_rounded,
-                    title: 'Lab Results'.tr(),
-                    subTitle: 'Blood test, X-ray, etc.',
-                    trailingIcon: Icons.arrow_forward_ios_rounded,
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(
+                        context,
+                      ).pushNamed(AppRoutes.labResultsScreen);
+                    },
+                    child: AppointmentDetailsCard(
+                      leadingIcon: Icons.science_rounded,
+                      title: 'Lab Results'.tr(),
+                      subTitle: 'Blood test, X-ray, etc.',
+                      trailingIcon: Icons.arrow_forward_ios_rounded,
+                      onPressed: () {
+                        Navigator.of(
+                          context,
+                        ).pushNamed(AppRoutes.labResultsScreen);
+                      },
+                    ),
                   ),
                 ],
               ),
