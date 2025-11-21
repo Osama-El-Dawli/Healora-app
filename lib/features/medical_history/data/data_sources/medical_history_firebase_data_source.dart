@@ -12,8 +12,9 @@ class MedicalHistoryFirebaseDataSource {
         .collection(AppConstants.medicalHistoryCollection)
         .where('uid', isEqualTo: uid)
         .get();
+
     return snapshot.docs
-        .map((doc) => MedicalHistoryModel.fromFirebase(doc.data()))
+        .map((doc) => MedicalHistoryModel.fromFirebase(doc.data(), doc.id))
         .toList();
   }
 
@@ -21,5 +22,15 @@ class MedicalHistoryFirebaseDataSource {
     await _firestore
         .collection(AppConstants.medicalHistoryCollection)
         .add(model.toFirebase());
+  }
+
+  Future<void> updateMedicalHistory({
+    required String docId,
+    required MedicalHistoryModel model,
+  }) async {
+    await _firestore
+        .collection(AppConstants.medicalHistoryCollection)
+        .doc(docId)
+        .update(model.toFirebase());
   }
 }

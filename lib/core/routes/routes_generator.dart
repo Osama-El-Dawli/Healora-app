@@ -23,8 +23,10 @@ import 'package:healora/features/medical_chatbot/cubit/chat_bot_cubit/chat_bot_c
 import 'package:healora/features/medical_chatbot/data/repositories/chat_bot_repo.dart';
 import 'package:healora/features/medical_chatbot/presentation/screens/medical_chatbot_screen.dart';
 import 'package:healora/features/medical_history/cubit/medical_history_cubit/medical_history_cubit.dart';
+import 'package:healora/features/medical_history/data/models/medical_history_card_model.dart';
 import 'package:healora/features/medical_history/data/repositories/medical_history_repo.dart';
 import 'package:healora/features/medical_history/presentation/screens/medical_history_screen.dart';
+import 'package:healora/features/medical_history/presentation/widgets/edit_medical_history_card.dart';
 import 'package:healora/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:healora/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:healora/features/select_appointment/cubit/appointment_cubit/appointment_cubit.dart';
@@ -179,6 +181,11 @@ class AppRouteGenerator {
               appointment: arguments['appointment'],
             ),
           ),
+        );
+      case AppRoutes.EditMedicalHistoryCard:
+        final medicalHistoryModel = settings.arguments as MedicalHistoryModel;
+        return MaterialPageRoute(
+          builder: (_) => EditMedicalHistoryCard(model: medicalHistoryModel,),
         );
 
       default:
