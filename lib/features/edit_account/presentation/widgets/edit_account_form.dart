@@ -36,6 +36,7 @@ class EditAccountForm extends StatelessWidget {
 
           await HiveManager.saveUser(state.user);
 
+          if (!context.mounted) return;
           if (Navigator.canPop(context)) Navigator.pop(context, state.user);
         } else if (state is UpdateAccountError) {
           if (Navigator.canPop(context)) Navigator.pop(context);
