@@ -57,7 +57,7 @@ class SelectDoctorListView extends StatelessWidget {
                             doctorId: doctors[index].uid,
                             patientId: patient.uid,
                           ),
-                          'user': patient,
+                          'user': doctors[index],
                         },
                       );
                     },

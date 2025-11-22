@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:healora/core/helper/generate_chat_id.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
@@ -13,7 +15,8 @@ import 'package:healora/features/doctor_feature/presentation/widgets/appointment
 class AppointmentDetailsScreenBody extends StatelessWidget {
   const AppointmentDetailsScreenBody({
     super.key,
-    required this.patientWithAppointment, required this.doctor,
+    required this.patientWithAppointment,
+    required this.doctor,
   });
   final PatientWithAppointment patientWithAppointment;
   final UserModel doctor;
@@ -77,9 +80,25 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: AppointmentDetailsCard(
-                          title: patientWithAppointment.patient.phoneNumber,
-                          leadingIcon: Icons.phone_rounded,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(12.r),
+                          onTap: () {
+                            Clipboard.setData(
+                              ClipboardData(
+                                text:
+                                    patientWithAppointment.patient.phoneNumber,
+                              ),
+                            );
+                            Fluttertoast.showToast(
+                              msg: 'Phone number copied to clipboard'.tr(),
+                              backgroundColor: Colors.black54,
+                              textColor: Colors.white,
+                            );
+                          },
+                          child: AppointmentDetailsCard(
+                            title: patientWithAppointment.patient.phoneNumber,
+                            leadingIcon: Icons.phone_rounded,
+                          ),
                         ),
                       ),
                       SizedBox(width: 16.w),
@@ -98,7 +117,7 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                                   doctorId: doctor.uid,
                                   patientId: patientWithAppointment.patient.uid,
                                 ),
-                                'user': doctor,
+                                'user': patientWithAppointment.patient,
                               },
                             );
                           },
