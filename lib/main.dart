@@ -10,7 +10,7 @@ import 'package:healora/core/cache/hive_manager.dart';
 import 'package:healora/core/helper/service_locator.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/routes/routes_generator.dart';
-// import 'package:healora/core/services/notification_service.dart';
+import 'package:healora/core/services/notification_service.dart';
 import 'package:healora/core/theme/app_theme.dart';
 import 'package:healora/core/theme/cubit/theme_cubit.dart';
 import 'package:healora/core/theme/cubit/theme_state.dart';
@@ -32,7 +32,7 @@ Future<void> main() async {
   await HiveManager.init();
   final isOnboardingVisited = HiveManager.isOnboardingVisited();
 
-  // await NotificationService().configNotification();
+  await NotificationService().configNotification();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
     _,
   ) {

@@ -36,7 +36,6 @@ class _ChangeAvatarState extends State<ChangeAvatar> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -55,11 +54,11 @@ class _ChangeAvatarState extends State<ChangeAvatar> {
             backgroundImage: _selectedImage != null
                 ? FileImage(_selectedImage!)
                 : (widget.user.imageUrl.isNotEmpty
-                      ? (widget.user.imageUrl.startsWith('/data/')
-                                ? FileImage(File(widget.user.imageUrl))
-                                : AssetImage(widget.user.imageUrl))
-                            as ImageProvider
-                      : AssetImage('assets/images/avatar.png')),
+                      ? widget.user.imageUrl.startsWith('/data/')
+                            ? FileImage(File(widget.user.imageUrl))
+                            : NetworkImage(widget.user.imageUrl)
+                                  as ImageProvider
+                      : const AssetImage('assets/images/default_avatar.png')),
           ),
         ),
         Positioned(

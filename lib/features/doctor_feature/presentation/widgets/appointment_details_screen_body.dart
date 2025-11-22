@@ -41,7 +41,7 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                   SizedBox(height: 16.h),
                   ListTile(
                     leading: Hero(
-                      tag: patientWithAppointment.patient.uid,
+                      tag: 'avatar${patientWithAppointment.patient.uid}',
                       child: CustomProfileAvatar(
                         imageUrl: patientWithAppointment.patient.imageUrl,
                         radius1: 28.r,
