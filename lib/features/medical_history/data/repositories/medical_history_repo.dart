@@ -13,4 +13,9 @@ class MedicalHistoryRepo {
 
   Future<void> addMedicalHistory({required MedicalHistoryModel model}) =>
       _dataSource.addMedicalHistory(model: model);
+
+  Future<MedicalHistoryModel> updateMedicalHistory({
+    required String docId,
+    required MedicalHistoryModel model,
+  }) => _dataSource.updateMedicalHistory(docId: docId, model: model);
 }

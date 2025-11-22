@@ -24,7 +24,7 @@ class MedicalHistoryFirebaseDataSource {
         .add(model.toFirebase());
   }
 
-  Future<void> updateMedicalHistory({
+  Future<MedicalHistoryModel> updateMedicalHistory({
     required String docId,
     required MedicalHistoryModel model,
   }) async {
@@ -32,5 +32,11 @@ class MedicalHistoryFirebaseDataSource {
         .collection(AppConstants.medicalHistoryCollection)
         .doc(docId)
         .update(model.toFirebase());
+    var snapshot = await _firestore
+        .collection(AppConstants.medicalHistoryCollection)
+        .doc(docId)
+        .get();
+
+    return MedicalHistoryModel.fromFirebase(snapshot.data()!, snapshot.id);
   }
 }

@@ -29,4 +29,21 @@ class MedicalHistoryCubit extends Cubit<MedicalHistoryState> {
       emit(MedicalHistoryFailure(errorMessage: e.toString()));
     }
   }
+
+  Future<void> updateMedicalHistory({
+    required String docId,
+    required MedicalHistoryModel model,
+  }) async {
+    try {
+      emit(MedicalHistoryLoading());
+      await _repo.updateMedicalHistory(docId: docId, model: model);
+      emit(MedicalHistoryUpdated());
+      List<MedicalHistoryModel> models = await _repo.getMedicalHistoryList(
+        uid: model.uid,
+      );
+      emit(MedicalHistoryLoaded(medicalHistoryList: models));
+    } catch (e) {
+      emit(MedicalHistoryFailure(errorMessage: e.toString()));
+    }
+  }
 }
