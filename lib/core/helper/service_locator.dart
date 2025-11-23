@@ -10,6 +10,7 @@ import 'package:healora/features/doctor_feature/data/data_sources/firebase_docto
 import 'package:healora/features/doctor_feature/data/repositories/doctor_feature_repo.dart';
 import 'package:healora/features/edit_account/data/repositories/update_user_info_repository.dart';
 import 'package:healora/features/edit_account/data/repositories/upload_profile_image_repo.dart';
+import 'package:healora/features/lab_results/data/repositories/lab_results_repo.dart';
 import 'package:healora/features/medical_chatbot/data/data_sources/gemini_remote_data_source.dart';
 import 'package:healora/features/medical_chatbot/data/data_sources/gemini_service.dart';
 import 'package:healora/features/medical_chatbot/data/repositories/chat_bot_repo.dart';
@@ -21,6 +22,7 @@ import 'package:healora/features/select_doctor/data/data_sources/firebase_select
 import 'package:healora/features/select_doctor/data/repositories/select_doctor_repo.dart';
 import 'package:healora/features/settings/data/data_sources/firebase_logout_remote_data_source.dart';
 import 'package:healora/features/settings/data/repositories/logout_repo.dart';
+import 'package:healora/features/lab_results/data/data_sources/lab_results_firebase_data_source.dart';
 
 class ServiceLocator {
   static final getIt = GetIt.instance;
@@ -56,6 +58,9 @@ class ServiceLocator {
     // ChatBot Feature
     getIt.registerLazySingleton<GeminiRemoteDataSource>(
       () => GeminiRemoteDataSource(),
+    );
+    getIt.registerLazySingleton<LabResultsRepo>(
+          () => LabResultsRepo(dataSource: LabResultsFirebaseDataSource()),
     );
     getIt.registerLazySingleton<GeminiService>(
       () => GeminiService(getIt<GeminiRemoteDataSource>()),

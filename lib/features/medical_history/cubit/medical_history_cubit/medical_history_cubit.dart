@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:healora/features/medical_history/data/models/medical_history_card_model.dart';
 import 'package:healora/features/medical_history/data/repositories/medical_history_repo.dart';
-
 part 'medical_history_state.dart';
 
 class MedicalHistoryCubit extends Cubit<MedicalHistoryState> {

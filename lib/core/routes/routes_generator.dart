@@ -23,6 +23,8 @@ import 'package:healora/features/edit_account/data/repositories/update_user_info
 import 'package:healora/features/edit_account/data/repositories/upload_profile_image_repo.dart';
 import 'package:healora/features/edit_account/presentation/screens/edit_account_screen.dart';
 import 'package:healora/features/home/presentation/screens/home_screen.dart';
+import 'package:healora/features/lab_results/cubit/lab_results_cubit.dart';
+import 'package:healora/features/lab_results/data/repositories/lab_results_repo.dart';
 import 'package:healora/features/lab_results/presentation/screens/lab_results_screen.dart';
 import 'package:healora/features/medical_chatbot/cubit/chat_bot_cubit/chat_bot_cubit.dart';
 import 'package:healora/features/medical_chatbot/data/repositories/chat_bot_repo.dart';
@@ -101,8 +103,15 @@ class AppRouteGenerator {
         );
 
       case AppRoutes.labResultsScreen:
-        return MaterialPageRoute(builder: (_) => const LabResultsScreen());
-
+        final userModel = settings.arguments as UserModel;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) =>
+            LabResultsCubit(ServiceLocator.getIt<LabResultsRepo>())
+              ..getLabResultsList(uid: userModel.uid),
+            child: LabResultsScreen(userModel: userModel),
+          ),
+        );
       case AppRoutes.editAccountScreen:
         final args = settings.arguments as Map<String, dynamic>;
         final userModel = args['user'] as UserModel;
