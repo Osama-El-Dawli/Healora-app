@@ -9,8 +9,8 @@ final class LabResultsLoading extends LabResultsState {}
 final class LabResultsUpdated extends LabResultsState {}
 
 final class LabResultsLoaded extends LabResultsState {
-  final List<LabResultsModel> LabResultsList;
-  LabResultsLoaded({required this.LabResultsList});
+  final List<LabResultsModel> labResultsList;
+  LabResultsLoaded({required this.labResultsList});
 }
 
 final class LabResultsAdded extends LabResultsState {}

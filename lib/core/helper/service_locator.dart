@@ -59,9 +59,6 @@ class ServiceLocator {
     getIt.registerLazySingleton<GeminiRemoteDataSource>(
       () => GeminiRemoteDataSource(),
     );
-    getIt.registerLazySingleton<LabResultsRepo>(
-          () => LabResultsRepo(dataSource: LabResultsFirebaseDataSource()),
-    );
     getIt.registerLazySingleton<GeminiService>(
       () => GeminiService(getIt<GeminiRemoteDataSource>()),
     );
@@ -87,6 +84,14 @@ class ServiceLocator {
       () => MedicalHistoryRepo(
         dataSource: getIt<MedicalHistoryFirebaseDataSource>(),
       ),
+    );
+
+    // Lab Results Feature
+    getIt.registerLazySingleton<LabResultsFirebaseDataSource>(
+      () => LabResultsFirebaseDataSource(),
+    );
+    getIt.registerLazySingleton<LabResultsRepo>(
+      () => LabResultsRepo(dataSource: getIt<LabResultsFirebaseDataSource>()),
     );
 
     // Select Appointment Feature

@@ -20,10 +20,8 @@ class LabResultsCubit extends Cubit<LabResultsState> {
   Future<void> getLabResultsList({required String uid}) async {
     try {
       emit(LabResultsLoading());
-      List<LabResultsModel> models = await _repo.getLabResultsList(
-        uid: uid,
-      );
-      emit(LabResultsLoaded(LabResultsList: models));
+      List<LabResultsModel> models = await _repo.getLabResultsList(uid: uid);
+      emit(LabResultsLoaded(labResultsList: models));
     } catch (e) {
       emit(LabResultsFailure(errorMessage: e.toString()));
     }
@@ -35,12 +33,12 @@ class LabResultsCubit extends Cubit<LabResultsState> {
   }) async {
     try {
       emit(LabResultsLoading());
-      await _repo. updateLabResults(docId: docId, model: model);
+      await _repo.updateLabResults(docId: docId, model: model);
       emit(LabResultsUpdated());
       List<LabResultsModel> models = await _repo.getLabResultsList(
         uid: model.uid,
       );
-      emit(LabResultsLoaded(LabResultsList: models));
+      emit(LabResultsLoaded(labResultsList: models));
     } catch (e) {
       emit(LabResultsFailure(errorMessage: e.toString()));
     }

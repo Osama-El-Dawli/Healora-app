@@ -84,7 +84,7 @@ class LabResultsBody extends StatelessWidget {
               sliver: BlocBuilder<LabResultsCubit, LabResultsState>(
                 builder: (context, state) {
                   if (state is LabResultsLoaded) {
-                    return state.LabResultsList.isEmpty
+                    return state.labResultsList.isEmpty
                         ? SliverToBoxAdapter(
                       child: Center(
                         child: Text('No Lab Results'.tr()),
@@ -92,7 +92,7 @@ class LabResultsBody extends StatelessWidget {
                     )
                         : LabCardGrid(
                       user: userModel,
-                      items: state.LabResultsList,
+                      items: state.labResultsList,
                     );
                   } else if (state is LabResultsFailure) {
                     return SliverToBoxAdapter(
