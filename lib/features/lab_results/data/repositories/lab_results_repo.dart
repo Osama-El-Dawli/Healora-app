@@ -46,6 +46,16 @@ class LabResultsRepo {
   }) async {
     String? imageUrl = model.imageUrl;
     if (imageFile != null) {
+      if (imageUrl != null) {
+        try {
+          final Uri uri = Uri.parse(imageUrl);
+          final String path = uri.pathSegments.last;
+          await _storageService.deleteFile(path, 'lab_results');
+        } catch (e) {
+          throw Exception('Error deleting old image: $e');
+        }
+      }
+
       imageUrl = await _storageService.uploadFile(
         imageFile,
         'lab_results/${model.uid}',

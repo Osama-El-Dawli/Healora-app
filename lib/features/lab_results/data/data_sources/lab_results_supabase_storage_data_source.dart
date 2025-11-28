@@ -56,4 +56,13 @@ class LabResultsSupabaseStorageDataSource {
       throw Exception('Failed to upload image: $e');
     }
   }
+
+  Future<void> deleteFile(String path, String bucketName) async {
+    try {
+      await _client.storage.from(bucketName).remove([path]);
+    } catch (e) {
+      log(e.toString());
+      throw Exception('Failed to delete image: $e');
+    }
+  }
 }

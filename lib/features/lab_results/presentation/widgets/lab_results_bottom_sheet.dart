@@ -44,11 +44,22 @@ class _LabResultsBottomSheetState extends State<LabResultsBottomSheet> {
   }
 
   Future<void> _pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        _imageFile = File(image.path);
-      });
+    try {
+      final XFile? image = await _picker.pickImage(
+        source: ImageSource.gallery,
+        requestFullMetadata: false,
+      );
+      if (image != null) {
+        setState(() {
+          _imageFile = File(image.path);
+        });
+      }
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: "Failed to pick image: ${e.toString()}",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
     }
   }
 
@@ -58,24 +69,11 @@ class _LabResultsBottomSheetState extends State<LabResultsBottomSheet> {
       builder: (context) => Dialog(
         backgroundColor: Colors.transparent,
         insetPadding: EdgeInsets.zero,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            InteractiveViewer(
-              panEnabled: true,
-              minScale: 0.5,
-              maxScale: 4,
-              child: Image(image: imageProvider),
-            ),
-            Positioned(
-              top: 40.h,
-              right: 20.w,
-              child: IconButton(
-                icon: const Icon(Icons.close, color: Colors.white, size: 30),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
-          ],
+        child: InteractiveViewer(
+          panEnabled: true,
+          minScale: 0.5,
+          maxScale: 4,
+          child: Image(image: imageProvider),
         ),
       ),
     );
@@ -151,7 +149,9 @@ class _LabResultsBottomSheetState extends State<LabResultsBottomSheet> {
                                   shape: BoxShape.circle,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black.withValues(alpha: 0.2),
+                                      color: Colors.black.withValues(
+                                        alpha: 0.2,
+                                      ),
                                       blurRadius: 4,
                                     ),
                                   ],
