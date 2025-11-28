@@ -107,8 +107,8 @@ class AppRouteGenerator {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
-            LabResultsCubit(ServiceLocator.getIt<LabResultsRepo>())
-              ..getLabResultsList(uid: userModel.uid),
+                LabResultsCubit(ServiceLocator.getIt<LabResultsRepo>())
+                  ..getLabResultsList(uid: userModel.uid),
             child: LabResultsScreen(userModel: userModel),
           ),
         );
@@ -197,8 +197,7 @@ class AppRouteGenerator {
         );
 
       case AppRoutes.appointmentDetailsScreen:
-        final arguments =
-            settings.arguments as Map<String, dynamic>;
+        final arguments = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (_) => AppointmentDetailsScreen(
             doctor: arguments['doctor'],

@@ -6,21 +6,21 @@ part of 'lab_results_card_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-
 LabResultsModel _$LabResultsModelFromFirebase(
-    Map<String, dynamic> data,
-    String docId,
-    ) => LabResultsModel(
+  Map<String, dynamic> data,
+  String docId,
+) => LabResultsModel(
   id: docId,
   uid: data['uid'] as String,
   title: data['title'] as String,
   description: data['description'] as String,
+  imageUrl: data['imageUrl'] as String?,
 );
 
-Map<String, dynamic> _$LabResultsModelToFirebase(
-    LabResultsModel instance,
-    ) => <String, dynamic>{
-  'uid': instance.uid,
-  'title': instance.title,
-  'description': instance.description,
-};
+Map<String, dynamic> _$LabResultsModelToFirebase(LabResultsModel instance) =>
+    <String, dynamic>{
+      'uid': instance.uid,
+      'title': instance.title,
+      'description': instance.description,
+      'imageUrl': instance.imageUrl,
+    };

@@ -2,10 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:healora/core/widgets/custom_bottom_sheet.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/lab_results/cubit/lab_results_cubit.dart';
 import 'package:healora/features/lab_results/data/models/lab_results_card_model.dart';
+import 'package:healora/features/lab_results/presentation/widgets/lab_results_bottom_sheet.dart';
 import 'lab_results_card.dart';
 
 class LabCardGrid extends StatelessWidget {
@@ -21,7 +21,7 @@ class LabCardGrid extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
-        childAspectRatio: 1.5,
+        childAspectRatio: 0.8,
       ),
       itemCount: items.length,
       itemBuilder: (context, index) {
@@ -48,12 +48,13 @@ class LabCardGrid extends StatelessWidget {
                       child: BlocBuilder<LabResultsCubit, LabResultsState>(
                         builder: (_, state) {
                           bool isLoading = state is LabResultsLoading;
-                          return CustomBottomSheet(
+                          return LabResultsBottomSheet(
                             isLoading: isLoading,
                             titleField: items[index].title,
                             descriptionField: items[index].description,
+                            imageUrl: items[index].imageUrl,
                             title: 'Edit Lab Result'.tr(),
-                            onButtonPressed: (title, description) {
+                            onButtonPressed: (title, description, imageFile) {
                               context.read<LabResultsCubit>().updateLabResults(
                                 docId: items[index].id!,
                                 model: LabResultsModel(
@@ -61,17 +62,19 @@ class LabCardGrid extends StatelessWidget {
                                   uid: items[index].uid,
                                   title: title,
                                   description: description,
+                                  imageUrl: items[index].imageUrl,
                                 ),
+                                imageFile: imageFile,
                               );
-                          
+
                               context.read<LabResultsCubit>().getLabResultsList(
                                 uid: user.uid,
                               );
-                          
+
                               Navigator.pop(context);
                             },
                           );
-                        }
+                        },
                       ),
                     ),
                   );
