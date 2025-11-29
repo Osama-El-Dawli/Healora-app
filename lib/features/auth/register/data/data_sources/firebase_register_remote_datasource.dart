@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -75,11 +77,13 @@ class FirebaseRegisterRemoteDataSource {
   }
 
   Future<void> saveDeviceToken({required String userId}) async {
-    final token = await FirebaseMessaging.instance.getToken();
-    if(token != null) {
-      await FirebaseFirestore.instance.collection('users').doc(userId).update({
-        'fcm_token': token,
-      });
+    if (Platform.isAndroid) {
+      final token = await FirebaseMessaging.instance.getToken();
+      if (token != null) {
+        await FirebaseFirestore.instance.collection('users').doc(userId).update(
+          {'fcm_token': token},
+        );
+      }
     }
   }
 }

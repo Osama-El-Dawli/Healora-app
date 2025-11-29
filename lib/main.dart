@@ -35,6 +35,7 @@ Future<void> main() async {
   final isOnboardingVisited = HiveManager.isOnboardingVisited();
 
   await MessagingConfig.initFirebaseMessaging();
+  await MessagingConfig.setupInteractedMessage();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
     _,
   ) {
@@ -66,7 +67,6 @@ class _HealoraState extends State<Healora> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ThemeCubit>().initTheme(context);
     });
-    MessagingConfig.setupInteractedMessage();
     super.initState();
   }
 
