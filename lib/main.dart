@@ -50,18 +50,23 @@ Future<void> main() async {
   });
 }
 
-class Healora extends StatelessWidget {
+class Healora extends StatefulWidget {
   const Healora({super.key, required this.isOnboardingVisited});
   final bool isOnboardingVisited;
 
   @override
+  State<Healora> createState() => _HealoraState();
+}
+
+class _HealoraState extends State<Healora> {
+  @override
+  void initState() {
+      context.read<ThemeCubit>().initTheme(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final themeCubit = context.read<ThemeCubit>();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      themeCubit.initTheme(context);
-    });
-
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -93,7 +98,7 @@ class Healora extends StatelessWidget {
             darkTheme: AppTheme.darkMode,
             themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
 
-            initialRoute: isOnboardingVisited
+            initialRoute: widget.isOnboardingVisited
                 ? (user != null
                       ? (user.role == 'doctor'
                             ? AppRoutes.doctorScreen
