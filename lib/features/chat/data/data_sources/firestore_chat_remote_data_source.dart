@@ -4,7 +4,7 @@ import 'package:healora/features/chat/data/models/message_model.dart';
 class FirestoreChatRemoteDataSource {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Stream<List<MessageModel>> getMessage(String chatId) {
+  Stream<List<MessageModel>> getMessages(String chatId) {
     return _firestore
         .collection('chats')
         .doc(chatId)
@@ -24,5 +24,10 @@ class FirestoreChatRemoteDataSource {
         .doc(chatId)
         .collection('messages')
         .add(message.toJson());
+  }
+
+  Future<String?> getFcmToken(String userId) async {
+    final doc = await _firestore.collection('users').doc(userId).get();
+    return doc.data()?['fcm_token'] as String?;
   }
 }

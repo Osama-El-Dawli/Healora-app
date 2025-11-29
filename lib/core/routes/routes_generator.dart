@@ -82,13 +82,18 @@ class AppRouteGenerator {
       case AppRoutes.chatScreen:
         final args = settings.arguments as Map<String, dynamic>;
         final chatId = args['chatId'];
-        final UserModel user = args['user'];
+        final UserModel otherUser = args['otherUser'];
+        final UserModel currentUser = args['currentUser'];
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
                 ChatCubit(ServiceLocator.getIt<ChatRepo>())
                   ..loadMessages(chatId: chatId),
-            child: DoctorChat(user: user, chatId: chatId),
+            child: DoctorChat(
+              otherUser: otherUser,
+              chatId: chatId,
+              currentUser: currentUser,
+            ),
           ),
         );
 

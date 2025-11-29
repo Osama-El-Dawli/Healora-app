@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 
@@ -70,6 +71,15 @@ class FirebaseRegisterRemoteDataSource {
       }
     } catch (e) {
       throw Exception("Registration failed: $e");
+    }
+  }
+
+  Future<void> saveDeviceToken({required String userId}) async {
+    final token = await FirebaseMessaging.instance.getToken();
+    if(token != null) {
+      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+        'fcm_token': token,
+      });
     }
   }
 }

@@ -176,7 +176,8 @@ class BookingDetailsScreenBody extends StatelessWidget {
                             doctorId: doctor.uid,
                             patientId: patient.uid,
                           ),
-                          'user': doctor,
+                          'otherUser': doctor,
+                          'currentUser': patient,
                         },
                       );
                     },

@@ -10,9 +10,15 @@ import 'package:healora/features/chat/cubit/chat_cubit/chat_state.dart';
 import 'package:healora/features/chat/presentation/widgets/messages_list_view.dart';
 
 class ChatScreenBody extends StatefulWidget {
-  const ChatScreenBody({super.key, required this.user, required this.chatId});
-  final UserModel user;
+  const ChatScreenBody({
+    super.key,
+    required this.otherUser,
+    required this.chatId,
+    required this.currentUser,
+  });
+  final UserModel otherUser;
   final String chatId;
+  final UserModel currentUser;
 
   @override
   State<ChatScreenBody> createState() => _ChatScreenBodyState();
@@ -34,7 +40,10 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
         return Stack(
           children: [
             state is ChatLoadedState
-                ? MessagesListView(messages: state.messages, user: widget.user)
+                ? MessagesListView(
+                    messages: state.messages,
+                    currentUserId: widget.currentUser.uid,
+                  )
                 : Center(child: CircularProgressIndicator()),
             Positioned(
               left: 0,
@@ -89,7 +98,11 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
                       context.read<ChatCubit>().sendMessage(
                         chatId: widget.chatId,
                         message: messageController.text.trim(),
-                        senderId: widget.user.uid,
+                        senderId: widget.currentUser.uid,
+                        recipientId: widget.otherUser.uid,
+                        senderName:
+                            "${widget.currentUser.firstName} ${widget.currentUser.lastName}",
+                        senderImage: widget.currentUser.imageUrl,
                       );
                       messageController.clear();
                     }

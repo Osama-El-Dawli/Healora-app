@@ -29,6 +29,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         specialization: specialization,
       );
       HiveManager.saveUser(user);
+      await registerRepository.saveDeviceToken(userId: user.uid);
       emit(RegisterSuccess(user));
     } catch (e) {
       emit(RegisterFailure(e.toString()));

@@ -8,12 +8,14 @@ import 'package:healora/features/auth/login/data/repositories/login_repository.d
 class LoginCubit extends Cubit<LoginState> {
   final LoginRepository repository;
   LoginCubit(this.repository) : super(LoginInitial());
+
   Future<void> login({required String email, required String password}) async {
     emit(LoginLoading());
     try {
       final user = await repository.login(email: email, password: password);
       HiveManager.saveUser(user);
       emit(LoginSuccess(user: user));
+      await repository.saveDeviceToken(userId: user.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-credential') {
         emit(LoginFailure(generalError: 'invalid_email_or_password'.tr()));

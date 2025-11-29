@@ -29,4 +29,12 @@ class RegisterRepository {
       throw Exception('Registration failed: ${e.toString()}');
     }
   }
+
+  Future<void> saveDeviceToken({required String userId}) async {
+    try {
+      await dataSource.saveDeviceToken(userId: userId);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
