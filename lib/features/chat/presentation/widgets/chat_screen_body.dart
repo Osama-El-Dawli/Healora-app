@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:healora/core/notifications/messaging_config.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/widgets/chat_text_field.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
@@ -28,7 +29,17 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
   final TextEditingController messageController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    MessagingConfig.currentChatId = widget.chatId;
+    messageController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
   void dispose() {
+    MessagingConfig.currentChatId = null;
     messageController.dispose();
     super.dispose();
   }

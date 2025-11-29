@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:typed_data';
+import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:healora/core/cache/hive_manager.dart';
@@ -10,6 +12,8 @@ import 'package:healora/main.dart';
 class MessagingConfig {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
+  static String? currentChatId;
 
   static Future<void> createNotificationChannel() async {
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -85,11 +89,38 @@ class MessagingConfig {
     FirebaseMessaging.onMessage.listen((RemoteMessage event) async {
       log("message received");
       try {
+        if (event.data['chatId'] == currentChatId) {
+          log(
+            "Notification suppressed: User is in chat ${event.data['chatId']}",
+          );
+          return;
+        }
+
         RemoteNotification? notification = event.notification;
         log(notification!.body.toString());
         log(notification.title.toString());
 
         var body = notification.body;
+        AndroidBitmap<Object>? largeIcon;
+
+        if (event.data['senderImage'] != null) {
+          try {
+            final String imageUrl = event.data['senderImage'];
+            if (imageUrl.startsWith('http')) {
+              final Response<List<int>> response = await Dio().get<List<int>>(
+                imageUrl,
+                options: Options(responseType: ResponseType.bytes),
+              );
+              if (response.data != null) {
+                largeIcon = ByteArrayAndroidBitmap(
+                  Uint8List.fromList(response.data!),
+                );
+              }
+            }
+          } catch (e) {
+            log("Error downloading image: $e");
+          }
+        }
 
         await flutterLocalNotificationsPlugin.show(
           notification.hashCode,
@@ -102,6 +133,7 @@ class MessagingConfig {
               channelDescription:
                   'This channel is used for important notifications.',
               icon: '@mipmap/ic_launcher',
+              largeIcon: largeIcon,
             ),
             iOS: const DarwinNotificationDetails(
               presentAlert: true,
@@ -115,7 +147,9 @@ class MessagingConfig {
         log(err.toString());
       }
     });
+  }
 
+  static Future<void> setupInteractedMessage() async {
     FirebaseMessaging.instance.getInitialMessage().then((
       RemoteMessage? message,
     ) {

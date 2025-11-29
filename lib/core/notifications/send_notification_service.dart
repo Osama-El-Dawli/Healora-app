@@ -41,12 +41,11 @@ Future<void> sendNotification({
       'message': {
         'token': token,
         'notification': {'title': title, 'body': body},
-        'data': data, // Add custom data here
+        'data': data,
 
         'android': {
           'notification': {
-            'click_action':
-                'FLUTTER_NOTIFICATION_CLICK', // Required for tapping to trigger response
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
             'channel_id': 'high_importance_channel',
           },
         },

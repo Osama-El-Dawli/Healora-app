@@ -66,6 +66,7 @@ class _HealoraState extends State<Healora> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ThemeCubit>().initTheme(context);
     });
+    MessagingConfig.setupInteractedMessage();
     super.initState();
   }
 
@@ -87,7 +88,6 @@ class _HealoraState extends State<Healora> {
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
-
             onGenerateRoute: (settings) {
               final user = HiveManager.getUser();
               if (settings.name == AppRoutes.homeScreen ||
