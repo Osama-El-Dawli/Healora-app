@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,8 +31,8 @@ class SettingsScreenHeader extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 28.r,
                   backgroundImage:
-                      (user.imageUrl.startsWith('/data/')
-                              ? FileImage(File(user.imageUrl))
+                      (user.imageUrl.startsWith('http')
+                              ? NetworkImage(user.imageUrl)
                               : AssetImage(user.imageUrl))
                           as ImageProvider,
                 ),

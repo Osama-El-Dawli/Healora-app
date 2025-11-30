@@ -9,7 +9,7 @@ class ChatRepo {
 
   Stream<List<MessageModel>> getMessages(String chatId) {
     try {
-      return _firestoreDataSource.getMessage(chatId);
+      return _firestoreDataSource.getMessages(chatId);
     } catch (e) {
       throw Exception('Failed to get messages: $e');
     }
@@ -20,6 +20,14 @@ class ChatRepo {
       await _firestoreDataSource.sendMessage(chatId, message);
     } catch (e) {
       throw Exception('Failed to send message: $e');
+    }
+  }
+
+  Future<String?> getFcmToken(String userId) async {
+    try {
+      return await _firestoreDataSource.getFcmToken(userId);
+    } catch (e) {
+      throw Exception('Failed to get FCM token: $e');
     }
   }
 }

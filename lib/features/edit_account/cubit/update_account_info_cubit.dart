@@ -1,36 +1,52 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:healora/core/cache/hive_manager.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/edit_account/cubit/update_account_info_state.dart';
 import 'package:healora/features/edit_account/data/repositories/update_user_info_repository.dart';
+import 'package:healora/features/edit_account/data/repositories/upload_profile_image_repo.dart';
 
 class UpdateAccountCubit extends Cubit<UpdateAccountState> {
-  final UpdateUserInfoRepository repository;
-  final UserModel? userModel;
+  final UpdateUserInfoRepository _infoRepo;
+  final UploadProfileImageRepo _imageRepo;
+  UserModel? userModel;
 
-  UpdateAccountCubit(this.repository, {this.userModel})
+  UpdateAccountCubit(this._infoRepo, this._imageRepo, {this.userModel})
     : super(UpdateAccountInitial());
 
   Future<void> updateAccount({
     String? firstName,
     String? lastName,
     String? phone,
-    String? image,
+    File? image,
   }) async {
     emit(UpdateAccountLoading());
 
     try {
+      String? imageUrl;
+
+      if (image != null) {
+        final fileName =
+            '${userModel!.uid}_${DateTime.now().millisecondsSinceEpoch}';
+        imageUrl = await _imageRepo.uploadProfileImage(
+          imageFile: image,
+          fileName: fileName,
+        );
+      }
+
       final oldFirstName = userModel?.firstName ?? '';
       final oldLastName = userModel?.lastName ?? '';
       final oldPhone = userModel?.phoneNumber ?? '';
       final oldImage = userModel?.imageUrl ?? '';
 
-      final updatedUser = await repository.updateUserData(
+      final updatedUser = await _infoRepo.updateUserData(
         firstName: firstName,
         lastName: lastName,
         phone: phone,
-        image: image,
+        image: imageUrl,
       );
 
       List<String> updatedFields = [];
@@ -43,15 +59,20 @@ class UpdateAccountCubit extends Cubit<UpdateAccountState> {
       if (phone != null && phone != oldPhone) {
         updatedFields.add('phone_number'.tr());
       }
-      if (image != null && image != oldImage) updatedFields.add('avatar'.tr());
+      if (imageUrl != null && imageUrl != oldImage) {
+        updatedFields.add('avatar'.tr());
+      }
 
       if (userModel != null) {
-        userModel!.firstName = updatedUser.firstName;
-        userModel!.lastName = updatedUser.lastName;
-        userModel!.phoneNumber = updatedUser.phoneNumber;
-        userModel!.imageUrl = updatedUser.imageUrl;
+        userModel!
+          ..firstName = updatedUser.firstName
+          ..lastName = updatedUser.lastName
+          ..phoneNumber = updatedUser.phoneNumber
+          ..imageUrl = updatedUser.imageUrl;
 
         await HiveManager.saveUser(userModel!);
+        userModel = HiveManager.getUser();
+        log(userModel!.imageUrl);
       }
 
       String message;
@@ -67,6 +88,7 @@ class UpdateAccountCubit extends Cubit<UpdateAccountState> {
 
       emit(UpdateAccountSuccess(updatedUser, message: message));
     } catch (e) {
+      log(e.toString());
       emit(
         UpdateAccountError(
           'failed_to_update'.tr(namedArgs: {'error': e.toString()}),

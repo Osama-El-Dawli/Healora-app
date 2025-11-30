@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +25,7 @@ class _EditAccountFormFieldsState extends State<EditAccountFormFields> {
   late final TextEditingController roleController;
   late final TextEditingController specializationController;
 
-  String? selectedImagePath;
+  File? selectedImageFile;
 
   @override
   void initState() {
@@ -63,55 +65,72 @@ class _EditAccountFormFieldsState extends State<EditAccountFormFields> {
           minHeight: MediaQuery.of(context).size.height * 0.83,
         ),
         child: IntrinsicHeight(
-          child: Column(
-            children: [
-              ChangeAvatar(
-                user: user,
-                onImagePicked: (path) {
-                  setState(() {
-                    selectedImagePath = path;
-                  });
-                },
-              ),
-              SizedBox(height: 20.h),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextFormField(controller: firstNameController),
-                  ),
-                  SizedBox(width: 12.w),
-                  Expanded(
-                    child: CustomTextFormField(controller: lastNameController),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8.h),
-              CustomTextFormField(controller: phoneController),
-              SizedBox(height: 8.h),
-              CustomTextFormField(controller: emailController, readOnly: true),
-              SizedBox(height: 8.h),
-              CustomTextFormField(controller: roleController, readOnly: true),
-              if (user.specialization != '') ...[
-                SizedBox(height: 8.h),
-                CustomTextFormField(
-                  controller: specializationController,
-                  readOnly: true,
+          child: CustomScrollView(
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  children: [
+                    ChangeAvatar(
+                      user: user,
+                      onImagePicked: (file) {
+                        setState(() {
+                          selectedImageFile = file;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 20.h),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextFormField(
+                            controller: firstNameController,
+                          ),
+                        ),
+                        SizedBox(width: 12.w),
+                        Expanded(
+                          child: CustomTextFormField(
+                            controller: lastNameController,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.h),
+                    CustomTextFormField(controller: phoneController),
+                    SizedBox(height: 8.h),
+                    CustomTextFormField(
+                      controller: emailController,
+                      readOnly: true,
+                    ),
+                    SizedBox(height: 8.h),
+                    CustomTextFormField(
+                      controller: roleController,
+                      readOnly: true,
+                    ),
+                    if (user.specialization != '') ...[
+                      SizedBox(height: 8.h),
+                      CustomTextFormField(
+                        controller: specializationController,
+                        readOnly: true,
+                      ),
+                    ],
+                    Spacer(),
+                    CustomElevatedButton(
+                      label: 'Save',
+                      onPressed: () {
+                        updateCubit.updateAccount(
+                          firstName: firstNameController.text,
+                          lastName: lastNameController.text,
+                          phone: phoneController.text,
+                          image: selectedImageFile,
+                        );
+                      },
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.primary
+                          : AppColors.secondary,
+                    ),
+                  ],
                 ),
-              ],
-              Spacer(),
-              CustomElevatedButton(
-                label: 'Save',
-                onPressed: () {
-                  updateCubit.updateAccount(
-                    firstName: firstNameController.text,
-                    lastName: lastNameController.text,
-                    phone: phoneController.text,
-                    image: selectedImagePath,
-                  );
-                },
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? AppColors.primary
-                    : AppColors.secondary,
               ),
             ],
           ),

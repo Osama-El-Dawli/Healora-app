@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:healora/features/medical_history/data/models/medical_history_card_model.dart';
 import 'package:healora/features/medical_history/data/repositories/medical_history_repo.dart';
-
 part 'medical_history_state.dart';
 
 class MedicalHistoryCubit extends Cubit<MedicalHistoryState> {
@@ -23,6 +22,23 @@ class MedicalHistoryCubit extends Cubit<MedicalHistoryState> {
       emit(MedicalHistoryLoading());
       List<MedicalHistoryModel> models = await _repo.getMedicalHistoryList(
         uid: uid,
+      );
+      emit(MedicalHistoryLoaded(medicalHistoryList: models));
+    } catch (e) {
+      emit(MedicalHistoryFailure(errorMessage: e.toString()));
+    }
+  }
+
+  Future<void> updateMedicalHistory({
+    required String docId,
+    required MedicalHistoryModel model,
+  }) async {
+    try {
+      emit(MedicalHistoryLoading());
+      await _repo.updateMedicalHistory(docId: docId, model: model);
+      emit(MedicalHistoryUpdated());
+      List<MedicalHistoryModel> models = await _repo.getMedicalHistoryList(
+        uid: model.uid,
       );
       emit(MedicalHistoryLoaded(medicalHistoryList: models));
     } catch (e) {

@@ -8,7 +8,9 @@ part of 'medical_history_card_model.dart';
 
 MedicalHistoryModel _$MedicalHistoryModelFromFirebase(
   Map<String, dynamic> data,
+  String docId,
 ) => MedicalHistoryModel(
+  id: docId,
   uid: data['uid'] as String,
   title: data['title'] as String,
   description: data['description'] as String,

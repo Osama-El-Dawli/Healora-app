@@ -10,25 +10,32 @@ import 'package:healora/core/cache/hive_manager.dart';
 import 'package:healora/core/helper/service_locator.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/routes/routes_generator.dart';
+import 'package:healora/core/notifications/messaging_config.dart';
 import 'package:healora/core/theme/app_theme.dart';
 import 'package:healora/core/theme/cubit/theme_cubit.dart';
 import 'package:healora/core/theme/cubit/theme_state.dart';
-import 'package:healora/features/edit_account/cubit/update_account_info_cubit.dart';
-import 'package:healora/features/edit_account/data/repositories/update_user_info_repository.dart';
 import 'package:healora/firebase_options.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   ServiceLocator.setup();
   await dotenv.load(fileName: ".env", isOptional: true);
+  await Supabase.initialize(
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_KEY']!,
+  );
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = MyBlocObserver();
 
   await HiveManager.init();
   final isOnboardingVisited = HiveManager.isOnboardingVisited();
-  final user = HiveManager.getUser();
 
+  await MessagingConfig.initFirebaseMessaging();
+  await MessagingConfig.setupInteractedMessage();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
     _,
   ) {
@@ -37,16 +44,8 @@ Future<void> main() async {
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: 'assets/translations',
         fallbackLocale: const Locale('en'),
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (_) => ThemeCubit()),
-            BlocProvider(
-              create: (_) => UpdateAccountCubit(
-                ServiceLocator.getIt<UpdateUserInfoRepository>(),
-                userModel: user,
-              ),
-            ),
-          ],
+        child: BlocProvider(
+          create: (_) => ThemeCubit(),
           child: Healora(isOnboardingVisited: isOnboardingVisited),
         ),
       ),
@@ -54,18 +53,25 @@ Future<void> main() async {
   });
 }
 
-class Healora extends StatelessWidget {
+class Healora extends StatefulWidget {
   const Healora({super.key, required this.isOnboardingVisited});
   final bool isOnboardingVisited;
 
   @override
-  Widget build(BuildContext context) {
-    final themeCubit = context.read<ThemeCubit>();
+  State<Healora> createState() => _HealoraState();
+}
 
+class _HealoraState extends State<Healora> {
+  @override
+  void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      themeCubit.initTheme(context);
+      context.read<ThemeCubit>().initTheme(context);
     });
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -76,14 +82,13 @@ class Healora extends StatelessWidget {
           final user = HiveManager.getUser();
 
           return MaterialApp(
+            navigatorKey: navigatorKey,
             title: 'Healora',
             debugShowCheckedModeBanner: false,
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
-
             onGenerateRoute: (settings) {
-              // تمرير المستخدم لجميع الصفحات اللي محتاجة بياناته
               final user = HiveManager.getUser();
               if (settings.name == AppRoutes.homeScreen ||
                   settings.name == AppRoutes.doctorScreen) {
@@ -98,7 +103,7 @@ class Healora extends StatelessWidget {
             darkTheme: AppTheme.darkMode,
             themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
 
-            initialRoute: isOnboardingVisited
+            initialRoute: widget.isOnboardingVisited
                 ? (user != null
                       ? (user.role == 'doctor'
                             ? AppRoutes.doctorScreen

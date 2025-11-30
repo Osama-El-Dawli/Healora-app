@@ -14,10 +14,17 @@ import 'package:healora/features/chat/data/repositories/chat_repo.dart';
 import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
 import 'package:healora/features/diet_chart/presentation/screens/bmi_screen.dart';
 import 'package:healora/features/choose_specialty/presentation/screens/choose_specialty_screen.dart';
+import 'package:healora/features/doctor_feature/cubit/doctor_feature_cubit.dart';
+import 'package:healora/features/doctor_feature/data/repositories/doctor_feature_repo.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
+import 'package:healora/features/edit_account/cubit/update_account_info_cubit.dart';
+import 'package:healora/features/edit_account/data/repositories/update_user_info_repository.dart';
+import 'package:healora/features/edit_account/data/repositories/upload_profile_image_repo.dart';
 import 'package:healora/features/edit_account/presentation/screens/edit_account_screen.dart';
 import 'package:healora/features/home/presentation/screens/home_screen.dart';
+import 'package:healora/features/lab_results/cubit/lab_results_cubit.dart';
+import 'package:healora/features/lab_results/data/repositories/lab_results_repo.dart';
 import 'package:healora/features/lab_results/presentation/screens/lab_results_screen.dart';
 import 'package:healora/features/medical_chatbot/cubit/chat_bot_cubit/chat_bot_cubit.dart';
 import 'package:healora/features/medical_chatbot/data/repositories/chat_bot_repo.dart';
@@ -39,11 +46,20 @@ import 'package:healora/features/settings/data/repositories/logout_repo.dart';
 import 'package:healora/features/settings/presentation/screens/settings_screen.dart';
 
 class AppRouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.homeScreen:
         final userModel = settings.arguments as UserModel;
-        return MaterialPageRoute(builder: (_) => HomeScreen(user: userModel));
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => UpdateAccountCubit(
+              ServiceLocator.getIt<UpdateUserInfoRepository>(),
+              ServiceLocator.getIt<UploadProfileImageRepo>(),
+              userModel: userModel,
+            ),
+            child: HomeScreen(user: userModel),
+          ),
+        );
 
       case AppRoutes.loginScreen:
         return MaterialPageRoute(
@@ -66,13 +82,18 @@ class AppRouteGenerator {
       case AppRoutes.chatScreen:
         final args = settings.arguments as Map<String, dynamic>;
         final chatId = args['chatId'];
-        final UserModel user = args['user'];
+        final UserModel otherUser = args['otherUser'];
+        final UserModel currentUser = args['currentUser'];
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
                 ChatCubit(ServiceLocator.getIt<ChatRepo>())
                   ..loadMessages(chatId: chatId),
-            child: DoctorChat(user: user, chatId: chatId),
+            child: DoctorChat(
+              otherUser: otherUser,
+              chatId: chatId,
+              currentUser: currentUser,
+            ),
           ),
         );
 
@@ -87,14 +108,25 @@ class AppRouteGenerator {
         );
 
       case AppRoutes.labResultsScreen:
-        return MaterialPageRoute(builder: (_) => const LabResultsScreen());
-
-      case AppRoutes.editAccountScreen:
+        final userModel = settings.arguments as UserModel;
         return MaterialPageRoute(
-          builder: (context) {
-            final userModel = settings.arguments as UserModel;
-            return EditAccountScreen(user: userModel);
-          },
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                LabResultsCubit(ServiceLocator.getIt<LabResultsRepo>())
+                  ..getLabResultsList(uid: userModel.uid),
+            child: LabResultsScreen(userModel: userModel),
+          ),
+        );
+      case AppRoutes.editAccountScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        final userModel = args['user'] as UserModel;
+        final updateCubit = args['cubit'] as UpdateAccountCubit;
+
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: updateCubit,
+            child: EditAccountScreen(user: userModel),
+          ),
         );
 
       case AppRoutes.notificationsScreen:
@@ -129,11 +161,19 @@ class AppRouteGenerator {
         return MaterialPageRoute(builder: (_) => const BMIScreen());
 
       case AppRoutes.settingsScreen:
-        final userModel = settings.arguments as UserModel;
+        final args = settings.arguments as Map<String, dynamic>;
+        final userModel = args['user'] as UserModel;
+        final updateCubit = args['cubit'] as UpdateAccountCubit;
+
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) =>
-                LogoutCubit(ServiceLocator.getIt<LogoutRepo>()),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    LogoutCubit(ServiceLocator.getIt<LogoutRepo>()),
+              ),
+              BlocProvider.value(value: updateCubit),
+            ],
             child: SettingsScreen(user: userModel),
           ),
         );
@@ -141,13 +181,35 @@ class AppRouteGenerator {
       case AppRoutes.doctorScreen:
         final userModel = settings.arguments as UserModel;
 
-        return MaterialPageRoute(builder: (_) => DoctorScreen(user: userModel));
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => DoctorFeatureCubit(
+                  ServiceLocator.getIt<DoctorFeatureRepo>(),
+                )..fetchBookedPatients(doctorId: userModel.uid),
+              ),
+              BlocProvider(
+                create: (context) => UpdateAccountCubit(
+                  ServiceLocator.getIt<UpdateUserInfoRepository>(),
+                  ServiceLocator.getIt<UploadProfileImageRepo>(),
+                  userModel: userModel,
+                ),
+              ),
+            ],
+            child: DoctorScreen(user: userModel),
+          ),
+        );
 
       case AppRoutes.appointmentDetailsScreen:
-        final avatarTag = settings.arguments as String;
+        final arguments = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => AppointmentDetailsScreen(avatarTag: avatarTag),
+          builder: (_) => AppointmentDetailsScreen(
+            doctor: arguments['doctor'],
+            patientWithAppointment: arguments['patientWithAppointment'],
+          ),
         );
+
       case AppRoutes.selectAppointmentScreen:
         final arguments = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
@@ -180,12 +242,8 @@ class AppRouteGenerator {
             ),
           ),
         );
-
       default:
-        return MaterialPageRoute(
-          builder: (_) =>
-              const Scaffold(body: Center(child: Text('No route defined'))),
-        );
+        return null;
     }
   }
 }

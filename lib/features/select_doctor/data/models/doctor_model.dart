@@ -1,3 +1,4 @@
+import 'package:healora/core/utils/app_assets.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 
 class DoctorModel extends UserModel {
@@ -9,6 +10,7 @@ class DoctorModel extends UserModel {
     required super.phoneNumber,
     required super.role,
     required super.specialization,
+    required super.imageUrl,
   });
 
   factory DoctorModel.fromMap(Map<String, dynamic> map) {
@@ -20,6 +22,7 @@ class DoctorModel extends UserModel {
       phoneNumber: map['phoneNumber'],
       role: map['role'],
       specialization: map['specialization'],
+      imageUrl: map['image'] ?? Assets.imagesAvatar,
     );
   }
 }

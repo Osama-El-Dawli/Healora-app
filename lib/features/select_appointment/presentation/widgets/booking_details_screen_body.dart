@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:healora/core/helper/generate_chat_id.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/utils/app_assets.dart';
@@ -167,7 +168,19 @@ class BookingDetailsScreenBody extends StatelessWidget {
                   subTitle: doctor.specialization,
                   image: doctor.imageUrl,
                   trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(
+                        AppRoutes.chatScreen,
+                        arguments: {
+                          'chatId': generateChatId(
+                            doctorId: doctor.uid,
+                            patientId: patient.uid,
+                          ),
+                          'otherUser': doctor,
+                          'currentUser': patient,
+                        },
+                      );
+                    },
                     icon: Icon(
                       Icons.chat,
                       color: Theme.of(context).brightness == Brightness.dark

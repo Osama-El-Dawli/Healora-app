@@ -6,12 +6,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:healora/core/cache/hive_manager.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/widgets/loading_indicator.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/edit_account/cubit/update_account_info_cubit.dart';
 import 'package:healora/features/edit_account/cubit/update_account_info_state.dart';
 import 'package:healora/features/edit_account/presentation/widgets/edit_form_fields.dart';
 
 class EditAccountForm extends StatelessWidget {
-  const EditAccountForm({super.key});
+  const EditAccountForm({super.key, required UserModel user});
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +37,7 @@ class EditAccountForm extends StatelessWidget {
 
           await HiveManager.saveUser(state.user);
 
+          if (!context.mounted) return;
           if (Navigator.canPop(context)) Navigator.pop(context, state.user);
         } else if (state is UpdateAccountError) {
           if (Navigator.canPop(context)) Navigator.pop(context);
