@@ -1,15 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/widgets/custom_text_form_field.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/lab_results/cubit/lab_results_cubit.dart';
 import 'package:healora/features/lab_results/data/models/lab_results_card_model.dart';
-
-import '../../../../core/theme/app_colors.dart';
 
 class LabResultsBottomSheet extends StatefulWidget {
   final UserModel? user;
@@ -18,8 +16,7 @@ class LabResultsBottomSheet extends StatefulWidget {
   const LabResultsBottomSheet({super.key, this.user, this.model});
 
   @override
-  State<LabResultsBottomSheet> createState() =>
-      _LabResultsBottomSheetState();
+  State<LabResultsBottomSheet> createState() => _LabResultsBottomSheetState();
 }
 
 class _LabResultsBottomSheetState extends State<LabResultsBottomSheet> {
@@ -108,9 +105,7 @@ class _LabResultsBottomSheetState extends State<LabResultsBottomSheet> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  isEdit
-                      ? "Edit Lab Results".tr()
-                      : "Add Lab Results".tr(),
+                  isEdit ? "Edit Lab Results".tr() : "Add Lab Results".tr(),
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(height: 16.h),
@@ -119,7 +114,7 @@ class _LabResultsBottomSheetState extends State<LabResultsBottomSheet> {
                   hintText: "Write the title".tr(),
                   maxLines: 2,
                   validator: (value) =>
-                  value!.trim().isEmpty ? "Title is required".tr() : null,
+                      value!.trim().isEmpty ? "Title is required".tr() : null,
                 ),
                 SizedBox(height: 12.h),
                 CustomTextFormField(
@@ -137,15 +132,15 @@ class _LabResultsBottomSheetState extends State<LabResultsBottomSheet> {
                       : _onSaveOrUpdate,
                   child: state is LabResultsLoading
                       ? Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12.h),
-                    child: SizedBox(
-                      width: 16.w,
-                      height: 16.h,
-                      child: const CircularProgressIndicator(
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
+                          padding: EdgeInsets.symmetric(vertical: 12.h),
+                          child: SizedBox(
+                            width: 16.w,
+                            height: 16.h,
+                            child: const CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
                       : Text(isEdit ? "Save Changes".tr() : "Save".tr()),
                 ),
                 SizedBox(height: 20.h),
