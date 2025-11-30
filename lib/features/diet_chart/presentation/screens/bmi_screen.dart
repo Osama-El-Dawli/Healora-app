@@ -23,14 +23,7 @@ class _BMIScreenState extends State<BMIScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          'BMI CALCULATOR'.tr(),
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.white,
-      ),
+      appBar: AppBar(title: Text('BMI CALCULATOR'.tr())),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
