@@ -10,12 +10,14 @@ import 'package:healora/core/cache/hive_manager.dart';
 import 'package:healora/core/helper/service_locator.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/routes/routes_generator.dart';
-import 'package:healora/core/services/notification_service.dart';
+import 'package:healora/core/notifications/messaging_config.dart';
 import 'package:healora/core/theme/app_theme.dart';
 import 'package:healora/core/theme/cubit/theme_cubit.dart';
 import 'package:healora/core/theme/cubit/theme_state.dart';
 import 'package:healora/firebase_options.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +34,8 @@ Future<void> main() async {
   await HiveManager.init();
   final isOnboardingVisited = HiveManager.isOnboardingVisited();
 
-  await NotificationService().configNotification();
+  await MessagingConfig.initFirebaseMessaging();
+  await MessagingConfig.setupInteractedMessage();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
     _,
   ) {
@@ -61,7 +64,9 @@ class Healora extends StatefulWidget {
 class _HealoraState extends State<Healora> {
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ThemeCubit>().initTheme(context);
+    });
     super.initState();
   }
 
@@ -77,12 +82,12 @@ class _HealoraState extends State<Healora> {
           final user = HiveManager.getUser();
 
           return MaterialApp(
+            navigatorKey: navigatorKey,
             title: 'Healora',
             debugShowCheckedModeBanner: false,
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
-
             onGenerateRoute: (settings) {
               final user = HiveManager.getUser();
               if (settings.name == AppRoutes.homeScreen ||

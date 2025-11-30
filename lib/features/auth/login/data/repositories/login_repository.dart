@@ -16,4 +16,12 @@ class LoginRepository {
       rethrow;
     }
   }
+
+  Future<void> saveDeviceToken({required String userId}) async {
+    try {
+      await _dataSource.saveDeviceToken(userId: userId);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -105,5 +105,12 @@
   "updated_successfully": "updated successfully",
   "failed_to_update": "Failed to update",
   "save": "Save",
-  "Phone number copied to clipboard": "Phone number copied to clipboard"
+  "Phone number copied to clipboard": "Phone number copied to clipboard",
+  "HEIGHT": "HEIGHT",
+  "cm":"cm",
+  "FEMALE": "FEMALE",
+  "MALE": "MALE",
+  "AGE": "AGE",
+  "WEIGHT": "WEIGHT",
+  "CALCULATE": "CALCULATE"
 }

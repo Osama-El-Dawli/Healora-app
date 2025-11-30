@@ -6,9 +6,15 @@ import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/chat/presentation/widgets/chat_screen_body.dart';
 
 class DoctorChat extends StatelessWidget {
-  const DoctorChat({super.key, required this.user, required this.chatId});
-  final UserModel user;
+  const DoctorChat({
+    super.key,
+    required this.otherUser,
+    required this.chatId,
+    required this.currentUser,
+  });
+  final UserModel otherUser;
   final String chatId;
+  final UserModel currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +34,13 @@ class DoctorChat extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 20.r,
-              backgroundImage: user.imageUrl.startsWith('http')
-                  ? NetworkImage(user.imageUrl)
+              backgroundImage: otherUser.imageUrl.startsWith('http')
+                  ? NetworkImage(otherUser.imageUrl)
                   : AssetImage(Assets.imagesAvatar),
             ),
             SizedBox(width: 16.w),
             Text(
-              user.firstName,
+              otherUser.firstName,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 color: AppColors.primary,
                 fontWeight: FontWeight.w700,
@@ -43,7 +49,11 @@ class DoctorChat extends StatelessWidget {
           ],
         ),
       ),
-      body: ChatScreenBody(user: user, chatId: chatId),
+      body: ChatScreenBody(
+        otherUser: otherUser,
+        chatId: chatId,
+        currentUser: currentUser,
+      ),
     );
   }
 }

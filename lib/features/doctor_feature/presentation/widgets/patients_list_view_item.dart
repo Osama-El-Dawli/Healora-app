@@ -49,7 +49,8 @@ class PatientsListViewItem extends StatelessWidget {
                   doctorId: doctor.uid,
                   patientId: patient.uid,
                 ),
-                'user': patient,
+                'otherUser': patient,
+                'currentUser': doctor,
               },
             );
           },

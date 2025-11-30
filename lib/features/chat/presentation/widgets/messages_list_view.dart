@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/chat/data/models/message_model.dart';
 import 'package:healora/core/widgets/bubble_message.dart';
 
@@ -8,11 +7,11 @@ class MessagesListView extends StatefulWidget {
   const MessagesListView({
     super.key,
     required this.messages,
-    required this.user,
+    required this.currentUserId,
   });
 
   final List<MessageModel> messages;
-  final UserModel user;
+  final String currentUserId;
 
   @override
   State<MessagesListView> createState() => _MessagesListViewState();
@@ -63,7 +62,7 @@ class _MessagesListViewState extends State<MessagesListView> {
       itemCount: widget.messages.length,
       itemBuilder: (_, index) {
         final message = widget.messages[index];
-        final bool isMe = message.senderId == widget.user.uid;
+        final bool isMe = message.senderId == widget.currentUserId;
         final bool isSameSender =
             index > 0 &&
             widget.messages[index - 1].senderId == message.senderId;

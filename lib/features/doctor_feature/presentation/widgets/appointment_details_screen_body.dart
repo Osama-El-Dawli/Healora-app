@@ -117,7 +117,8 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                                   doctorId: doctor.uid,
                                   patientId: patientWithAppointment.patient.uid,
                                 ),
-                                'user': patientWithAppointment.patient,
+                                'otherUser': patientWithAppointment.patient,
+                                'currentUser': doctor,
                               },
                             );
                           },

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:healora/features/lab_results/data/models/lab_results_card_model.dart';
 import 'package:healora/features/lab_results/data/repositories/lab_results_repo.dart';
@@ -7,10 +8,13 @@ class LabResultsCubit extends Cubit<LabResultsState> {
   LabResultsCubit(this._repo) : super(LabResultsInitial());
   final LabResultsRepo _repo;
 
-  Future<void> addLabResults({required LabResultsModel model}) async {
+  Future<void> addLabResults({
+    required LabResultsModel model,
+    File? imageFile,
+  }) async {
     emit(LabResultsLoading());
     try {
-      await _repo.addLabResults(model: model);
+      await _repo.addLabResults(model: model, imageFile: imageFile);
       emit(LabResultsAdded());
     } catch (e) {
       emit(LabResultsFailure(errorMessage: e.toString()));
@@ -30,10 +34,15 @@ class LabResultsCubit extends Cubit<LabResultsState> {
   Future<void> updateLabResults({
     required String docId,
     required LabResultsModel model,
+    File? imageFile,
   }) async {
     try {
       emit(LabResultsLoading());
-      await _repo.updateLabResults(docId: docId, model: model);
+      await _repo.updateLabResults(
+        docId: docId,
+        model: model,
+        imageFile: imageFile,
+      );
       emit(LabResultsUpdated());
       List<LabResultsModel> models = await _repo.getLabResultsList(
         uid: model.uid,

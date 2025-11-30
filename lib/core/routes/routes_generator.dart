@@ -12,7 +12,7 @@ import 'package:healora/features/auth/register/presentation/screens/register_scr
 import 'package:healora/features/chat/cubit/chat_cubit/chat_cubit.dart';
 import 'package:healora/features/chat/data/repositories/chat_repo.dart';
 import 'package:healora/features/chat/presentation/screens/doctor_chat.dart';
-import 'package:healora/features/diet_chart/presentation/screens/settings_screen.dart';
+import 'package:healora/features/diet_chart/presentation/screens/bmi_screen.dart';
 import 'package:healora/features/choose_specialty/presentation/screens/choose_specialty_screen.dart';
 import 'package:healora/features/doctor_feature/cubit/doctor_feature_cubit.dart';
 import 'package:healora/features/doctor_feature/data/repositories/doctor_feature_repo.dart';
@@ -82,13 +82,18 @@ class AppRouteGenerator {
       case AppRoutes.chatScreen:
         final args = settings.arguments as Map<String, dynamic>;
         final chatId = args['chatId'];
-        final UserModel user = args['user'];
+        final UserModel otherUser = args['otherUser'];
+        final UserModel currentUser = args['currentUser'];
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
                 ChatCubit(ServiceLocator.getIt<ChatRepo>())
                   ..loadMessages(chatId: chatId),
-            child: DoctorChat(user: user, chatId: chatId),
+            child: DoctorChat(
+              otherUser: otherUser,
+              chatId: chatId,
+              currentUser: currentUser,
+            ),
           ),
         );
 
@@ -107,8 +112,8 @@ class AppRouteGenerator {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
-            LabResultsCubit(ServiceLocator.getIt<LabResultsRepo>())
-              ..getLabResultsList(uid: userModel.uid),
+                LabResultsCubit(ServiceLocator.getIt<LabResultsRepo>())
+                  ..getLabResultsList(uid: userModel.uid),
             child: LabResultsScreen(userModel: userModel),
           ),
         );
@@ -153,7 +158,7 @@ class AppRouteGenerator {
         );
 
       case AppRoutes.dietChartScreen:
-        return MaterialPageRoute(builder: (_) => const DietChartScreen());
+        return MaterialPageRoute(builder: (_) => const BMIScreen());
 
       case AppRoutes.settingsScreen:
         final args = settings.arguments as Map<String, dynamic>;
@@ -197,8 +202,7 @@ class AppRouteGenerator {
         );
 
       case AppRoutes.appointmentDetailsScreen:
-        final arguments =
-            settings.arguments as Map<String, dynamic>;
+        final arguments = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
           builder: (_) => AppointmentDetailsScreen(
             doctor: arguments['doctor'],

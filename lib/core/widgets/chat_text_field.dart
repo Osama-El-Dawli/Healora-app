@@ -58,7 +58,6 @@ class ChatTextField extends StatelessWidget {
       ),
       style: Theme.of(context).textTheme.displaySmall!.copyWith(
         fontSize: 15,
-        color: AppColors.primary,
         fontWeight: FontWeight.w500,
       ),
     );

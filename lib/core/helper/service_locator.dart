@@ -23,6 +23,7 @@ import 'package:healora/features/select_doctor/data/repositories/select_doctor_r
 import 'package:healora/features/settings/data/data_sources/firebase_logout_remote_data_source.dart';
 import 'package:healora/features/settings/data/repositories/logout_repo.dart';
 import 'package:healora/features/lab_results/data/data_sources/lab_results_firebase_data_source.dart';
+import 'package:healora/features/lab_results/data/data_sources/lab_results_supabase_storage_data_source.dart';
 
 class ServiceLocator {
   static final getIt = GetIt.instance;
@@ -91,7 +92,10 @@ class ServiceLocator {
       () => LabResultsFirebaseDataSource(),
     );
     getIt.registerLazySingleton<LabResultsRepo>(
-      () => LabResultsRepo(dataSource: getIt<LabResultsFirebaseDataSource>()),
+      () => LabResultsRepo(
+        firestore: getIt<LabResultsFirebaseDataSource>(),
+        storageService: getIt<LabResultsSupabaseStorageDataSource>(),
+      ),
     );
 
     // Select Appointment Feature
@@ -132,6 +136,11 @@ class ServiceLocator {
       () => DoctorFeatureRepo(
         dataSource: getIt<FirebaseDoctorFeatureRemoteDataSource>(),
       ),
+    );
+
+    // Core Services
+    getIt.registerLazySingleton<LabResultsSupabaseStorageDataSource>(
+      () => LabResultsSupabaseStorageDataSource(),
     );
   }
 }
