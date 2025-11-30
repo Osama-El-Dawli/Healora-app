@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/widgets/custom_elevated_button.dart';
@@ -24,7 +25,10 @@ class _BMIScreenState extends State<BMIScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('BMI CALCULATOR', style: TextStyle(color: Colors.black)),
+        title: Text(
+          'BMI CALCULATOR'.tr(),
+          style: TextStyle(color: Colors.black),
+        ),
         backgroundColor: Colors.white,
       ),
       body: Padding(
@@ -37,14 +41,14 @@ class _BMIScreenState extends State<BMIScreen> {
               children: [
                 GenderCard(
                   icon: Icons.male,
-                  label: 'MALE',
+                  label: 'MALE'.tr(),
                   isSelected: isMale,
                   onTap: () => setState(() => isMale = true),
                 ),
 
                 GenderCard(
                   icon: Icons.female,
-                  label: 'FEMALE',
+                  label: 'FEMALE'.tr(),
                   isSelected: !isMale,
                   onTap: () => setState(() => isMale = false),
                 ),
@@ -57,13 +61,13 @@ class _BMIScreenState extends State<BMIScreen> {
             Row(
               children: [
                 WeightAgeCard(
-                  label: 'WEIGHT',
+                  label: 'WEIGHT'.tr(),
                   value: weight,
                   onIncrement: () => setState(() => weight++),
                   onDecrement: () => setState(() => weight--),
                 ),
                 WeightAgeCard(
-                  label: 'AGE',
+                  label: 'AGE'.tr(),
                   value: age,
                   onIncrement: () => setState(() => age++),
                   onDecrement: () => setState(() => age--),
@@ -71,7 +75,7 @@ class _BMIScreenState extends State<BMIScreen> {
               ],
             ),
             CustomElevatedButton(
-              label: 'CALCULATE',
+              label: 'CALCULATE'.tr(),
               onPressed: () {
                 double bmi = weight / ((height / 100) * (height / 100));
                 Navigator.push(

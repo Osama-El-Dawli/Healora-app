@@ -88,5 +88,12 @@
   "updated_successfully": "تم تحديث {field} بنجاح",
   "failed_to_update": "فشل تحديث البيانات: {error}",
   "save": "حفظ",
-  "Phone number copied to clipboard": "تم نسخ رقم الهاتف إلى الحافظة"
+  "Phone number copied to clipboard": "تم نسخ رقم الهاتف إلى الحافظة",
+  "HEIGHT": "الطول",
+  "cm":"سم",
+  "FEMALE": "أنثي",
+  "MALE": "ذكر",
+  "AGE": "العمر",
+  "WEIGHT": "الوزن",
+  "CALCULATE": "حساب"
 }

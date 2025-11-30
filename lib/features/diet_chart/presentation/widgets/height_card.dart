@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/features/diet_chart/constants.dart';
@@ -20,14 +21,14 @@ class HeightCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Height', style: KLabelTextStyle),
+            Text('HEIGHT'.tr(), style: KLabelTextStyle),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
               children: [
                 Text(height.toInt().toString(), style: KNumberTextStyle),
-                Text('cm', style: KLabelTextStyle),
+                Text('cm'.tr(), style: KLabelTextStyle),
               ],
             ),
             Slider(
