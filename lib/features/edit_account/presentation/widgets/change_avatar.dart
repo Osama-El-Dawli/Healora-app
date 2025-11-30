@@ -54,11 +54,13 @@ class _ChangeAvatarState extends State<ChangeAvatar> {
             backgroundImage: _selectedImage != null
                 ? FileImage(_selectedImage!)
                 : (widget.user.imageUrl.isNotEmpty
-                      ? widget.user.imageUrl.startsWith('/data/')
+                      ? (widget.user.imageUrl.startsWith('/data/')
                             ? FileImage(File(widget.user.imageUrl))
-                            : NetworkImage(widget.user.imageUrl)
-                                  as ImageProvider
-                      : const AssetImage('assets/images/default_avatar.png')),
+                            : Uri.tryParse(widget.user.imageUrl)?.isAbsolute ==
+                                  true
+                            ? NetworkImage(widget.user.imageUrl)
+                            : AssetImage('assets/images/avatar.png'))
+                      : const AssetImage('assets/images/avatar.png')),
           ),
         ),
         Positioned(

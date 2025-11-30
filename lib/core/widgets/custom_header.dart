@@ -23,7 +23,7 @@ class CustomHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '👋🏻 ${'Hi'.tr()} ${user.firstName}',
+          '👋🏻 ${'Hi'.tr()}, ${user.role == 'doctor' ? 'Dr. ' : ''}${user.firstName}',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w700,
             color: AppColors.primary,
