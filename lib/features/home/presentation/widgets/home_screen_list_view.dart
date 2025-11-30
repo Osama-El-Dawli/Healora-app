@@ -13,6 +13,11 @@ class HomeScreenListView extends StatelessWidget {
 
   static final List<HomeScreenModel> items = [
     HomeScreenModel(
+      image: 'assets/images/home_page4.png',
+      title: 'Your Diet Chart',
+      route: AppRoutes.dietChartScreen,
+    ),
+    HomeScreenModel(
       image: 'assets/images/home_page2.png',
       title: 'Lab Results',
       route: AppRoutes.labResultsScreen,
@@ -26,11 +31,6 @@ class HomeScreenListView extends StatelessWidget {
       image: 'assets/images/home_page1.png',
       title: 'Medical History',
       route: AppRoutes.medicalHistoryScreen,
-    ),
-    HomeScreenModel(
-      image: 'assets/images/home_page4.png',
-      title: 'Your Diet Chart',
-      route: AppRoutes.dietChartScreen,
     ),
     HomeScreenModel(
       image: 'assets/images/home_page5.png',
