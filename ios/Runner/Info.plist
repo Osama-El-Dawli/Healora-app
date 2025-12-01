@@ -5,7 +5,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
-		<string>Health Care App</string>
+		<string>Healora</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -47,5 +47,16 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>CFBundleLocalizations</key>
+		<array>
+			<string>en</string>
+			<string>ar</string>
+		</array>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>This app needs access to your photo library to let you choose a profile picture.</string>
+		<key>NSCameraUsageDescription</key>
+		<string>This app needs access to your camera to let you take a profile picture.</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>This app may need microphone access when taking videos or photos with sound.</string>
 	</dict>
 </plist>

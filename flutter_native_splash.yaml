@@ -1,11 +1,29 @@
 flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  # LIGHT MODE
   color: "#ffffff"
-  image: assets/images/healora_logo.png
+  image: assets/images/splash.png
   branding: assets/images/healora_branding.png
   branding_bottom_padding: 22
 
+  android_gravity: center
+  ios_content_mode: center
+
+  # DARK MODE
+  color_dark: "#0D1B2A"
+  image_dark: assets/images/splash.png
+  branding_dark: assets/images/healora_branding.png
+
+  # ANDROID 12 (LIGHT + DARK)
   android_12:
     image: assets/images/healora_logo.png
     color: "#ffffff"
     branding: assets/images/healora_branding.png
     branding_bottom_padding: 22
+
+    image_dark: assets/images/healora_logo.png
+    color_dark: "#0D1B2A"
+    branding_dark: assets/images/healora_branding.png

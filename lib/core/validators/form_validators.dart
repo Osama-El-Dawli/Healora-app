@@ -1,57 +1,88 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class FormValidators {
   static String? validateName(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Name is required";
+      return "name_is_required".tr();
     }
     if (value.trim().length < 3) {
-      return "Name must be at least 3 characters";
+      return "name_min_length".tr();
     }
     return null;
   }
 
   static String? validateEmail(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Email is required";
+      return "email_is_required".tr();
     }
     final regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!regex.hasMatch(value.trim())) {
-      return "Invalid email address";
+      return "invalid_email".tr();
     }
     return null;
   }
 
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return "Password is required";
+      return "password_is_required".tr();
     }
     if (value.length < 8) {
-      return "Password must be at least 8 characters";
+      return "password_min_length".tr();
     }
     final regex = RegExp(r'^(?=.*[A-Z])(?=.*\d).+$');
     if (!regex.hasMatch(value)) {
-      return "Password must contain at least 1 uppercase and 1 number";
+      return "password_requirements".tr();
     }
     return null;
   }
 
   static String? validateConfirmPassword(String? value, String password) {
     if (value == null || value.isEmpty) {
-      return "Confirm your password";
+      return "confirm_your_password".tr();
     }
     if (value != password) {
-      return "Passwords do not match";
+      return "passwords_do_not_match".tr();
     }
     return null;
   }
 
   static String? validatePhone(String? value) {
     if (value == null || value.isEmpty) {
-      return "Phone number is required";
+      return "phone_is_required".tr();
     }
-    final regex = RegExp(r'^(?:\+20|0)?1[0-9]{9}$');
-    if (!regex.hasMatch(value)) {
-      return "Invalid phone number (e.g. +201234567890)";
+
+    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+      return "phone_digits_only".tr();
     }
+
+    if (!value.startsWith('0')) {
+      return "phone_start_with_0".tr();
+    }
+
+    if (value.length != 11) {
+      return "phone_length".tr();
+    }
+
+    if (!RegExp(r'^01[0,1,2,5][0-9]{8}$').hasMatch(value)) {
+      return "invalid_egyptian_phone".tr();
+    }
+
+    return null;
+  }
+
+  static String? validateLoginEmail(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "email_is_required".tr();
+    }
+
+    return null;
+  }
+
+  static String? validateLoginPassword(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "password_is_required".tr();
+    }
+
     return null;
   }
 }
