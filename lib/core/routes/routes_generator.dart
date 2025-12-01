@@ -149,10 +149,18 @@ class AppRouteGenerator {
       case AppRoutes.selectDoctorScreen:
         final arguments = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) =>
-                SelectDoctorCubit(ServiceLocator.getIt<SelectDoctorRepo>())
-                  ..getDoctorsBySpecialty(specialty: arguments['specialty']),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => SelectDoctorCubit(
+                  ServiceLocator.getIt<SelectDoctorRepo>(),
+                )..getDoctorsBySpecialty(specialty: arguments['specialty']),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    AppointmentCubit(ServiceLocator.getIt<AppointmentRepo>()),
+              ),
+            ],
             child: SelectDoctorScreen(patient: arguments['patient']),
           ),
         );

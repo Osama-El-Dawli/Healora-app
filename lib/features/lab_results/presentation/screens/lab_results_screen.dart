@@ -46,32 +46,27 @@ class LabResultsScreen extends StatelessWidget {
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
               ),
-              builder: (_) => Padding(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom,
-                ),
-                child: BlocProvider.value(
-                  value: context.read<LabResultsCubit>(),
-                  child: BlocBuilder<LabResultsCubit, LabResultsState>(
-                    builder: (_, state) {
-                      bool isLoading = state is LabResultsLoading;
+              builder: (_) => BlocProvider.value(
+                value: context.read<LabResultsCubit>(),
+                child: BlocBuilder<LabResultsCubit, LabResultsState>(
+                  builder: (_, state) {
+                    bool isLoading = state is LabResultsLoading;
 
-                      return LabResultsBottomSheet(
-                        isLoading: isLoading,
-                        title: 'Add Lab Result',
-                        onButtonPressed: (title, description, imageFile) {
-                          context.read<LabResultsCubit>().addLabResults(
-                            model: LabResultsModel(
-                              uid: userModel.uid,
-                              title: title,
-                              description: description,
-                            ),
-                            imageFile: imageFile,
-                          );
-                        },
-                      );
-                    },
-                  ),
+                    return LabResultsBottomSheet(
+                      isLoading: isLoading,
+                      title: 'Add Lab Result',
+                      onButtonPressed: (title, description, imageFile) {
+                        context.read<LabResultsCubit>().addLabResults(
+                          model: LabResultsModel(
+                            uid: userModel.uid,
+                            title: title,
+                            description: description,
+                          ),
+                          imageFile: imageFile,
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
             );
