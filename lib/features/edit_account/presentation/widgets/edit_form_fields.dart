@@ -24,6 +24,7 @@ class _EditAccountFormFieldsState extends State<EditAccountFormFields> {
   late final TextEditingController emailController;
   late final TextEditingController roleController;
   late final TextEditingController specializationController;
+  final _formKey = GlobalKey<FormState>();
 
   File? selectedImageFile;
 
@@ -69,67 +70,95 @@ class _EditAccountFormFieldsState extends State<EditAccountFormFields> {
             slivers: [
               SliverFillRemaining(
                 hasScrollBody: false,
-                child: Column(
-                  children: [
-                    ChangeAvatar(
-                      user: user,
-                      onImagePicked: (file) {
-                        setState(() {
-                          selectedImageFile = file;
-                        });
-                      },
-                    ),
-                    SizedBox(height: 20.h),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextFormField(
-                            controller: firstNameController,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      ChangeAvatar(
+                        user: user,
+                        onImagePicked: (file) {
+                          setState(() {
+                            selectedImageFile = file;
+                          });
+                        },
+                      ),
+                      SizedBox(height: 20.h),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomTextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'First Name is required'.tr();
+                                }
+                                return null;
+                              },
+                              hintText: 'first_name'.tr(),
+                              controller: firstNameController,
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 12.w),
-                        Expanded(
-                          child: CustomTextFormField(
-                            controller: lastNameController,
+                          SizedBox(width: 12.w),
+                          Expanded(
+                            child: CustomTextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Last Name is required'.tr();
+                                }
+                                return null;
+                              },
+                              hintText: 'last_name'.tr(),
+                              controller: lastNameController,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8.h),
-                    CustomTextFormField(controller: phoneController),
-                    SizedBox(height: 8.h),
-                    CustomTextFormField(
-                      controller: emailController,
-                      readOnly: true,
-                    ),
-                    SizedBox(height: 8.h),
-                    CustomTextFormField(
-                      controller: roleController,
-                      readOnly: true,
-                    ),
-                    if (user.specialization != '') ...[
+                        ],
+                      ),
                       SizedBox(height: 8.h),
                       CustomTextFormField(
-                        controller: specializationController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Phone Number is required'.tr();
+                          }
+                          return null;
+                        },
+                        hintText: 'phone_number'.tr(),
+                        controller: phoneController,
+                      ),
+                      SizedBox(height: 8.h),
+                      CustomTextFormField(
+                        controller: emailController,
                         readOnly: true,
                       ),
+                      SizedBox(height: 8.h),
+                      CustomTextFormField(
+                        controller: roleController,
+                        readOnly: true,
+                      ),
+                      if (user.specialization != '') ...[
+                        SizedBox(height: 8.h),
+                        CustomTextFormField(
+                          controller: specializationController,
+                          readOnly: true,
+                        ),
+                      ],
+                      Spacer(),
+                      CustomElevatedButton(
+                        label: 'save'.tr(),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            updateCubit.updateAccount(
+                              firstName: firstNameController.text,
+                              lastName: lastNameController.text,
+                              phone: phoneController.text,
+                              image: selectedImageFile,
+                            );
+                          }
+                        },
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.primary
+                            : AppColors.secondary,
+                      ),
                     ],
-                    Spacer(),
-                    CustomElevatedButton(
-                      label: 'Save',
-                      onPressed: () {
-                        updateCubit.updateAccount(
-                          firstName: firstNameController.text,
-                          lastName: lastNameController.text,
-                          phone: phoneController.text,
-                          image: selectedImageFile,
-                        );
-                      },
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.primary
-                          : AppColors.secondary,
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ],

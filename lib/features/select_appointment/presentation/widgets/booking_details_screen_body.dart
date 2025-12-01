@@ -121,11 +121,11 @@ class BookingDetailsScreenBody extends StatelessWidget {
                       ),
                       SizedBox(height: 4.h),
                       Text(
-                        'Date: ${appointment.date}',
+                        '${'date_prefix'.tr()}${appointment.date}',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       Text(
-                        'Time: ${appointment.time} AM',
+                        '${'time_prefix'.tr()}${appointment.time} AM',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
@@ -165,7 +165,7 @@ class BookingDetailsScreenBody extends StatelessWidget {
                 tag: doctor.uid,
                 child: CustomInfoCard(
                   title: '${doctor.firstName} ${doctor.lastName}',
-                  subTitle: doctor.specialization,
+                  subTitle: doctor.specialization.tr(),
                   image: doctor.imageUrl,
                   trailing: IconButton(
                     onPressed: () {

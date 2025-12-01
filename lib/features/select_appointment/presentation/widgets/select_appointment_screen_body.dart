@@ -111,7 +111,7 @@ class _SelectAppointmentScreenBodyState
               child: CustomInfoCard(
                 title:
                     '${widget.doctorModel.firstName} ${widget.doctorModel.lastName}',
-                subTitle: widget.doctorModel.specialization,
+                subTitle: widget.doctorModel.specialization.tr(),
                 image: widget.doctorModel.imageUrl,
               ),
             ),
@@ -158,16 +158,16 @@ class _SelectAppointmentScreenBodyState
                   );
                 } else if (state is AppointmentTimesLoaded) {
                   if (state.times.isEmpty) {
-                    return const Center(
-                      child: Text('No available times for this day'),
-                    );
+                    return Center(child: Text('no_available_times'.tr()));
                   }
                   return SelectTimeSection(
                     times: state.times,
                     onSelect: (time) => selectedTime = time,
                   );
                 } else if (state is AppointmentFailure) {
-                  return Center(child: Text('Error: ${state.errorMessage}'));
+                  return Center(
+                    child: Text('${'error_prefix'.tr()}${state.errorMessage}'),
+                  );
                 } else {
                   return Skeletonizer(
                     effect: ShimmerEffect(

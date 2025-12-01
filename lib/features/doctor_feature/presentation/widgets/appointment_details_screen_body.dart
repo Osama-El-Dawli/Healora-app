@@ -155,7 +155,7 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                     child: AppointmentDetailsCard(
                       leadingIcon: Icons.history_rounded,
                       title: 'Medical History'.tr(),
-                      subTitle: 'Blood type, Medications, etc.',
+                      subTitle: 'medical_history_subtitle'.tr(),
                       trailingIcon: Icons.arrow_forward_ios_rounded,
                       onPressed: () {
                         Navigator.of(context).pushNamed(
@@ -175,7 +175,7 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                     child: AppointmentDetailsCard(
                       leadingIcon: Icons.science_rounded,
                       title: 'Lab Results'.tr(),
-                      subTitle: 'Blood test, X-ray, etc.',
+                      subTitle: 'lab_results_subtitle'.tr(),
                       trailingIcon: Icons.arrow_forward_ios_rounded,
                       onPressed: () {
                         Navigator.of(
