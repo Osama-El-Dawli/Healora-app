@@ -48,7 +48,9 @@ class _LabResultsBottomSheetState extends State<LabResultsBottomSheet> {
         top: 24.h,
         left: 16.w,
         right: 16.w,
-        bottom: MediaQuery.of(context).viewInsets.bottom + 24.h,
+        bottom: MediaQuery.of(context).viewInsets.bottom > 0
+            ? MediaQuery.of(context).viewInsets.bottom
+            : 24.h,
       ),
       child: Form(
         key: _formKey,
@@ -102,7 +104,7 @@ class _LabResultsBottomSheetState extends State<LabResultsBottomSheet> {
                 onPressed: () {
                   if (_imageFile == null && widget.imageUrl == null) {
                     Fluttertoast.showToast(
-                      msg: "Please select an image",
+                      msg: "please_select_an_image".tr(),
                       backgroundColor: Colors.red,
                       textColor: Colors.white,
                     );

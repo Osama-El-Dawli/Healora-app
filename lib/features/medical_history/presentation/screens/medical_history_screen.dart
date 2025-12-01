@@ -48,30 +48,25 @@ class MedicalHistoryScreen extends StatelessWidget {
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
               ),
-              builder: (_) => Padding(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom,
-                ),
-                child: BlocProvider.value(
-                  value: context.read<MedicalHistoryCubit>(),
-                  child: BlocBuilder<MedicalHistoryCubit, MedicalHistoryState>(
-                    builder: (_, state) {
-                      bool isLoading = state is MedicalHistoryLoading;
-                      return CustomBottomSheet(
-                        isLoading: isLoading,
-                        title: 'Add Medical History'.tr(),
-                        onButtonPressed: (title, description) {
-                          context.read<MedicalHistoryCubit>().addMedicalHistory(
-                            model: MedicalHistoryModel(
-                              uid: userModel.uid,
-                              title: title,
-                              description: description,
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
+              builder: (_) => BlocProvider.value(
+                value: context.read<MedicalHistoryCubit>(),
+                child: BlocBuilder<MedicalHistoryCubit, MedicalHistoryState>(
+                  builder: (_, state) {
+                    bool isLoading = state is MedicalHistoryLoading;
+                    return CustomBottomSheet(
+                      isLoading: isLoading,
+                      title: 'Add Medical History'.tr(),
+                      onButtonPressed: (title, description) {
+                        context.read<MedicalHistoryCubit>().addMedicalHistory(
+                          model: MedicalHistoryModel(
+                            uid: userModel.uid,
+                            title: title,
+                            description: description,
+                          ),
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
             );

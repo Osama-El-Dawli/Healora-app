@@ -75,8 +75,7 @@ class SelectDoctorListView extends StatelessWidget {
                           );
                         } else {
                           Fluttertoast.showToast(
-                            msg:
-                                'You must book an appointment first to chat with the doctor',
+                            msg: 'book_appointment_first'.tr(),
                             backgroundColor: Colors.black54,
                             textColor: Colors.white,
                           );

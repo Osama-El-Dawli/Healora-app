@@ -42,57 +42,61 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
         top: 24.h,
         left: 16.w,
         right: 16.w,
-        bottom: MediaQuery.of(context).viewInsets.bottom + 24.h,
+        bottom: MediaQuery.of(context).viewInsets.bottom > 0
+            ? MediaQuery.of(context).viewInsets.bottom
+            : 24.h,
       ),
       child: Form(
         key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(widget.title, style: Theme.of(context).textTheme.titleLarge),
-            SizedBox(height: 16.h),
-            CustomTextFormField(
-              controller: _titleController,
-              hintText: 'Enter the title'.tr(),
-              maxLines: 2,
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'Title is required'.tr();
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: 12.h),
-            CustomTextFormField(
-              controller: _descriptionController,
-              hintText: 'Enter the description'.tr(),
-              maxLines: 3,
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'Description is required'.tr();
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: 20.h),
-            ElevatedButton(
-              child: widget.isLoading
-                  ? SizedBox(
-                      width: 16.w,
-                      height: 16.h,
-                      child: CircularProgressIndicator(color: Colors.white),
-                    )
-                  : Text('save'.tr()),
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  widget.onButtonPressed(
-                    _titleController.text.trim(),
-                    _descriptionController.text.trim(),
-                  );
-                }
-              },
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(widget.title, style: Theme.of(context).textTheme.titleLarge),
+              SizedBox(height: 16.h),
+              CustomTextFormField(
+                controller: _titleController,
+                hintText: 'Enter the title'.tr(),
+                maxLines: 2,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Title is required'.tr();
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 12.h),
+              CustomTextFormField(
+                controller: _descriptionController,
+                hintText: 'Enter the description'.tr(),
+                maxLines: 3,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Description is required'.tr();
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20.h),
+              ElevatedButton(
+                child: widget.isLoading
+                    ? SizedBox(
+                        width: 16.w,
+                        height: 16.h,
+                        child: CircularProgressIndicator(color: Colors.white),
+                      )
+                    : Text('save'.tr()),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    widget.onButtonPressed(
+                      _titleController.text.trim(),
+                      _descriptionController.text.trim(),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -54,7 +54,7 @@ class LabResultsScreen extends StatelessWidget {
 
                     return LabResultsBottomSheet(
                       isLoading: isLoading,
-                      title: 'Add Lab Result',
+                      title: 'add_lab_result'.tr(),
                       onButtonPressed: (title, description, imageFile) {
                         context.read<LabResultsCubit>().addLabResults(
                           model: LabResultsModel(

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/cache/hive_manager.dart';
@@ -22,7 +23,7 @@ class OnboardingScreenBody extends StatelessWidget {
               Navigator.pushReplacementNamed(context, AppRoutes.loginScreen);
             },
             child: Text(
-              'Skip Tour',
+              'Skip Tour'.tr(),
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontSize: 14.sp,
                 color: Theme.of(context).brightness == Brightness.dark
