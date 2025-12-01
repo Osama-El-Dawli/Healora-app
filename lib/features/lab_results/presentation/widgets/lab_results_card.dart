@@ -69,14 +69,14 @@ class LabResultCard extends StatelessWidget {
           Text(
             model.title,
             style: textTheme.titleSmall?.copyWith(color: AppColors.primary),
-            maxLines: 3,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: 8.h),
           Text(
             model.description,
             style: textTheme.labelLarge?.copyWith(color: AppColors.hintColor),
-            maxLines: 3,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
         ],
