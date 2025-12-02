@@ -43,7 +43,9 @@ Future<void> main() async {
       EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: 'assets/translations',
+        startLocale: null,
         fallbackLocale: const Locale('en'),
+        saveLocale: true,
         child: BlocProvider(
           create: (_) => ThemeCubit(),
           child: Healora(isOnboardingVisited: isOnboardingVisited),
@@ -88,6 +90,7 @@ class _HealoraState extends State<Healora> {
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
+
             onGenerateRoute: (settings) {
               final user = HiveManager.getUser();
               if (settings.name == AppRoutes.homeScreen ||

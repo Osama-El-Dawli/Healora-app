@@ -14,7 +14,8 @@ class ThemeCubit extends Cubit<ThemeState> {
       emit(savedTheme ? const DarkThemeState() : const LightThemeState());
     } else {
       // Use system theme on first launch
-      final brightness = MediaQuery.of(context).platformBrightness;
+      final brightness =
+          WidgetsBinding.instance.platformDispatcher.platformBrightness;
       final isDark = brightness == Brightness.dark;
       emit(isDark ? const DarkThemeState() : const LightThemeState());
       HiveManager.saveTheme(isDark);
