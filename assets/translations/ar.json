@@ -2,7 +2,7 @@
   "Discover Top Doctors": "اكتشف أفضل الأطباء",
   "Ask a Doctor Online": "اسأل طبيبًا عبر الإنترنت",
   "Get Expert Advice": "احصل على نصيحة خبراء",
-  "Skip Tour": "تخطي الجولة",
+  "Skip Tour": "تخطي",
   "👋🏻 Hi": "👋🏻 مرحبًا",
   "Medical History": "السجل الطبي",
   "Lab Results": "نتائج المختبر",
@@ -90,7 +90,7 @@
   "save": "حفظ",
   "Phone number copied to clipboard": "تم نسخ رقم الهاتف إلى الحافظة",
   "HEIGHT": "الطول",
-  "cm":"سم",
+  "cm": "سم",
   "FEMALE": "أنثي",
   "MALE": "ذكر",
   "AGE": "العمر",
@@ -125,10 +125,15 @@
   "Result": "النتيجة",
   "Your BMI is": "مؤشر كتلة جسمك هو",
   "BMI CALCULATOR": "حاسب مؤشر كتلة الجسم",
-  "Edit Lab Result" : "تعديل نتيجة الإختبار",
+  "Edit Lab Result": "تعديل نتيجة الإختبار",
   "Add Medical History": "إضافة تاريخ طبي",
   "Edit Medical History": "تعديل تاريخ طبي",
   "booking_details": "تفاصيل الحجز",
   "Title is required": "العنوان مطلوب",
-  "Description is required": "الوصف مطلوب"
+  "Description is required": "الوصف مطلوب",
+  "Appointment Details": "تفاصيل الموعد",
+  "Edit Account": "تعديل الحساب",
+  "Receive expert medical advice tailored to your symptoms and health history. Our specialists guide you with accurate insights, helping you make informed decisions about your care.": "احصل على نصائح طبية دقيقة مخصصة لأعراضك وتاريخك الصحي. يقدّم لك أطباؤنا رؤى موثوقة تساعدك على اتخاذ قرارات صحيحة بشأن رعايتك الصحية.",
+  "Connect instantly with highly qualified and trusted medical professionals across all specialties. Whether you need quick advice, a detailed consultation, or ongoing care, Healora helps you find the right doctor—anytime, anywhere.": "تواصل فورًا مع محترفين طبيين مؤهلين وموثوقين عبر جميع التخصصات. سواء كنت بحاجة إلى نصيحة سريعة، أو استشارة مفصلة، أو رعاية مستمرة، تساعدك هيلورا في العثور على الطبيب المناسب - في أي وقت وأي مكان.",
+  "Explore a wide network of skilled and verified healthcare professionals. Compare specialties, view profiles, and choose the right doctor with confidence.": "استكشف شبكة واسعة من المتخصصين الصحيين المهرة والمعتمدين. قارن بين التخصصات، واطّلع على الملفات الشخصية، واختر الطبيب المناسب بثقة."
 }
