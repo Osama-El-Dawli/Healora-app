@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:healora/core/theme/app_colors.dart';
 import 'package:healora/core/utils/app_assets.dart';
 
@@ -49,7 +50,15 @@ class ChatTextField extends StatelessWidget {
                 onTap: onSend,
                 child: Transform.rotate(
                   angle: (context.locale == Locale('ar')) ? 3.14 : 0,
-                  child: Image.asset(Assets.imagesSend),
+                  child: SvgPicture.asset(
+                    Assets.imagesSend,
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.darkTextSecondary
+                          : AppColors.secondary,
+                      BlendMode.srcIn,
+                    ),
+                  ),
                 ),
               ),
             ],
