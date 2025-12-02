@@ -32,7 +32,7 @@ class CustomInfoCard extends StatelessWidget {
                 : AssetImage(image),
           ),
           title: Text(
-            title,
+            'Dr. $title',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontSize: 18.sp,
               fontWeight: FontWeight.w500,

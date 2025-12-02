@@ -12,7 +12,7 @@ class LoadingIndicator extends StatelessWidget {
         height: 150.h,
         width: 150.w,
         decoration: BoxDecoration(
-          color: AppColors.suffixIconColor,
+          color: AppColors.suffixIconColor.withValues(alpha: 0.8),
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: const Center(

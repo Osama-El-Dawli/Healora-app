@@ -32,10 +32,6 @@ class LabResultsScreen extends StatelessWidget {
         }
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).brightness == Brightness.dark
-            ? AppColors.darkBackground
-            : AppColors.backgroundColor,
-
         body: LabResultsBody(userModel: userModel),
 
         floatingActionButton: FloatingActionButton(
