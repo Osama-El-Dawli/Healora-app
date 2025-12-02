@@ -15,19 +15,22 @@ class _OnboardingPageViewState extends State<OnboardingPageView> {
       image: 'assets/images/onboarding1.png',
       title: 'Discover Top Doctors.'.tr(),
       description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacinia libero ut metus convallis tempor. Vestibulum consequat, tortor mattis consequat'.tr(),
+          'Connect instantly with highly qualified and trusted medical professionals across all specialties. Whether you need quick advice, a detailed consultation, or ongoing care, Healora helps you find the right doctor—anytime, anywhere.'
+              .tr(),
     ),
     OnboardingModel(
       image: 'assets/images/onboarding2.png',
       title: 'Ask a Doctor Online'.tr(),
       description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacinia libero ut metus convallis tempor. Vestibulum consequat, tortor mattis consequat'.tr(),
+          'Explore a wide network of skilled and verified healthcare professionals. Compare specialties, view profiles, and choose the right doctor with confidence.'
+              .tr(),
     ),
     OnboardingModel(
       image: 'assets/images/onboarding3.png',
       title: 'Get Expert Advice'.tr(),
       description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacinia libero ut metus convallis tempor. Vestibulum consequat, tortor mattis consequat'.tr(),
+          'Receive expert medical advice tailored to your symptoms and health history. Our specialists guide you with accurate insights, helping you make informed decisions about your care.'
+              .tr(),
     ),
   ];
   @override
