@@ -50,6 +50,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
         autovalidateMode: AutovalidateMode.onUserInteraction,
         cursorColor: AppColors.primary,
+        cursorErrorColor: AppColors.red,
+
         keyboardType: widget.isPhone ? TextInputType.phone : TextInputType.text,
 
         onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),

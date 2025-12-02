@@ -27,7 +27,13 @@ class AppointmentDetailsCard extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 20.w),
         leading: leadingIcon != null
-            ? Icon(size: 28.sp, leadingIcon, color: AppColors.darkGreen)
+            ? Icon(
+                size: 28.sp,
+                leadingIcon,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.hintColor
+                    : AppColors.darkGreen,
+              )
             : null,
         title: title != null
             ? Text(
@@ -70,7 +76,9 @@ class AppointmentDetailsCard extends StatelessWidget {
                 icon: Icon(
                   size: 24.sp,
                   trailingIcon,
-                  color: AppColors.secondary,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.hintColor
+                      : AppColors.darkGreen,
                 ),
               )
             : null,
