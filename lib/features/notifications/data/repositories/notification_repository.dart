@@ -1,4 +1,5 @@
 import 'package:healora/features/notifications/data/data_sources/notification_remote_data_source.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/notifications/data/models/notification_model.dart';
 
 class NotificationRepository {
@@ -13,5 +14,9 @@ class NotificationRepository {
 
   Future<List<NotificationModel>> getNotifications() async {
     return await _remoteDataSource.getNotifications();
+  }
+
+  Future<UserModel?> getUser(String uid) async {
+    return await _remoteDataSource.getUser(uid);
   }
 }

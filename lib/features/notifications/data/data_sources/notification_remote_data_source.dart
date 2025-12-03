@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/notifications/data/models/notification_model.dart';
 
 class NotificationRemoteDataSource {
@@ -30,5 +31,13 @@ class NotificationRemoteDataSource {
           .toList();
     }
     return [];
+  }
+
+  Future<UserModel?> getUser(String uid) async {
+    final doc = await _firestore.collection('users').doc(uid).get();
+    if (doc.exists) {
+      return UserModel.fromMap(doc.data()!);
+    }
+    return null;
   }
 }
