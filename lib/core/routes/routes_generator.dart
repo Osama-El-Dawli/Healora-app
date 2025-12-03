@@ -32,6 +32,8 @@ import 'package:healora/features/medical_chatbot/presentation/screens/medical_ch
 import 'package:healora/features/medical_history/cubit/medical_history_cubit/medical_history_cubit.dart';
 import 'package:healora/features/medical_history/data/repositories/medical_history_repo.dart';
 import 'package:healora/features/medical_history/presentation/screens/medical_history_screen.dart';
+import 'package:healora/features/notifications/cubit/notification_cubit.dart';
+import 'package:healora/features/notifications/data/repositories/notification_repository.dart';
 import 'package:healora/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:healora/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:healora/features/select_appointment/cubit/appointment_cubit/appointment_cubit.dart';
@@ -130,7 +132,14 @@ class AppRouteGenerator {
         );
 
       case AppRoutes.notificationsScreen:
-        return MaterialPageRoute(builder: (_) => const NotificationsScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => NotificationCubit(
+              ServiceLocator.getIt<NotificationRepository>(),
+            )..getNotifications(),
+            child: const NotificationsScreen(),
+          ),
+        );
 
       case AppRoutes.onBoardingScreen:
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());

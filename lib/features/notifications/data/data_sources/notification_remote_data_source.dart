@@ -2,15 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:healora/features/notifications/data/models/notification_model.dart';
 
-abstract class NotificationRemoteDataSource {
-  Future<void> saveNotification(NotificationModel notification);
-}
-
-class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+class NotificationRemoteDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  @override
   Future<void> saveNotification(NotificationModel notification) async {
     final user = _auth.currentUser;
     if (user != null) {
@@ -20,5 +15,20 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
           .collection('notifications')
           .add(notification.toFirestore());
     }
+  }
+
+  Future<List<NotificationModel>> getNotifications() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      final snapshot = await _firestore
+          .collection('users')
+          .doc(user.uid)
+          .collection('notifications')
+          .get();
+      return snapshot.docs
+          .map((doc) => NotificationModel.fromFirestore(doc))
+          .toList();
+    }
+    return [];
   }
 }

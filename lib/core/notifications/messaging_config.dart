@@ -5,10 +5,10 @@ import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:healora/core/cache/hive_manager.dart';
+import 'package:healora/core/helper/service_locator.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:healora/features/notifications/data/data_sources/notification_remote_data_source.dart';
 import 'package:healora/features/notifications/data/models/notification_model.dart';
 import 'package:healora/features/notifications/data/repositories/notification_repository.dart';
 import 'package:healora/main.dart';
@@ -184,9 +184,7 @@ class MessagingConfig {
         data: message.data,
       );
 
-      final repository = NotificationRepositoryImpl(
-        NotificationRemoteDataSourceImpl(),
-      );
+      final repository = ServiceLocator.getIt<NotificationRepository>();
       await repository.saveNotification(notification);
       log("Notification saved to Firestore");
     } catch (e) {
