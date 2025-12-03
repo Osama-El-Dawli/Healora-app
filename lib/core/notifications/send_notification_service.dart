@@ -28,6 +28,7 @@ Future<void> sendNotification({
   final String fcmUrl =
       'https://fcm.googleapis.com/v1/projects/healora-32e1e/messages:send';
   final Dio dio = Dio();
+  final String? imageUrl = data['senderImage'];
 
   final response = await dio.post(
     fcmUrl,
@@ -40,13 +41,16 @@ Future<void> sendNotification({
     data: {
       'message': {
         'token': token,
-        'notification': {'title': title, 'body': body},
+        'notification': {'title': title, 'body': body, 'image': imageUrl},
         'data': data,
 
         'android': {
           'notification': {
             'click_action': 'FLUTTER_NOTIFICATION_CLICK',
             'channel_id': 'high_importance_channel',
+            'image': imageUrl,
+            'visibility': 'public',
+            'priority': 'max',
           },
         },
         'apns': {

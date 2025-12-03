@@ -7,6 +7,10 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:healora/core/cache/hive_manager.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:healora/features/notifications/data/data_sources/notification_remote_data_source.dart';
+import 'package:healora/features/notifications/data/models/notification_model.dart';
+import 'package:healora/features/notifications/data/repositories/notification_repository.dart';
 import 'package:healora/main.dart';
 
 class MessagingConfig {
@@ -86,9 +90,13 @@ class MessagingConfig {
       log('User declined or has not accepted permission');
     }
 
+    FirebaseMessaging.onBackgroundMessage(messageHandler);
+
     FirebaseMessaging.onMessage.listen((RemoteMessage event) async {
       log("message received");
       try {
+        await saveNotificationToFirestore(event);
+
         if (event.data['chatId'] == currentChatId) {
           log(
             "Notification suppressed: User is in chat ${event.data['chatId']}",
@@ -149,23 +157,41 @@ class MessagingConfig {
     });
   }
 
-  static Future<void> setupInteractedMessage() async {
-    FirebaseMessaging.instance.getInitialMessage().then((
-      RemoteMessage? message,
-    ) {
-      if (message != null) {
-        handleNotification(message.data);
-      }
-    });
+  static Future<RemoteMessage?> setupInteractedMessage() async {
+    RemoteMessage? initialMessage = await FirebaseMessaging.instance
+        .getInitialMessage();
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       handleNotification(message.data);
     });
+
+    return initialMessage;
   }
 
   @pragma('vm:entry-point')
   static Future<void> messageHandler(RemoteMessage message) async {
-    log('background message ${message.notification!.body}');
+    await Firebase.initializeApp();
+    await saveNotificationToFirestore(message);
+    log('background message ${message.notification?.body}');
+  }
+
+  static Future<void> saveNotificationToFirestore(RemoteMessage message) async {
+    try {
+      final notification = NotificationModel(
+        title: message.notification?.title ?? 'No Title',
+        body: message.notification?.body ?? 'No Body',
+        timestamp: DateTime.now(),
+        data: message.data,
+      );
+
+      final repository = NotificationRepositoryImpl(
+        NotificationRemoteDataSourceImpl(),
+      );
+      await repository.saveNotification(notification);
+      log("Notification saved to Firestore");
+    } catch (e) {
+      log("Error saving notification to Firestore: $e");
+    }
   }
 
   static void handleNotification(Map<String, dynamic> data) {
@@ -177,6 +203,8 @@ class MessagingConfig {
       final String senderImage = data['senderImage'];
 
       final currentUser = HiveManager.getUser();
+      log("Current User: $currentUser");
+      log("Navigator State: ${navigatorKey.currentState}");
 
       if (currentUser != null) {
         final otherUser = UserModel(
@@ -192,14 +220,20 @@ class MessagingConfig {
           imageUrl: senderImage,
         );
 
-        navigatorKey.currentState?.pushNamed(
-          AppRoutes.chatScreen,
-          arguments: {
-            'chatId': chatId,
-            'otherUser': otherUser,
-            'currentUser': currentUser,
-          },
-        );
+        if (navigatorKey.currentState != null) {
+          navigatorKey.currentState?.pushNamed(
+            AppRoutes.chatScreen,
+            arguments: {
+              'chatId': chatId,
+              'otherUser': otherUser,
+              'currentUser': currentUser,
+            },
+          );
+        } else {
+          log("Navigator state is null, cannot navigate");
+        }
+      } else {
+        log("Current user is null, cannot navigate");
       }
     }
   }

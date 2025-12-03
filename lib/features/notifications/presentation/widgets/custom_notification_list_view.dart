@@ -31,6 +31,8 @@ class CustomNotificationListView extends StatelessWidget {
                 notificationModel: NotificationModel(
                   title: 'title',
                   body: 'body',
+                  timestamp: DateTime.now(),
+                  data: {},
                 ),
                 pointColor: pointColors[index % pointColors.length],
               ),
