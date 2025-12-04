@@ -92,6 +92,9 @@ jobs:
     needs: [build-android, build-ios]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     
+    permissions:
+      contents: write
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
