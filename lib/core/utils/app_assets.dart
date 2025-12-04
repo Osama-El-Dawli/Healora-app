@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
-  
+
   /// Assets for iconsCalendar
   /// assets/icons/calendar.svg
   static const String iconsCalendar = "assets/icons/calendar.svg";
@@ -28,7 +28,8 @@ class Assets {
 
   /// Assets for imagesHealoraBranding
   /// assets/images/healora_branding.png
-  static const String imagesHealoraBranding = "assets/images/healora_branding.png";
+  static const String imagesHealoraBranding =
+      "assets/images/healora_branding.png";
 
   /// Assets for imagesHealoraIcon
   /// assets/images/healora_icon.png
@@ -79,24 +80,28 @@ class Assets {
   static const String imagesSelect = "assets/images/select.png";
 
   /// Assets for imagesSend
-  /// assets/images/send.png
-  static const String imagesSend = "assets/images/send.png";
+  /// assets/icons/send.svg
+  static const String imagesSend = "assets/icons/send.svg";
 
   /// Assets for imagesSpecialtyCardiology
   /// assets/images/specialty/Cardiology.png
-  static const String imagesSpecialtyCardiology = "assets/images/specialty/Cardiology.png";
+  static const String imagesSpecialtyCardiology =
+      "assets/images/specialty/Cardiology.png";
 
   /// Assets for imagesSpecialtyGastroenterology
   /// assets/images/specialty/Gastroenterology.png
-  static const String imagesSpecialtyGastroenterology = "assets/images/specialty/Gastroenterology.png";
+  static const String imagesSpecialtyGastroenterology =
+      "assets/images/specialty/Gastroenterology.png";
 
   /// Assets for imagesSpecialtyGeneralInternal
   /// assets/images/specialty/General_Internal.png
-  static const String imagesSpecialtyGeneralInternal = "assets/images/specialty/General_Internal.png";
+  static const String imagesSpecialtyGeneralInternal =
+      "assets/images/specialty/General_Internal.png";
 
   /// Assets for imagesSpecialtyHepatology
   /// assets/images/specialty/Hepatology.png
-  static const String imagesSpecialtyHepatology = "assets/images/specialty/Hepatology.png";
+  static const String imagesSpecialtyHepatology =
+      "assets/images/specialty/Hepatology.png";
 
   /// Assets for imagesSpecialtyImg1
   /// assets/images/specialty/img_1.png
@@ -116,31 +121,38 @@ class Assets {
 
   /// Assets for imagesSpecialtyNephrology
   /// assets/images/specialty/Nephrology.png
-  static const String imagesSpecialtyNephrology = "assets/images/specialty/Nephrology.png";
+  static const String imagesSpecialtyNephrology =
+      "assets/images/specialty/Nephrology.png";
 
   /// Assets for imagesSpecialtyOphthalmology
   /// assets/images/specialty/Ophthalmology.png
-  static const String imagesSpecialtyOphthalmology = "assets/images/specialty/Ophthalmology.png";
+  static const String imagesSpecialtyOphthalmology =
+      "assets/images/specialty/Ophthalmology.png";
 
   /// Assets for imagesSpecialtyPathology
   /// assets/images/specialty/Pathology.png
-  static const String imagesSpecialtyPathology = "assets/images/specialty/Pathology.png";
+  static const String imagesSpecialtyPathology =
+      "assets/images/specialty/Pathology.png";
 
   /// Assets for imagesSpecialtyPhysiotherapy
   /// assets/images/specialty/Physiotherapy.png
-  static const String imagesSpecialtyPhysiotherapy = "assets/images/specialty/Physiotherapy.png";
+  static const String imagesSpecialtyPhysiotherapy =
+      "assets/images/specialty/Physiotherapy.png";
 
   /// Assets for imagesSpecialtyPsychiatry
   /// assets/images/specialty/Psychiatry.png
-  static const String imagesSpecialtyPsychiatry = "assets/images/specialty/Psychiatry.png";
+  static const String imagesSpecialtyPsychiatry =
+      "assets/images/specialty/Psychiatry.png";
 
   /// Assets for imagesSpecialtyPulmonology
   /// assets/images/specialty/Pulmonology.png
-  static const String imagesSpecialtyPulmonology = "assets/images/specialty/Pulmonology.png";
+  static const String imagesSpecialtyPulmonology =
+      "assets/images/specialty/Pulmonology.png";
 
   /// Assets for imagesSpecialtyRadiology
   /// assets/images/specialty/Radiology.png
-  static const String imagesSpecialtyRadiology = "assets/images/specialty/Radiology.png";
+  static const String imagesSpecialtyRadiology =
+      "assets/images/specialty/Radiology.png";
 
   /// Assets for imagesSplash
   /// assets/images/splash.png
@@ -154,4 +166,3 @@ class Assets {
   /// assets/translations/en.json
   static const String translationsEn = "assets/translations/en.json";
 }
-

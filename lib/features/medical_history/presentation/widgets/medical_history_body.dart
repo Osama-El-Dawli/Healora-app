@@ -107,7 +107,7 @@ class MedicalHistoryBody extends StatelessWidget {
                           highlightColor: AppColors.primary.withValues(
                             alpha: 0.3,
                           ),
-                          duration: const Duration(seconds: 2), // optional
+                          duration: const Duration(seconds: 2),
                         ),
                         enableSwitchAnimation: true,
                         child: GridView.builder(

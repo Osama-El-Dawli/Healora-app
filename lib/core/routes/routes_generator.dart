@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:healora/core/helper/service_locator.dart';
 import 'package:healora/core/routes/routes.dart';
+import 'package:healora/features/select_appointment/data/models/appointment_model.dart';
 import 'package:healora/features/auth/login/cubit/login_cubit.dart';
 import 'package:healora/features/auth/login/data/repositories/login_repository.dart';
 import 'package:healora/features/auth/login/presentation/screens/login_screen.dart';
@@ -18,6 +20,7 @@ import 'package:healora/features/doctor_feature/cubit/doctor_feature_cubit.dart'
 import 'package:healora/features/doctor_feature/data/repositories/doctor_feature_repo.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
+import 'package:healora/features/doctor_feature/presentation/screens/reschedule_appointment_sheet.dart';
 import 'package:healora/features/edit_account/cubit/update_account_info_cubit.dart';
 import 'package:healora/features/edit_account/data/repositories/update_user_info_repository.dart';
 import 'package:healora/features/edit_account/data/repositories/upload_profile_image_repo.dart';
@@ -32,6 +35,8 @@ import 'package:healora/features/medical_chatbot/presentation/screens/medical_ch
 import 'package:healora/features/medical_history/cubit/medical_history_cubit/medical_history_cubit.dart';
 import 'package:healora/features/medical_history/data/repositories/medical_history_repo.dart';
 import 'package:healora/features/medical_history/presentation/screens/medical_history_screen.dart';
+import 'package:healora/features/notifications/cubit/notification_cubit.dart';
+import 'package:healora/features/notifications/data/repositories/notification_repository.dart';
 import 'package:healora/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:healora/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:healora/features/select_appointment/cubit/appointment_cubit/appointment_cubit.dart';
@@ -130,7 +135,14 @@ class AppRouteGenerator {
         );
 
       case AppRoutes.notificationsScreen:
-        return MaterialPageRoute(builder: (_) => const NotificationsScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => NotificationCubit(
+              ServiceLocator.getIt<NotificationRepository>(),
+            )..getNotifications(),
+            child: const NotificationsScreen(),
+          ),
+        );
 
       case AppRoutes.onBoardingScreen:
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
@@ -227,6 +239,42 @@ class AppRouteGenerator {
             child: SelectAppointmentScreen(
               doctorModel: arguments['doctorModel'],
               patientModel: arguments['patientModel'],
+            ),
+          ),
+        );
+
+      case AppRoutes.rescheduleAppointmentScreen:
+        final arguments = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => DoctorFeatureCubit(
+                  ServiceLocator.getIt<DoctorFeatureRepo>(),
+                ),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    AppointmentCubit(ServiceLocator.getIt<AppointmentRepo>())
+                      ..getAvailableTimes(
+                        day: DateFormat('dd MMM').format(
+                          (arguments['appointment'] as AppointmentModel)
+                                  .date
+                                  .isEmpty
+                              ? DateTime.now().add(const Duration(days: 1))
+                              : DateFormat('dd MMM').parse(
+                                  (arguments['appointment'] as AppointmentModel)
+                                      .date,
+                                ),
+                        ),
+                        docId: (arguments['appointment'] as AppointmentModel)
+                            .doctorId,
+                      ),
+              ),
+            ],
+            child: RescheduleAppointmentScreen(
+              appointment: arguments['appointment'],
+              patient: arguments['patient'],
             ),
           ),
         );

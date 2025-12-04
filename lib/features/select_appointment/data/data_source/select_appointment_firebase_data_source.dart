@@ -49,7 +49,7 @@ class SelectAppointmentFirebaseDataSource {
         .get();
 
     return appointments.docs
-        .map((e) => AppointmentModel.fromFirebase(e.data()))
+        .map((e) => AppointmentModel.fromFirebase(e.data(), e.id))
         .toList();
   }
 
@@ -67,7 +67,10 @@ class SelectAppointmentFirebaseDataSource {
       return null;
     }
 
-    return AppointmentModel.fromFirebase(appointments.docs.first.data());
+    return AppointmentModel.fromFirebase(
+      appointments.docs.first.data(),
+      appointments.docs.first.id,
+    );
   }
 
   Future<void> cancelAppointment({

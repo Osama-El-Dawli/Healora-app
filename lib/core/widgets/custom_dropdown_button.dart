@@ -35,15 +35,26 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return DropdownButtonFormField<String>(
-      dropdownColor: AppColors.backgroundColor,
-      icon: const Icon(Icons.arrow_drop_down, color: AppColors.primary),
-      style: textTheme.titleSmall!.copyWith(color: AppColors.primary),
+      dropdownColor: isDarkMode
+          ? AppColors.darkBackground
+          : AppColors.backgroundColor,
+      icon: Icon(
+        Icons.arrow_drop_down,
+        color: isDarkMode ? AppColors.darkTextSecondary : AppColors.hintColor,
+      ),
+
+      style: textTheme.titleSmall!.copyWith(
+        color: isDarkMode ? AppColors.backgroundColor : AppColors.primary,
+      ),
       initialValue: _selectedValue,
       hint: Text(
         widget.hintText.tr(),
-        style: textTheme.titleSmall!.copyWith(color: AppColors.hintColor),
+        style: textTheme.titleSmall!.copyWith(
+          color: isDarkMode ? AppColors.darkTextSecondary : AppColors.hintColor,
+        ),
       ),
       items: widget.items.map((String item) {
         return DropdownMenuItem<String>(value: item, child: Text(item.tr()));

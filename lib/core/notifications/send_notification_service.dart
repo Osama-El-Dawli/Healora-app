@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,43 +26,59 @@ Future<void> sendNotification({
   required String body,
   required Map<String, String> data,
 }) async {
+  log('sendNotification called with token: $token');
   final String accessToken = await getAccessToken();
+  log('Access token obtained');
   final String fcmUrl =
       'https://fcm.googleapis.com/v1/projects/healora-32e1e/messages:send';
   final Dio dio = Dio();
+  final String? imageUrl = data['senderImage'];
 
-  final response = await dio.post(
-    fcmUrl,
-    options: Options(
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $accessToken',
-      },
-    ),
-    data: {
-      'message': {
-        'token': token,
-        'notification': {'title': title, 'body': body},
-        'data': data,
-
-        'android': {
+  try {
+    final response = await dio.post(
+      fcmUrl,
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $accessToken',
+        },
+      ),
+      data: {
+        'message': {
+          'token': token,
           'notification': {
-            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-            'channel_id': 'high_importance_channel',
+            'title': title,
+            'body': body,
+            if (imageUrl != null) 'image': imageUrl,
           },
-        },
-        'apns': {
-          'payload': {
-            'aps': {'content-available': 1},
+          'data': data,
+
+          'android': {
+            'priority': 'HIGH',
+            'notification': {
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'channel_id': 'high_importance_channel',
+              if (imageUrl != null) 'image': imageUrl,
+            },
+          },
+          'apns': {
+            'payload': {
+              'aps': {'content-available': 1},
+            },
           },
         },
       },
-    },
-  );
+    );
 
-  if (response.statusCode == 200) {
-    debugPrint('Notification sent successfully');
-  } else {
-    debugPrint('Failed to send notification: ${response.data}');
+    if (response.statusCode == 200) {
+      debugPrint('Notification sent successfully');
+    } else {
+      debugPrint('Failed to send notification: ${response.data}');
+    }
+  } on DioException catch (e) {
+    debugPrint('DioException: ${e.message}');
+    debugPrint('Error Data: ${e.response?.data}');
+  } catch (e) {
+    debugPrint('Error sending notification: $e');
   }
 }

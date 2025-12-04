@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +36,7 @@ Future<void> main() async {
   final isOnboardingVisited = HiveManager.isOnboardingVisited();
 
   await MessagingConfig.initFirebaseMessaging();
-  await MessagingConfig.setupInteractedMessage();
+  final initialMessage = await MessagingConfig.setupInteractedMessage();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
     _,
   ) {
@@ -48,7 +49,10 @@ Future<void> main() async {
         saveLocale: true,
         child: BlocProvider(
           create: (_) => ThemeCubit(),
-          child: Healora(isOnboardingVisited: isOnboardingVisited),
+          child: Healora(
+            isOnboardingVisited: isOnboardingVisited,
+            initialMessage: initialMessage,
+          ),
         ),
       ),
     );
@@ -56,8 +60,13 @@ Future<void> main() async {
 }
 
 class Healora extends StatefulWidget {
-  const Healora({super.key, required this.isOnboardingVisited});
+  const Healora({
+    super.key,
+    required this.isOnboardingVisited,
+    this.initialMessage,
+  });
   final bool isOnboardingVisited;
+  final RemoteMessage? initialMessage;
 
   @override
   State<Healora> createState() => _HealoraState();
@@ -68,6 +77,9 @@ class _HealoraState extends State<Healora> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ThemeCubit>().initTheme(context);
+      if (widget.initialMessage != null) {
+        MessagingConfig.handleNotification(widget.initialMessage!.data);
+      }
     });
     super.initState();
   }

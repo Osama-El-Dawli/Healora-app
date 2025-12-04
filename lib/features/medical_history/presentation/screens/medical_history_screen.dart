@@ -36,9 +36,6 @@ class MedicalHistoryScreen extends StatelessWidget {
         }
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).brightness == Brightness.dark
-            ? AppColors.darkBackground
-            : AppColors.backgroundColor,
         body: MedicalHistoryBody(userModel: userModel),
         floatingActionButton: FloatingActionButton(
           onPressed: () {

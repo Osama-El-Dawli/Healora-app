@@ -11,8 +11,9 @@ import 'package:healora/core/widgets/custom_profile_avatar.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/doctor_feature/data/models/patient_with_appointment.dart';
 import 'package:healora/features/doctor_feature/presentation/widgets/appointment_details_card.dart';
+import 'package:healora/features/select_appointment/data/models/appointment_model.dart';
 
-class AppointmentDetailsScreenBody extends StatelessWidget {
+class AppointmentDetailsScreenBody extends StatefulWidget {
   const AppointmentDetailsScreenBody({
     super.key,
     required this.patientWithAppointment,
@@ -20,6 +21,21 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
   });
   final PatientWithAppointment patientWithAppointment;
   final UserModel doctor;
+
+  @override
+  State<AppointmentDetailsScreenBody> createState() =>
+      _AppointmentDetailsScreenBodyState();
+}
+
+class _AppointmentDetailsScreenBodyState
+    extends State<AppointmentDetailsScreenBody> {
+  late PatientWithAppointment patientWithAppointment;
+
+  @override
+  void initState() {
+    super.initState();
+    patientWithAppointment = widget.patientWithAppointment;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +85,32 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 24.h),
-                  AppointmentDetailsCard(
-                    isDate: true,
-                    leadingIcon: Icons.calendar_month_rounded,
-                    title: 'Appointment Date'.tr(),
-                    subTitle:
-                        '${patientWithAppointment.appointment.date}, ${DateTime.now().year} | ${patientWithAppointment.appointment.time} AM',
+                  InkWell(
+                    borderRadius: BorderRadius.circular(12.r),
+                    onTap: () async {
+                      final result = await Navigator.of(context).pushNamed(
+                        AppRoutes.rescheduleAppointmentScreen,
+                        arguments: {
+                          'appointment': patientWithAppointment.appointment,
+                          'patient': patientWithAppointment.patient,
+                        },
+                      );
+                      if (result is AppointmentModel) {
+                        setState(() {
+                          patientWithAppointment = PatientWithAppointment(
+                            patient: patientWithAppointment.patient,
+                            appointment: result,
+                          );
+                        });
+                      }
+                    },
+                    child: AppointmentDetailsCard(
+                      isDate: true,
+                      leadingIcon: Icons.calendar_month_rounded,
+                      title: 'Appointment Date'.tr(),
+                      subTitle:
+                          '${patientWithAppointment.appointment.date}, ${DateTime.now().year} | ${patientWithAppointment.appointment.time} AM',
+                    ),
                   ),
                   SizedBox(height: 24.h),
                   Row(
@@ -114,11 +150,11 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                               AppRoutes.chatScreen,
                               arguments: {
                                 'chatId': generateChatId(
-                                  doctorId: doctor.uid,
+                                  doctorId: widget.doctor.uid,
                                   patientId: patientWithAppointment.patient.uid,
                                 ),
                                 'otherUser': patientWithAppointment.patient,
-                                'currentUser': doctor,
+                                'currentUser': widget.doctor,
                               },
                             );
                           },
@@ -136,6 +172,16 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                   ),
                   SizedBox(height: 24.h),
                   AppointmentDetailsCard(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.selectAppointmentScreen,
+                        arguments: {
+                          'patientModel': patientWithAppointment.patient,
+                          'doctorModel': widget.doctor,
+                        },
+                      );
+                    },
                     isDate: true,
                     leadingIcon: Icons.calendar_month_rounded,
                     title: 'Follow-up Date'.tr(),
@@ -168,9 +214,10 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                   SizedBox(height: 24.h),
                   InkWell(
                     onTap: () {
-                      Navigator.of(
-                        context,
-                      ).pushNamed(AppRoutes.labResultsScreen);
+                      Navigator.of(context).pushNamed(
+                        AppRoutes.labResultsScreen,
+                        arguments: patientWithAppointment.patient,
+                      );
                     },
                     child: AppointmentDetailsCard(
                       leadingIcon: Icons.science_rounded,
@@ -178,9 +225,10 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                       subTitle: 'lab_results_subtitle'.tr(),
                       trailingIcon: Icons.arrow_forward_ios_rounded,
                       onPressed: () {
-                        Navigator.of(
-                          context,
-                        ).pushNamed(AppRoutes.labResultsScreen);
+                        Navigator.of(context).pushNamed(
+                          AppRoutes.labResultsScreen,
+                          arguments: patientWithAppointment.patient,
+                        );
                       },
                     ),
                   ),

@@ -1,0 +1,95 @@
+name: Build Android & iOS
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.5'
+          channel: 'stable'
+          cache: true
+      
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
+      
+      - name: Create FCM JSON file
+        run: |
+          mkdir -p assets/keys
+          echo "${{ secrets.FCM_JSON }}" > assets/keys/healora-32e1e-526d13230635.json
+      
+      - name: Get dependencies
+        run: flutter pub get
+      
+      - name: Run build_runner
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+      
+      - name: Build APK
+        run: flutter build apk --release
+      
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 7
+
+  build-ios:
+    name: Build iOS
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.5'
+          channel: 'stable'
+          cache: true
+      
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
+      
+      - name: Create FCM JSON file
+        run: |
+          mkdir -p assets/keys
+          echo "${{ secrets.FCM_JSON }}" > assets/keys/healora-32e1e-526d13230635.json
+      
+      - name: Get dependencies
+        run: flutter pub get
+      
+      - name: Run build_runner
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+      
+      - name: Build iOS (no codesign)
+        run: flutter build ios --release --no-codesign
+      
+      - name: Upload iOS build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: build/ios/iphoneos/Runner.app
+          retention-days: 7

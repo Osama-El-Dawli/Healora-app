@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:healora/core/cache/hive_manager.dart';
 import 'package:healora/core/helper/generate_chat_id.dart';
 import 'package:healora/core/routes/routes.dart';
 import 'package:healora/core/theme/app_colors.dart';
@@ -13,9 +14,8 @@ import 'package:healora/core/widgets/custom_info_card.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/select_appointment/cubit/appointment_cubit/appointment_cubit.dart';
 import 'package:healora/features/select_appointment/data/models/appointment_model.dart';
-import 'package:healora/features/select_doctor/data/models/doctor_model.dart';
 
-class BookingDetailsScreenBody extends StatelessWidget {
+class BookingDetailsScreenBody extends StatefulWidget {
   const BookingDetailsScreenBody({
     super.key,
     required this.appointment,
@@ -23,8 +23,22 @@ class BookingDetailsScreenBody extends StatelessWidget {
     required this.patient,
   });
   final AppointmentModel appointment;
-  final DoctorModel doctor;
+  final UserModel doctor;
   final UserModel patient;
+
+  @override
+  State<BookingDetailsScreenBody> createState() =>
+      _BookingDetailsScreenBodyState();
+}
+
+class _BookingDetailsScreenBodyState extends State<BookingDetailsScreenBody> {
+  late AppointmentModel appointment;
+
+  @override
+  void initState() {
+    super.initState();
+    appointment = widget.appointment;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +55,7 @@ class BookingDetailsScreenBody extends StatelessWidget {
           Navigator.pop(context);
           Navigator.pushNamedAndRemoveUntil(
             context,
-            arguments: patient,
+            arguments: widget.patient,
             AppRoutes.homeScreen,
             (route) {
               return false;
@@ -131,21 +145,54 @@ class BookingDetailsScreenBody extends StatelessWidget {
                     ],
                   ),
                   Spacer(),
-                  TextButton(
-                    onPressed: () {
-                      context.read<AppointmentCubit>().cancelAppointment(
-                        patientId: appointment.patientId,
-                        docId: appointment.doctorId,
-                      );
-                    },
-                    child: Text(
-                      'Cancel'.tr(),
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
+                  Column(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          context.read<AppointmentCubit>().cancelAppointment(
+                            patientId: appointment.patientId,
+                            docId: appointment.doctorId,
+                          );
+                        },
+                        child: Text(
+                          'Cancel'.tr(),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyLarge
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
+                        ),
                       ),
-                    ),
+                      (HiveManager.getUser()!.uid == widget.doctor.uid)
+                          ? TextButton(
+                              onPressed: () async {
+                                final result = await Navigator.of(context)
+                                    .pushNamed(
+                                      AppRoutes.rescheduleAppointmentScreen,
+                                      arguments: {
+                                        'appointment': appointment,
+                                        'patient': widget.patient,
+                                      },
+                                    );
+                                if (result is AppointmentModel) {
+                                  setState(() {
+                                    appointment = result;
+                                  });
+                                }
+                              },
+                              child: Text(
+                                'Reschedule'.tr(),
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.bodyLarge
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.darkGreen,
+                                    ),
+                              ),
+                            )
+                          : SizedBox.shrink(),
+                    ],
                   ),
                 ],
               ),
@@ -162,47 +209,60 @@ class BookingDetailsScreenBody extends StatelessWidget {
               SizedBox(height: 16.h),
 
               Hero(
-                tag: doctor.uid,
+                tag: widget.doctor.uid,
                 child: CustomInfoCard(
-                  title: '${doctor.firstName} ${doctor.lastName}',
-                  subTitle: doctor.specialization.tr(),
-                  image: doctor.imageUrl,
-                  trailing: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                        AppRoutes.chatScreen,
-                        arguments: {
-                          'chatId': generateChatId(
-                            doctorId: doctor.uid,
-                            patientId: patient.uid,
+                  title: '${widget.doctor.firstName} ${widget.doctor.lastName}',
+                  subTitle: widget.doctor.specialization.tr(),
+                  image: widget.doctor.imageUrl,
+                  trailing: HiveManager.getUser()!.uid == widget.patient.uid
+                      ? IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                              AppRoutes.chatScreen,
+                              arguments: {
+                                'chatId': generateChatId(
+                                  doctorId: widget.doctor.uid,
+                                  patientId: widget.patient.uid,
+                                ),
+                                'otherUser': widget.doctor,
+                                'currentUser': widget.patient,
+                              },
+                            );
+                          },
+                          icon: Icon(
+                            Icons.chat,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                ? AppColors.primary
+                                : AppColors.darkGreen,
+                            size: 30.sp,
                           ),
-                          'otherUser': doctor,
-                          'currentUser': patient,
-                        },
-                      );
-                    },
-                    icon: Icon(
-                      Icons.chat,
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.primary
-                          : AppColors.darkGreen,
-                      size: 30.sp,
-                    ),
-                  ),
+                        )
+                      : null,
                 ),
               ),
               Spacer(flex: 5),
               CustomElevatedButton(
                 label: 'Done'.tr(),
                 onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    AppRoutes.homeScreen,
-                    arguments: patient,
-                    (route) {
-                      return false;
-                    },
-                  );
+                  if (HiveManager.getUser()!.uid == widget.doctor.uid) {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      AppRoutes.doctorScreen,
+                      (route) {
+                        return false;
+                      },
+                    );
+                  } else {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      AppRoutes.homeScreen,
+                      arguments: widget.patient,
+                      (route) {
+                        return false;
+                      },
+                    );
+                  }
                 },
               ),
               SizedBox(height: 24.h),
