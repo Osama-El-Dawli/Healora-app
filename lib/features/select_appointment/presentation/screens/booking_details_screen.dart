@@ -18,7 +18,10 @@ class BookingDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('booking_details'.tr())),
+      appBar: AppBar(
+        title: Text('booking_details'.tr()),
+        leading: SizedBox.shrink(),
+      ),
       body: BookingDetailsScreenBody(
         doctor: doctor,
         appointment: appointment,
