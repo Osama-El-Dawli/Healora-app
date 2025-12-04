@@ -97,7 +97,7 @@ class MessagingConfig {
       try {
         await saveNotificationToFirestore(event);
 
-        if (event.data['chatId'] == currentChatId) {
+        if (currentChatId != null && event.data['chatId'] == currentChatId) {
           log(
             "Notification suppressed: User is in chat ${event.data['chatId']}",
           );
@@ -105,10 +105,14 @@ class MessagingConfig {
         }
 
         RemoteNotification? notification = event.notification;
-        log(notification!.body.toString());
-        log(notification.title.toString());
 
-        var body = notification.body;
+        final String title =
+            notification?.title ?? event.data['title'] ?? 'Notification';
+        final String body = notification?.body ?? event.data['body'] ?? '';
+
+        log("Notification title: $title");
+        log("Notification body: $body");
+
         AndroidBitmap<Object>? largeIcon;
 
         if (event.data['senderImage'] != null) {
@@ -131,8 +135,8 @@ class MessagingConfig {
         }
 
         await flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
+          notification?.hashCode ?? DateTime.now().millisecondsSinceEpoch,
+          title,
           body,
           NotificationDetails(
             android: AndroidNotificationDetails(
@@ -192,9 +196,40 @@ class MessagingConfig {
     }
   }
 
-  static void handleNotification(Map<String, dynamic> data) {
+  static void handleNotification(Map<String, dynamic> data) async {
     log("Handling notification: $data");
-    if (data['type'] == 'chat') {
+
+    if (data['type'] == 'appointment_reschedule') {
+      final String appointmentId = data['appointmentId'];
+
+      try {
+        final repository = ServiceLocator.getIt<NotificationRepository>();
+        final appointment = await repository.getAppointment(appointmentId);
+
+        if (appointment != null) {
+          final doctor = await repository.getUser(appointment.doctorId);
+          final patient = await repository.getUser(appointment.patientId);
+          final currentUser = HiveManager.getUser();
+
+          if (doctor != null && patient != null && currentUser != null) {
+            if (navigatorKey.currentState != null) {
+              navigatorKey.currentState?.pushNamed(
+                AppRoutes.bookingDetailsScreen,
+                arguments: {
+                  'appointment': appointment,
+                  'doctor': doctor,
+                  'patient': patient,
+                },
+              );
+            } else {
+              log("Navigator state is null, cannot navigate");
+            }
+          }
+        }
+      } catch (e) {
+        log("Error handling appointment notification: $e");
+      }
+    } else if (data['type'] == 'chat') {
       final String chatId = data['chatId'];
       final String senderId = data['senderId'];
       final String senderName = data['senderName'];

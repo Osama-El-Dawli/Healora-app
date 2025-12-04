@@ -66,4 +66,13 @@ class FirebaseDoctorFeatureRemoteDataSource {
       throw Exception('Error fetching booked patients: $e');
     }
   }
+
+  Future<String?> getPatientToken({required String patientId}) async {
+    try {
+      final doc = await _firebase.collection('users').doc(patientId).get();
+      return doc.data()?['fcm_token'];
+    } catch (e) {
+      throw Exception('Error fetching patient token: $e');
+    }
+  }
 }

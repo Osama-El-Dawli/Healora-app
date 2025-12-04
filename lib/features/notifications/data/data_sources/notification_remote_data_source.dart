@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/notifications/data/models/notification_model.dart';
+import 'package:healora/features/select_appointment/data/models/appointment_model.dart';
 
 class NotificationRemoteDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -37,6 +38,17 @@ class NotificationRemoteDataSource {
     final doc = await _firestore.collection('users').doc(uid).get();
     if (doc.exists) {
       return UserModel.fromMap(doc.data()!);
+    }
+    return null;
+  }
+
+  Future<AppointmentModel?> getAppointment(String appointmentId) async {
+    final doc = await _firestore
+        .collection('appointments')
+        .doc(appointmentId)
+        .get();
+    if (doc.exists) {
+      return AppointmentModel.fromFirebase(doc.data()!, doc.id);
     }
     return null;
   }

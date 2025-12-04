@@ -214,28 +214,31 @@ class _BookingDetailsScreenBodyState extends State<BookingDetailsScreenBody> {
                   title: '${widget.doctor.firstName} ${widget.doctor.lastName}',
                   subTitle: widget.doctor.specialization.tr(),
                   image: widget.doctor.imageUrl,
-                  trailing: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                        AppRoutes.chatScreen,
-                        arguments: {
-                          'chatId': generateChatId(
-                            doctorId: widget.doctor.uid,
-                            patientId: widget.patient.uid,
+                  trailing: HiveManager.getUser()!.uid == widget.patient.uid
+                      ? IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                              AppRoutes.chatScreen,
+                              arguments: {
+                                'chatId': generateChatId(
+                                  doctorId: widget.doctor.uid,
+                                  patientId: widget.patient.uid,
+                                ),
+                                'otherUser': widget.doctor,
+                                'currentUser': widget.patient,
+                              },
+                            );
+                          },
+                          icon: Icon(
+                            Icons.chat,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                ? AppColors.primary
+                                : AppColors.darkGreen,
+                            size: 30.sp,
                           ),
-                          'otherUser': widget.doctor,
-                          'currentUser': widget.patient,
-                        },
-                      );
-                    },
-                    icon: Icon(
-                      Icons.chat,
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.primary
-                          : AppColors.darkGreen,
-                      size: 30.sp,
-                    ),
-                  ),
+                        )
+                      : null,
                 ),
               ),
               Spacer(flex: 5),

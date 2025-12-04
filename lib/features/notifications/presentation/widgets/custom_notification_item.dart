@@ -49,13 +49,15 @@ class CustomNotificationItem extends StatelessWidget {
           Row(
             children: [
               SizedBox(width: 12.w + 16.w),
-              Text(
-                notificationModel.body,
-                style: textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w400,
+              Expanded(
+                child: Text(
+                  notificationModel.body,
+                  style: textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w400,
+                  ),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),

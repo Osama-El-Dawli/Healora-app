@@ -22,4 +22,8 @@ class DoctorFeatureRepo {
   }) async {
     await _dataSource.updateAppointment(appointment: appointment);
   }
+
+  Future<String?> getPatientToken({required String patientId}) async {
+    return await _dataSource.getPatientToken(patientId: patientId);
+  }
 }

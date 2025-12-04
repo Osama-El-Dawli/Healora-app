@@ -53,7 +53,7 @@ class _RescheduleAppointmentScreenState
         if (state is DoctorFeatureSuccess) {
           Fluttertoast.showToast(
             msg: 'Appointment rescheduled successfully'.tr(),
-            backgroundColor: Colors.green,
+            backgroundColor: AppColors.secondary,
             textColor: Colors.white,
           );
           if (context.mounted) {
