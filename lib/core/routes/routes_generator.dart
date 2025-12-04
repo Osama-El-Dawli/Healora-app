@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:healora/core/helper/service_locator.dart';
 import 'package:healora/core/routes/routes.dart';
+import 'package:healora/features/select_appointment/data/models/appointment_model.dart';
 import 'package:healora/features/auth/login/cubit/login_cubit.dart';
 import 'package:healora/features/auth/login/data/repositories/login_repository.dart';
 import 'package:healora/features/auth/login/presentation/screens/login_screen.dart';
@@ -18,6 +20,7 @@ import 'package:healora/features/doctor_feature/cubit/doctor_feature_cubit.dart'
 import 'package:healora/features/doctor_feature/data/repositories/doctor_feature_repo.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/appointment_details_screen.dart';
 import 'package:healora/features/doctor_feature/presentation/screens/doctor_screen.dart';
+import 'package:healora/features/doctor_feature/presentation/screens/reschedule_appointment_sheet.dart';
 import 'package:healora/features/edit_account/cubit/update_account_info_cubit.dart';
 import 'package:healora/features/edit_account/data/repositories/update_user_info_repository.dart';
 import 'package:healora/features/edit_account/data/repositories/upload_profile_image_repo.dart';
@@ -236,6 +239,42 @@ class AppRouteGenerator {
             child: SelectAppointmentScreen(
               doctorModel: arguments['doctorModel'],
               patientModel: arguments['patientModel'],
+            ),
+          ),
+        );
+
+      case AppRoutes.rescheduleAppointmentScreen:
+        final arguments = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => DoctorFeatureCubit(
+                  ServiceLocator.getIt<DoctorFeatureRepo>(),
+                ),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    AppointmentCubit(ServiceLocator.getIt<AppointmentRepo>())
+                      ..getAvailableTimes(
+                        day: DateFormat('dd MMM').format(
+                          (arguments['appointment'] as AppointmentModel)
+                                  .date
+                                  .isEmpty
+                              ? DateTime.now().add(const Duration(days: 1))
+                              : DateFormat('dd MMM').parse(
+                                  (arguments['appointment'] as AppointmentModel)
+                                      .date,
+                                ),
+                        ),
+                        docId: (arguments['appointment'] as AppointmentModel)
+                            .doctorId,
+                      ),
+              ),
+            ],
+            child: RescheduleAppointmentScreen(
+              appointment: arguments['appointment'],
+              patient: arguments['patient'],
             ),
           ),
         );

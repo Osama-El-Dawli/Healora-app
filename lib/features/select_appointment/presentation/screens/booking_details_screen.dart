@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:healora/features/auth/register/data/models/user_model.dart';
 import 'package:healora/features/select_appointment/data/models/appointment_model.dart';
 import 'package:healora/features/select_appointment/presentation/widgets/booking_details_screen_body.dart';
-import 'package:healora/features/select_doctor/data/models/doctor_model.dart';
 
 class BookingDetailsScreen extends StatelessWidget {
   const BookingDetailsScreen({
@@ -13,7 +12,7 @@ class BookingDetailsScreen extends StatelessWidget {
     required this.patient,
   });
   final AppointmentModel appointment;
-  final DoctorModel doctor;
+  final UserModel doctor;
   final UserModel patient;
 
   @override

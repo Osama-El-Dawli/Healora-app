@@ -16,14 +16,29 @@ class FirebaseDoctorFeatureRemoteDataSource {
           .get();
 
       return querySnapshot.docs
-          .map((doc) => AppointmentModel.fromFirebase(doc.data()))
+          .map((doc) => AppointmentModel.fromFirebase(doc.data(), doc.id))
           .toList();
     } catch (e) {
       throw Exception('Error fetching booked appointments: $e');
     }
   }
 
-  Future<List<PatientWithAppointment>> getBookedPatients({required String doctorId})async {
+  Future<void> updateAppointment({
+    required AppointmentModel appointment,
+  }) async {
+    try {
+      await _firebase
+          .collection('appointments')
+          .doc(appointment.id)
+          .update(appointment.toFirebase());
+    } catch (e) {
+      throw Exception('Error updating appointment: $e');
+    }
+  }
+
+  Future<List<PatientWithAppointment>> getBookedPatients({
+    required String doctorId,
+  }) async {
     try {
       List<AppointmentModel> appointments = await getBookedAppointments(
         doctorId: doctorId,

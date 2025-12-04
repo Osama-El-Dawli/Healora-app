@@ -44,8 +44,8 @@ class PatientListView extends StatelessWidget {
                           padding: EdgeInsets.symmetric(vertical: 12.h),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(12.r),
-                            onTap: () {
-                              Navigator.pushNamed(
+                            onTap: () async {
+                              final result = await Navigator.pushNamed(
                                 context,
                                 AppRoutes.appointmentDetailsScreen,
                                 arguments: {
@@ -54,6 +54,11 @@ class PatientListView extends StatelessWidget {
                                       state.appointments[index],
                                 },
                               );
+                              if (result == true && context.mounted) {
+                                context
+                                    .read<DoctorFeatureCubit>()
+                                    .fetchBookedPatients(doctorId: doctor.uid);
+                              }
                             },
                             child: PatientsListViewItem(
                               doctor: doctor,

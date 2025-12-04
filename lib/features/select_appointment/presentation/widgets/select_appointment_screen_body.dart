@@ -12,7 +12,6 @@ import 'package:healora/features/select_appointment/cubit/appointment_cubit/appo
 import 'package:healora/features/select_appointment/data/models/appointment_model.dart';
 import 'package:healora/features/select_appointment/presentation/widgets/select_date_section.dart';
 import 'package:healora/features/select_appointment/presentation/widgets/select_time_section.dart';
-import 'package:healora/features/select_doctor/data/models/doctor_model.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class SelectAppointmentScreenBody extends StatefulWidget {
@@ -22,7 +21,7 @@ class SelectAppointmentScreenBody extends StatefulWidget {
     required this.patientModel,
   });
 
-  final DoctorModel doctorModel;
+  final UserModel doctorModel;
   final UserModel patientModel;
 
   @override
