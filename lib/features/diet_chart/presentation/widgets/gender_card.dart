@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:healora/core/theme/app_colors.dart';
-import 'package:healora/features/diet_chart/constants.dart';
 
 class GenderCard extends StatelessWidget {
   final IconData icon;
@@ -23,17 +22,27 @@ class GenderCard extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          margin: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: isSelected ? AppColors.primary : AppColors.darkTextSecondary,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10.r),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: 90, color: Colors.white),
-              SizedBox(height: 10),
-              Text(label, style: KLabelTextStyle),
+              SizedBox(height: 10.h),
+              Icon(
+                icon,
+                size: 90.sp,
+                color: isSelected ? Colors.white : AppColors.darkBorder,
+              ),
+              SizedBox(height: 10.h),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  color: isSelected ? Colors.white : AppColors.darkBorder,
+                ),
+              ),
               SizedBox(height: 8.h),
             ],
           ),
