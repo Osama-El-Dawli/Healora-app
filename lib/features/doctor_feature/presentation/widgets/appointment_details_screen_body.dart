@@ -168,9 +168,10 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                   SizedBox(height: 24.h),
                   InkWell(
                     onTap: () {
-                      Navigator.of(
-                        context,
-                      ).pushNamed(AppRoutes.labResultsScreen);
+                      Navigator.of(context).pushNamed(
+                        AppRoutes.labResultsScreen,
+                        arguments: patientWithAppointment.patient,
+                      );
                     },
                     child: AppointmentDetailsCard(
                       leadingIcon: Icons.science_rounded,
@@ -178,9 +179,10 @@ class AppointmentDetailsScreenBody extends StatelessWidget {
                       subTitle: 'lab_results_subtitle'.tr(),
                       trailingIcon: Icons.arrow_forward_ios_rounded,
                       onPressed: () {
-                        Navigator.of(
-                          context,
-                        ).pushNamed(AppRoutes.labResultsScreen);
+                        Navigator.of(context).pushNamed(
+                          AppRoutes.labResultsScreen,
+                          arguments: patientWithAppointment.patient,
+                        );
                       },
                     ),
                   ),
