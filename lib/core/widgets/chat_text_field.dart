@@ -8,13 +8,12 @@ import 'package:healora/core/utils/app_assets.dart';
 class ChatTextField extends StatelessWidget {
   final String hintText;
   final TextEditingController? controller;
-  final VoidCallback? onSend, onAttach;
+  final VoidCallback? onSend;
   const ChatTextField({
     super.key,
     required this.hintText,
     this.controller,
     this.onSend,
-    this.onAttach,
   });
 
   @override
@@ -36,32 +35,21 @@ class ChatTextField extends StatelessWidget {
         hintText: hintText,
         suffixIcon: Padding(
           padding: EdgeInsetsGeometry.directional(end: 16.w),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              InkWell(
-                splashColor: null,
-                onTap: onAttach,
-                child: Image.asset(Assets.imagesSelect),
-              ),
-              SizedBox(width: 10),
-              InkWell(
-                splashColor: null,
-                onTap: onSend,
-                child: Transform.rotate(
-                  angle: (context.locale == Locale('ar')) ? 3.14 : 0,
-                  child: SvgPicture.asset(
-                    Assets.imagesSend,
-                    colorFilter: ColorFilter.mode(
-                      Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.darkTextSecondary
-                          : AppColors.secondary,
-                      BlendMode.srcIn,
-                    ),
-                  ),
+          child: InkWell(
+            splashColor: null,
+            onTap: onSend,
+            child: Transform.rotate(
+              angle: (context.locale == Locale('ar')) ? 3.14 : 0,
+              child: SvgPicture.asset(
+                Assets.imagesSend,
+                colorFilter: ColorFilter.mode(
+                  Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.darkTextSecondary
+                      : AppColors.secondary,
+                  BlendMode.srcIn,
                 ),
               ),
-            ],
+            ),
           ),
         ),
       ),

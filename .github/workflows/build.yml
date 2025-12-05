@@ -32,10 +32,10 @@ jobs:
         run: |
           echo "${{ secrets.ENV_FILE }}" > .env
       
-      - name: Create FCM JSON file
+      - name: Decode FCM JSON file
         run: |
           mkdir -p assets/keys
-          echo "${{ secrets.FCM_JSON }}" > assets/keys/healora-32e1e-526d13230635.json
+          echo "${{ secrets.FCM_JSON }}" | base64 --decode > assets/keys/healora-32e1e-526d13230635.json
       
       - name: Get dependencies
         run: flutter pub get
@@ -68,10 +68,10 @@ jobs:
         run: |
           echo "${{ secrets.ENV_FILE }}" > .env
       
-      - name: Create FCM JSON file
+      - name: Decode FCM JSON file
         run: |
           mkdir -p assets/keys
-          echo "${{ secrets.FCM_JSON }}" > assets/keys/healora-32e1e-526d13230635.json
+          echo "${{ secrets.FCM_JSON }}" | base64 --decode > assets/keys/healora-32e1e-526d13230635.json
       
       - name: Get dependencies
         run: flutter pub get
