@@ -35,7 +35,7 @@ jobs:
       - name: Create FCM JSON file
         run: |
           mkdir -p assets/keys
-          printf '%s\n' "${{ secrets.FCM_JSON }}" > assets/keys/healora-32e1e-526d13230635.json
+          echo "${{ secrets.FCM_JSON }}" | base64 -d > assets/keys/healora-32e1e-526d13230635.json
       
       - name: Get dependencies
         run: flutter pub get
@@ -71,7 +71,7 @@ jobs:
       - name: Create FCM JSON file
         run: |
           mkdir -p assets/keys
-          printf '%s\n' "${{ secrets.FCM_JSON }}" > assets/keys/healora-32e1e-526d13230635.json
+          echo "${{ secrets.FCM_JSON }}" | base64 -d > assets/keys/healora-32e1e-526d13230635.json
       
       - name: Get dependencies
         run: flutter pub get
